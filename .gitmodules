@@ -1,0 +1,3 @@
+[submodule "themes/divhub-hugo-theme"]
+	path = themes/divhub-hugo-theme
+	url = https://github.com/DivHub/divhub-hugo-theme.git
