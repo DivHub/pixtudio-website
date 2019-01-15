@@ -1,0 +1,20 @@
+baseURL = "https://pixtudio.org/"
+title = "PixTudio"
+paginate = 6
+theme = "divhub-hugo-theme"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML"]
+
+[params]
+  mainSections = ["blog"]
+  # repository = "https://github.com/DivHub/pixtudio-website/"
+  tagline = "A 2D game engine for Windows, Linux, OS X, Android & iOS."
+  [params.colors]
+    dark_mode = true
+    primary = "#3A3"
+    text = "#EFE"
+    link = "#474"
+    bg = "#131"
+    footer = "#121"
