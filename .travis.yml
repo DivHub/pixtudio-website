@@ -1,0 +1,17 @@
+dist: xenial
+
+install:
+    # install latest release version
+    - wget https://github.com/gohugoio/hugo/releases/download/v0.52/hugo_extended_0.52_Linux-64bit.deb
+    - sudo dpkg -i hugo*.deb
+
+script:
+    - hugo --minify
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  local-dir: public
+  on:
+    branch: master
