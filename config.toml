@@ -1,4 +1,4 @@
-baseURL = "https://pixtudio.org/"
+baseURL = "https://divhub.github.io/pixtudio-website/"
 title = "PixTudio"
 paginate = 6
 theme = "divhub-hugo-theme"
