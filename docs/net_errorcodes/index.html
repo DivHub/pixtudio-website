@@ -1,0 +1,52 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/net_errorcodes/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><p><a href=Networkdll title=wikilink><strong>Up to Network.DLL</strong></a></p><hr><p>Here is a list of all the errorcodes regarding
+<a href=Network_DLL title=wikilink>Network.DLL</a>.</p><p>Catching errorcodes is very easy: just check if the return value is
+negative, then it is an error.</p><pre><code>result = NET_Xxx();
+if(result&lt;0)
+    say(&quot;NET Error: &quot; + NET_GetError(result));
+else
+    // success
+end
+</code></pre><hr><p><em>Constant</em> - <em>Description</em>
+NET_ERROR_NONE - No error.
+NET_ERROR_INITIALIZATION - Error during initialization.
+NET_ERROR_NOTINITIALIZED - Network.DLL not initialized. Depecrated.
+NET_ERROR_INVALIDADDRESS - Invalid IP address. Deprecated.
+NET_ERROR_RESOLVINGHOST - Could not resolve host.
+NET_ERROR_ALLOCSOCKETSET - Could not allocate socketset. Deprecated.
+NET_ERROR_INVALIDSOCKETSET - The socketset is invalid.
+NET_ERROR_SOCKETSETINACTIVE - The socketset is inactive.
+NET_ERROR_ADDINGSOCKET - Could not add socket to socketset.
+NET_ERROR_INVALIDSOCKETSET - The socketset is invalid.
+NET_ERROR_DELETINGSOCKET - Could not delete the socket.
+NET_ERROR_CONNECTING - Could not connect.
+NET_ERROR_INVALIDCONN - The connection is invalid.
+NET_ERROR_CONNINACTIVE - The connection is inactive.
+NET_ERROR_LISTENINGONCONN - Could not listen on connection.
+NET_ERROR_TOOMANYCONNS - There are too many connections
+NET_ERROR_TOOFEWCONNS - Too small number of maximum connections
+NET_ERROR_INVALIDTYPE - The type specified is invalid.
+NET_ERROR_ALREADYINIT - Network.DLL already initialized.
+NET_ERROR_MESSAGETOOLONG - The message is too long.
+NET_ERROR_MESSAGETOOSHORT - The message is too short.
+NET_ERROR_OUTGOINGSTACKFULL - Outgoing Message stack is full.
+NET_ERROR_INCOMINGSTACKFULL - Incoming Message stack is full.
+NET_ERROR_SENDING - Could not send message.
+NET_ERROR_RECEIVING - Could not receive message.
+NET_ERROR_DISCONNECTING - Could not close connection.
+NET_ERROR_DISCONNECTED - Connection was closed.
+NET_ERROR_TOOMANYLISTENERS - Too many listenports specified.
+NET_ERROR_INVALIDPORTNUMBER - The portnumber is invalid (&lt;0 or &gt;65535).
+NET_ERROR_SIZEMISMATCH - Integral size mismatch.
+NET_ERROR_RESOLVINGIP - Could not resolve IP.
+NET_ERROR_NONEXTERNALCONN - Non-external connection. Deprecated.
+NET_ERROR_NONEWMESSAGE - The incomingbuffer is empty.
+NET_ERROR_UNFINISHEDMESSAGE - The message in the incomingbuffer is incomplete.
+NET_ERROR_NULLPOINTER - NULL pointer exception.
+NET_ERROR_NONEXISTINGGRAPH - The graph does not exist.
+NET_ERROR_NONEXISTINGFILE - The file does not exist.
+NET_ERROR_CREATINGGRAPH - Could not create graph.
+NET_ERROR_OPENINGFILE - Could not open file.</p><hr><p><a href=Category:errorcodes>Category:errorcodes</a> <a href=Category:networkdll>Category:networkdll</a> <a href=Category:dll>Category:dll</a></p></div></div><div class="column is-3"></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/net_errorcodes.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

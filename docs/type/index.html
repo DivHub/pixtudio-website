@@ -1,0 +1,134 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/type/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=datatype-declaration>Datatype declaration</h2><h3 id=definition>Definition</h3><pre><code>Type {name}
+    {variables}
+End
+</code></pre><p>Creates a new <a href=#datatype>datatype</a>. It&rsquo;s handled as if it
+were a <a href=#struct>struct</a>, so the declared variables are
+members of the struct.</p><p>While it&rsquo;s a convention to use a <code>_</code> as first character in the name of
+a datatype, it&rsquo;s not mandatory.</p><p>When used as an <a href=#argument>argument</a> in a
+<a href=#function>function</a> or <a href=#process>process</a>, the
+<a href=#parameter>parameter</a> is not a copy, but the variable
+itself, as shown in the first example, and any change made to the
+parameter is also changed in the argument. It&rsquo;s more elegant to use a
+<a href=#pointer>pointer</a> though, as it also displayed.</p><h3 id=example>Example</h3><p>A file with name and path. Note that the assignment <code>myFile2 = myFile;</code>
+makes a copy of <code>myFile</code> and throws it into <code>myFile2</code>, which is normal.
+But when it&rsquo;s used as an argument in a function, the parameter is not a
+copy but the <code>_file</code> itself.</p><pre><code>    Type _file
+        String path;
+        String name;
+    End
+
+    Process Main()
+    Private
+        _file myFile;
+        _file myFile2;
+    Begin
+
+        myFile.path = &quot;C:\&quot;;
+        myFile.name = &quot;autoexec.bat&quot;;
+        say(&quot;1: &quot; + myFile.path + myFile.name);
+
+        myFile2 = myFile;
+        myFile2.name = &quot;config&quot;;
+        say(&quot;1: &quot; + myFile.path + myFile.name);
+        say(&quot;2: &quot; + myFile2.path + myFile2.name);
+
+        setName(myFile,&quot;pagefile&quot;);
+        say(&quot;1: &quot; + myFile.path + myFile.name);
+
+        setName2(&amp;myFile2,&quot;pagefile&quot;);
+        say(&quot;2: &quot; + myFile2.path + myFile2.name);
+
+        Repeat
+            frame;
+        Until(key(_ESC))
+
+    End
+
+    Function setName(_file f, string name)
+    Begin
+        f.name = name;
+    End
+
+    Function setName2(_file* f, string name)
+    Begin
+        f.name = name; // this is actually (*f).name = name, but . can be used like this
+    End
+</code></pre><p>Used in example: <a href=#say>say</a>(), <a href=#key>key</a>(),
+<a href=#pointer>Pointer</a></p><p>A point with x and y.</p><pre><code>    // Declare the type _point
+    Type _point
+        float x;
+        float y;
+    End
+
+    // Declare the function distance(), because the function returns a datatype
+    // other than int, so it needs to be declared before usage.
+    Declare float distance(_point a,_point b)
+    End
+
+    Process Main()
+    Private
+        _point p1,p2;
+    Begin
+
+        p1.x = 15.3;
+        p1.y = 34.9;
+        p2.x = 165.4;
+        p2.y = 137.2;
+
+        write(0,0,0,0,&quot;Distance: &quot; + distance(p1,p2));
+        drw_line(p1,p2);
+
+        Repeat
+            frame;
+        Until(key(_ESC))
+
+    End
+
+    Function float distance(_point a, _point b)
+    Begin
+        return sqrt( (a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y) );
+    End
+
+    Function int drw_line(_point a, _point b)
+    Begin
+        return draw_line( a.x , a.y , b.x , b.y );
+    End
+</code></pre><p>Used in example: <a href=#write>write</a>(), <a href=#key>key</a>(),
+<a href=#sqrt>sqrt</a>(), <a href=#draw_line>draw_line</a>()</p><h2 id=processtype>ProcessType</h2><h3 id=definition-1>Definition</h3><pre><code>Type {processname}
+</code></pre><p>Acquires the <a href=#processtypeid>processTypeID</a> of a
+<a href=#processtype>processType</a> or
+<a href=#function>function</a>. This can be useful for example with
+<a href=#get_id>get_id</a>() and <a href=#signal>signal</a>().</p><h3 id=example-1>Example</h3><pre><code>    Program example;
+    Private
+        proc proc_id; //int could be used too
+    Begin
+
+        // Start 3 proc's
+        proc();
+        proc();
+        proc();
+
+        // Display all alive proc's
+        y = 0;
+        while( (proc_id=get_id(type proc)) )
+            write(0,0,(y++)*10,0,&quot;proc: &quot; + proc_id);
+        end
+
+        // Wait for key ESC
+        Repeat
+            frame;
+        Until(key(_ESC))
+
+    End
+
+    Process proc()
+    Begin
+        Loop
+            frame;
+        End
+    End
+</code></pre><p>Used in example: <a href=#get_id>get_id</a>(), <a href=#write>write</a>(), <a href=#key>key</a>()</p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#datatype-declaration>Datatype declaration</a><ul><li><a href=#definition>Definition</a></li><li><a href=#example>Example</a></li></ul></li><li><a href=#processtype>ProcessType</a><ul><li><a href=#definition-1>Definition</a></li><li><a href=#example-1>Example</a></li></ul></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/type.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

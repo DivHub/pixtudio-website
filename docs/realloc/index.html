@@ -1,0 +1,338 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/realloc/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=syntax>Syntax</h2><p><strong>VOID POINTER</strong> realloc ( &lt;<strong>VOID POINTER</strong> data&gt; , &lt;<strong>INT</strong>
+size&gt; )</p><h2 id=description>Description</h2><p>Resizes the given block of memory.</p><p>It allocates a new block of memory, copying the old data. If the new
+size is smaller than the old size, the last part of the data is lost. If
+the new size of the block of memory requires movement of the block, the
+old memory block is freed.</p><p>Also called <a href=mem_realloc title=wikilink>mem_realloc</a>().</p><h2 id=parameters>Parameters</h2><hr><p><strong>VOID POINTER</strong> data - Pointer to the block of memory to be resized.
+<strong>INT</strong> size - The new size of the block of memory in bytes.</p><hr><h2 id=returns>Returns</h2><p><strong>VOID POINTER</strong> : Pointer to (the first element of) the newly allocated
+memory block.</p><hr><p><a href=NULL title=wikilink>NULL</a> - There was are an error allocating the memory, like insufficient memory available.
+<img src=NULL alt=NULL title=wikilink> - Pointer to (the first element of) the newly allocated memory block.</p><hr><h2 id=example>Example</h2><pre><code>import &quot;mod_mem&quot;
+import &quot;mod_say&quot;
+
+Process Main()
+Private
+    byte pointer pbyte;
+    byte pointer pbyte2;
+    int elements = 10;
+    int newelements = 15;
+    int i;
+Begin
+
+    // Allocate memory
+    pbyte = alloc(elements);
+
+    // Set them to 13
+    memset(pbyte,13,elements);
+
+    // Relocate it to a larger, newly made memory block
+    pbyte2 = realloc(pbyte,newelements);
+
+    // Set the added part's elements to 16 (newelements &gt; elements)
+    memset(pbyte+elements,16,newelements-elements);
+
+    // Show numbers
+    for(i=0; i&lt;newelements; i++)
+        say(&quot;byte2[&quot;+i+&quot;] = &quot; + pbyte2[i]);
+    end
+
+OnExit
+
+    // Free the used memory
+    free(pbyte2);
+
+End
+</code></pre><h2 id=example-2>Example 2</h2><pre><code>// Alloc, calloc and realloc tutorial, by handsource-dyko.
+
+// This sample program demonstrates how create integer array's with alloc, and calloc, 
+// and how to resize them with realloc. 
+
+// Some general remarks with manual memory managment, ALWAYS free data after use, and test if an
+// allocation was successfull with IF (p_test_array2==NULL). When one of these memory allocation
+// functions returns a NULL, the allocation was NOT sucessfull, and any kind of unpredicatable things
+// can happen. With manual memory managment, you'll have to really know what you're doing, as the slightest
+// mistake can cause crashes and unpredicatable behaviour, wich is one of the dangers with using pointers.
+
+
+
+// import modules
+IMPORT &quot;mod_say&quot;;
+IMPORT &quot;mod_debug&quot;;
+IMPORT &quot;mod_mem&quot;;
+
+
+ /*
+    alloc(int size);
+    returns: void pointer
+    purpose: create a block of memory, of a certain size, the returned pointer indicates the start adress of this block.
+*/
+
+/*
+    calloc(int size,type);
+    returns: void pointer
+    purpose: create a block of memory, of a certain size, the returned pointer indicates the start adress of this block.
+             is used for creating arrays.
+*/
+
+/*
+
+   realloc (void pointer data, int size);
+   returns: void pointer
+   purpose: resizes the given block of memory, it allocates a new block of memory, copying the old data. 
+            if the new size is smaller than the old size, the last part of the data is lost. 
+            if the new size of the block of memory requires movement of the block, the old memory block is freed. 
+
+*/
+
+
+GLOBAL
+
+int pointer p_first_array;  // 10 elments, created with alloc()
+int pointer p_third_array;  // 10 elments, created with calloc()
+int pointer p_second_array; // resized copy of p_first_array, 15 elements, created with realloc()
+int pointer p_fourth_array; // resized copy of p_second_array, 15 elements, created with realloc()
+
+
+int test[9];                // simple array with 10 elements
+int pointer p_test_array;   // will be used for storing the pointer to test[0]
+int pointer p_test_array2;  // will be the resized array, created with realloc, is now 15 elements
+
+int elements=10;            // initial array size
+int new_elements=15;        // new array size
+
+int count;                  // general purpose loop counter
+
+
+
+PROCESS main();
+
+BEGIN
+
+
+    // standard array
+    say(&quot;&quot;);
+    say(&quot;&quot;);
+    // print the array
+    FOR (count=0; count&lt;elements; count+=1)
+        say(&quot;test[&quot;+count+&quot;]=&quot;+test[count]);
+    END
+
+    say(&quot;&quot;);
+    say(&quot;&quot;);
+    say(&quot;the size of the array 'test' is &quot;+sizeof(test)+&quot; bytes&quot;);  
+    say(&quot;&quot;);
+    say(&quot;&quot;);
+
+
+
+
+
+    // Allocate memory (10 integers), this way we create an array of integers from (0-9, so 10 elements)
+    // The alloc() function works with bytes. It is always good practice to use the sizeof() operator, because
+    // you'd have to know exactly how many bytes make up a particulair data. An integer is 4 bytes in bennu,
+    // so for an array of 10 elements, you need to allocate 40 bytes. If you do &quot;alloc(elements)&quot;,like in the
+    // wiki, you only get 10 bytes! so that is totally too small for you array! always use this syntax:
+    // 
+    // alloc(sizeof(&lt;data_type&gt;)), or for arrays: alloc(elements*sizeof(&lt;data_type&gt;)). Note that &lt;data_type&gt; can 
+    // also be a user-defined type.
+
+    p_first_array=alloc(elements*sizeof(int));
+    //p_first_array=calloc(elements,sizeof(int));
+
+    // check if the allocation succeeded
+    IF (p_first_array==NULL)
+       // allocation failed
+       say(&quot;allocation failed!! p_first_array=&quot;+p_first_array);
+
+    ELSE
+
+       // allocation succeeded
+       // set the value's to zero
+       memseti(p_first_array ,0,elements);
+
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+       // print the array
+       FOR (count=0; count&lt;elements; count+=1)
+           say(&quot;p_first_array[&quot;+count+&quot;]=&quot;+p_first_array[count]);
+       END
+
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+       say(&quot;the size of the array is &quot;+(elements*sizeof(int))+&quot; bytes&quot;);  
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+    END
+
+
+
+
+
+    // Now let's use calloc to create the same array, but calloc is a bit smarter. It's more suited to array's and
+    // it even initializes all the data to 0 for you, so that you can omit the memset() function. In this case I 
+    // kept memseti() in there, but you can omit it when using calloc(). But with alloc() you need to use it!
+
+    // Note the small difference between alloc() and calloc().
+
+    //p_second_array=alloc(elements*sizeof(int));
+    p_second_array=calloc(elements,sizeof(int));
+
+
+    // check if the allocation succeeded
+    IF (p_second_array==NULL)
+       // allocation failed
+       say(&quot;allocation failed!! p_second_array=&quot;+p_second_array);
+
+    ELSE
+
+       // allocation succeeded
+       // set the value's to zero
+       memseti(p_second_array ,0,elements);
+
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+       // print the array
+       FOR (count=0; count&lt;elements; count+=1)
+           say(&quot;p_second_array[&quot;+count+&quot;]=&quot;+p_second_array[count]);
+       END
+
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+       say(&quot;the size of the array is &quot;+(elements*sizeof(int))+&quot; bytes&quot;);
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+    END   
+
+
+
+
+    // Let's resize p_first_array to a bigger size (15). This is where realloc() is used for. Also, just as with
+    // alloc(), it is important to remember that it works with bytes! So we use this (new_elements*sizeof(int)) again.
+    p_third_array=realloc(p_first_array,(new_elements*sizeof(int)));
+
+    // check if the allocation succeeded
+    IF (p_third_array==NULL)
+       // allocation failed
+       say(&quot;allocation failed!! p_third_array=&quot;+p_third_array);
+
+    ELSE
+
+       // allocation succeeded
+       // set the value's to zero
+       memseti(p_third_array ,0,new_elements);
+
+
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+       // print the array
+       FOR (count=0; count&lt;new_elements; count+=1)
+           say(&quot;p_third_array[&quot;+count+&quot;]=&quot;+p_third_array[count]);
+       END
+
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+       say(&quot;the size of the array is &quot;+(new_elements*sizeof(int))+&quot; bytes&quot;);  
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+    END
+
+
+
+    // Let's resize p_second_array to a bigger size (15).
+    p_fourth_array=realloc(p_second_array,(new_elements*sizeof(int)));
+
+
+    // check if the allocation succeeded
+    IF (p_fourth_array==NULL)
+       // allocation failed
+       say(&quot;allocation failed!! p_fourth_array=&quot;+p_fourth_array);
+
+    ELSE
+
+       // allocation succeeded
+       // set the value's to zero
+       memseti(p_fourth_array ,0,new_elements);
+
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+
+       // print the array
+
+       FOR (count=0; count&lt;new_elements; count+=1)
+           say(&quot;p_fourth_array[&quot;+count+&quot;]=&quot;+p_fourth_array[count]);
+       END
+
+       say(&quot;&quot;);
+       say(&quot;the size of the array is &quot;+(new_elements*sizeof(int))+&quot; bytes&quot;);  
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+    END
+
+
+    // Let's try to resize an standard array (the array test[9]) to 15 
+    p_test_array=test[0];   // &lt;-- p_test_array is a pointer, we store the ADRESS of the first element (wich is 0) in it.
+                            // test[0] is actually a pointer itself, it represents the start adress of the array.
+                            // The whole concept of array indexing is actuallty a concealed form of pointer artihmatic,
+                            // consult any good C book about the details of this. 
+    p_test_array2=realloc(p_test_array,(new_elements*sizeof(int)));
+
+
+    // check if the allocation succeeded
+    IF (p_test_array2==NULL)
+       // allocation failed
+       say(&quot;allocation failed!! p_test_array2=&quot;+p_test_array2);
+
+    ELSE
+
+       // allocation succeeded
+       // set the value's to zero
+       memseti(p_test_array2 ,0,new_elements);
+
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+
+       // print the array
+
+       FOR (count=0; count&lt;new_elements; count+=1)
+           say(&quot;p_test_array2[&quot;+count+&quot;]=&quot;+p_test_array2[count]);
+       END
+
+       say(&quot;&quot;);
+       say(&quot;the size of the array is &quot;+(new_elements*sizeof(int))+&quot; bytes&quot;);  
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+    END
+
+
+
+
+ONEXIT
+
+   // Free the used memory
+   say(&quot;freeing old memory........&quot;);
+   say(&quot;p_first_array...&quot;);
+   free(p_first_array);
+   say(&quot;ok&quot;);
+   say(&quot;p_second_array...&quot;);
+   free(p_second_array);
+   say(&quot;ok&quot;); 
+   say(&quot;p_third_array...&quot;);
+   free(p_third_array);
+   say(&quot;ok&quot;);
+   say(&quot;p_fourth_array...&quot;);
+   free(p_fourth_array);
+   say(&quot;ok&quot;);  
+   say(&quot;p_test_array...&quot;);
+   free(p_test_array);
+   say(&quot;ok&quot;); 
+   say(&quot;p_test_array2...&quot;);
+   free(p_test_array2);
+   say(&quot;ok&quot;);
+
+END
+</code></pre><p>Used in example: <a href=alloc title=wikilink>alloc</a>(),
+<a href=memset title=wikilink>memset</a>(), <a href=realloc title=wikilink>realloc</a>(),
+<a href=say title=wikilink>say</a>(), <a href=free title=wikilink>free</a>(),
+<a href=pointer title=wikilink>pointer</a></p><p><a href=Category:functions>Category:functions</a> <a href=Category:memory>Category:memory</a> <a href=Category:mod_mem>Category:mod_mem</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#syntax>Syntax</a></li><li><a href=#description>Description</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li><li><a href=#example-2>Example 2</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/realloc.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

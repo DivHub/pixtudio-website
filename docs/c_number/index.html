@@ -1,0 +1,21 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:local_variables title=wikilink>category:local
+variables</a> <a href=category:libscroll>category:libscroll</a>
+<a href=category:librender>category:librender</a></p><p><a href=Local_variables title=wikilink><strong>Up to Local Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p>The cnumber is variable that is used when there&rsquo;s more then one
+<a href=scroll title=wikilink>scroll</a> or <a href=Mode7 title=wikilink>Mode7</a> window active,
+i.e. in a splitscreen configuration with two or more scroll or mode7
+windows.</p><p>The cnumber indicates in wich window(s) the process is visible. It is
+only necessary for processes that are intended to visible in a scroll or
+mode7 window. The default value is 0, wich means that the process is
+visible in all scroll or mode7 windows. Up to 10 scroll or mode7 windows
+can be defined, wich are numbered from 0 to 9, wich are enumerated by
+the predefined constants <a href=C_0 title=wikilink>C_0</a>, <a href=C_1 title=wikilink>C_1</a>,
+<a href=C_2 title=wikilink>C_2</a>, <a href=C_3 title=wikilink>C_3</a>, <a href=C_4 title=wikilink>C_4</a>,
+<a href=C_5 title=wikilink>C_5</a>, <a href=C_6 title=wikilink>C_6</a>, <a href=C_7 title=wikilink>C_7</a>,
+<a href=C_8 title=wikilink>C_8</a> and <a href=C_9 title=wikilink>C_9</a>.</p><p>The cnumbers can be added, and the sum of these indicate the visibility.
+If there, are for instance 4 scroll windows active, (numbered 0, 1, 2,
+and 3) and a specific process should only be visible in windows 0 and 2,
+then you should use:</p><pre><code>cnumber = C_0 + C2; // this is 1+4
+</code></pre><p>It is possible to change the value of the cnumber in runtime, wich can
+be handy in certain situations.</p><p>Look for more information about scrolls and mode7 in the articles of the
+<a href=Start_scroll title=wikilink>Start_scroll</a>() and
+<a href=Start_mode7 title=wikilink>Start_mode7</a>() functions.</p>

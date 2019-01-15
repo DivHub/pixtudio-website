@@ -1,0 +1,63 @@
+<p><a href=category:general>category:general</a></p><p>Below are explained the basic statements of
+<a href=Program title=wikilink>Program</a> and <a href=Process title=wikilink>Process</a> and
+where to declare all the types of <a href=variables title=wikilink>variables</a>. For
+prototyping see <a href=Declare title=wikilink>Declare</a>.</p><p>A list of basic statements:</p><ul><li><a href=Program title=wikilink>Program</a></li><li><a href=Process title=wikilink>Process</a></li><li><a href=Function title=wikilink>Function</a></li><li><a href=Declare title=wikilink>Declare</a></li><li><a href=Begin title=wikilink>Begin</a></li><li><a href=OnExit title=wikilink>OnExit</a></li><li><a href=End title=wikilink>End</a></li><li><a href=Private title=wikilink>Private</a></li><li><a href=Public title=wikilink>Public</a></li><li><a href=Local title=wikilink>Local</a></li><li><a href=Global title=wikilink>Global</a></li><li><a href=Const title=wikilink>Const</a></li></ul><h2 id=basic-statements>Basic statements</h2><pre><code>Program example;
+Global // Start a global variables part of the program
+End
+
+Const // Start a constants part of the program
+End
+
+Local // Start a global variables part of the program
+End
+
+Private // Start a private variables part of the main process
+End
+
+Begin // Start the main code part of the main process
+    proc1(); // create new instance of proc1
+    Loop
+        frame;
+    End
+OnExit // Start the exit code part of the main process
+End
+
+Global // Start a global variables part of the program
+End
+
+Const // Start a constants part of the program
+End
+
+Local // Start a global variables part of the program
+End
+
+Process proc1()
+
+Public // Start the public variables part of the process
+Private // Start the private variables part of the process
+
+Begin // Start the main code part of the process
+    Loop
+        frame;
+    End
+OnExit // Start the exit code part of the process
+
+End
+
+Function int func1()
+Public // Start the public variables part of the function
+Private // Start the private variables part of the function
+Begin // Start the main code part of the function
+    return 0;
+OnExit // Start the exit code part of the function
+End
+</code></pre><p>Used in example: <a href=basic_statements title=wikilink>basic statements</a>,
+<a href=loop title=wikilink>loop</a>, <a href=return title=wikilink>return</a>,
+<a href=frame title=wikilink>frame</a></p><p>Global, constant, local and private parts of the program can be
+scattered through the code, between processes and functions. Sometimes
+the End can be left out, but it&rsquo;s good practice to keep it in. When a
+variable or constant is declared, it&rsquo;s only viewable or editable for
+statements <em>beneath</em> the declaration. For more info on that, see
+<a href=prototyping title=wikilink>prototyping</a>.</p><p>Note that when <a href=Declare title=wikilink>Declare</a> is used, the <a href=Public_variable title=wikilink>Public
+variables</a> have to be declared in the
+Declare block and not in the process block.</p>

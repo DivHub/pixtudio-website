@@ -1,0 +1,57 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/if/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=syntax>Syntax</h2><pre><code class=language-pixtudio-syntax>IF ( &lt;condition&gt; )
+   [ &lt;code&gt; ]
+( ELSEIF ( &lt;condition&gt; )
+   [ &lt;code&gt; ] ) 
+[ ELSE
+   [ &lt;code&gt; ] ]
+END
+</code></pre><h2 id=description>Description</h2><p><strong>if</strong> statements are used to control the flow of your program by means
+of checking conditions.</p><pre><code class=language-pixtudio>    if( &lt;condition1&gt; )
+        // code1
+    elseif( &lt;condition2&gt; )
+        // code2
+    elseif( &lt;condition3&gt; )
+        // code3
+    else
+        // code4
+    end
+    // code5
+</code></pre><p>The action that will be performed depends on the *condition*s:
+- If at the time the program reaches this <strong>if</strong> codeblock <em>condition1</em> evaluates as <a href=#true>true</a>, then <em>code1</em> will be executed and then <em>code5</em>.
+- If <em>condition1</em> evaluates to <a href=#false>false</a>, the program will evaluate the next <strong>elseif</strong> and check if it is true or false: if <em>condition2</em> evaluates as:
+- <strong>true</strong>, <em>code2</em> and then <em>code5</em> is executed.
+- <strong>false</strong>, the program will check the next <strong>elseif</strong> and do the same thing over.</p><p>If all other conditions evaluate to false and an <strong>else</strong> condition is present, the code in the <strong>else</strong> block will be executed. This code block thus acts as a default action that will be performed when no other condition is <strong>true</strong>.</p><p>The <strong>if</strong> statement must be closed with an <strong>end</strong> statement.</p><h2 id=example>Example</h2><h3 id=execute-function>Execute function</h3><p>This is a little example of how to make a function perform a certain
+task depending on a command.</p><pre><code>Function int execute(String command, int* params)
+Begin
+
+    if( command == &quot;SEND&quot; )
+        NET_Send(atoi(params[0]),params[1]);
+    elseif( command == &quot;RECV&quot; )
+        NET_Recv(atoi(params[0]));
+    elseif( command == &quot;INIT&quot; )
+        NET_Init(atoi(params[0]),atoi(params[1]),atoi(params[2]));
+    elseif( command == &quot;QUIT&quot; )
+        NET_Quit();
+    else
+        // error: command unknown
+        return -1;
+    end
+
+    return 0;
+
+End
+</code></pre><h3 id=movement>Movement</h3><p>Movement with <strong>If</strong>s.</p><pre><code>Loop
+    if(key(_up))    y-=5; end
+    if(key(_down))  y+=5; end
+    if(key(_left))  x-=5; end
+    if(key(_right)) x+=5; end
+End
+</code></pre><p>Of course, this is faster:</p><pre><code>Loop
+    y += 5 * (key(_down )-key(_up  ));
+    x += 5 * (key(_right)-key(_left));
+End
+</code></pre></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#syntax>Syntax</a></li><li><a href=#description>Description</a></li><li><a href=#example>Example</a><ul><li><a href=#execute-function>Execute function</a></li><li><a href=#movement>Movement</a></li></ul></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/if.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

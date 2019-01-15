@@ -1,0 +1,19 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a></p><p><a href=Local_variables title=wikilink><strong>Up to Local Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>INT</strong> graph = 0</p><p>Graph is a predefined local variable which holds the
+<a href=GraphID title=wikilink>GraphID</a> of the process. A
+<a href=graphic title=wikilink>graphic</a> can be assigned to the process by
+assigning the <a href=GraphID title=wikilink>GraphID</a> of that graphic to graph.
+Assign 0 to the local variable graph to have the process display no
+graph. Keep in mind that this doesn&rsquo;t free the memory used by the
+graphic; to free it, use <a href=unload_map title=wikilink>unload_map</a>().</p><h2 id=example>Example</h2><pre><code>Process cyan_graphic()
+Begin
+    graph = new_map(100,100,8);   // create a new 100x100x8 map.
+    map_clear(0,graph,rgb(0,255,255));   // clear it cyan-colored
+    x = 100;     //Position the graphic 100 pixels
+    y = 100;     //from the top and left of the screen
+    Repeat
+        frame;
+    Until(key(_ESC))
+End
+</code></pre><p>Used in example: <a href=new_map title=wikilink>new_map</a>(),
+<a href=map_clear title=wikilink>map_clear</a>(), <a href=graphic title=wikilink>graphic</a>,
+<a href=x title=wikilink>x</a>, <a href=y title=wikilink>y</a></p><p><a href=Category:local_variables title=wikilink>Category:local variables</a></p>

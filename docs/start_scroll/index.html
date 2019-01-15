@@ -1,0 +1,224 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/start_scroll/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p><strong>INT</strong> Start_scroll ( &lt;<strong>INT</strong> scrollnumber&gt; , &lt;<strong>INT</strong>
+fileID&gt; , &lt;<strong>INT</strong> graphID&gt; , &lt;<strong>INT</strong> backgroundgraphID&gt;
+, &lt;<strong>INT</strong> regionnumber&gt; , &lt;<strong>INT</strong> lockindicator&gt; , [
+&lt;<strong>INT</strong> destination fileID &gt;, &lt;<strong>INT</strong> destination graphID
+&gt; ] )</p><p>This creates a <a href=scroll_window title=wikilink>scroll window</a> in which it
+will perform a view against a background <a href=graphic title=wikilink>graphic</a>.
+That is, by using a graphic bigger than the display window, a part of
+this graphic can be shown and shifted in any direction. After this
+function, the use of the struct <a href=scroll title=wikilink>scroll</a> makes sense.</p><p>The parameters <em>destination fileID</em> and <em>destination graphID</em> are
+optional and may be omitted.</p><p>Also called <a href=scroll_start title=wikilink>scroll_start</a>().</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> scrollnumber - The ID for the new scroll window, so it can be referenced to later
+<strong>INT</strong> fileID - The <a href=fileID title=wikilink>fileID</a> of the <a href=file title=wikilink>file</a> containing the scroll graphics
+<strong>INT</strong> graphID - The <a href=graphID title=wikilink>graphID</a> of the <a href=graphic title=wikilink>graphic</a> of the main graphic to be scrolled
+<strong>INT</strong> backgroundgraphID - The graphID of the graphic for the background of the scroll window
+<strong>INT</strong> regionnumber - The <a href=region title=wikilink>region</a> in which to put the scroll window
+<strong>INT</strong> lockindicator - A <a href=bit_flag title=wikilink>bit flag</a> defining whether each of the two scroll planes is horizontally/vertically cyclical
+<strong>INT</strong> destination flileID - The <a href=fileID title=wikilink>fileID</a> of the <a href=file title=wikilink>file</a> containing the destination graphics used in the scroll window, i.e. the systemfile. <strong>(optional)</strong>
+<strong>INT</strong> destination graphID - The <a href=graphID title=wikilink>graphID</a> of the <a href=graphic title=wikilink>graphic</a> of the destination graphic where the scroll window will be drawn on. <strong>(optional)</strong></p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong> : <a href=true title=wikilink>true</a></p><h2 id=notes>Notes</h2><p>The locking indicator can be combinations of the following flags:</p><hr><p>1 - The foreground will be displayed horizontally cyclical
+2 - The foreground will be displayed vertically cyclical
+4 - The background will be displayed horizontally cyclical
+8 - The background will be displayed vertically cyclical</p><hr><p>Combine them using the <a href=BOR title=wikilink>bitwise OR</a> operator.</p><h2 id=using-scrolling>Using Scrolling</h2><p>For each <a href=process title=wikilink>process</a> that you want to be part of a
+<a href=scroll_window title=wikilink>scroll window</a>, you must set the <a href=local_variable title=wikilink>local
+variable</a> <a href=ctype title=wikilink>ctype</a> to value
+<a href=C_SCROLL title=wikilink>C_SCROLL</a>. It should also be noted that the local
+variable <a href=c_number title=wikilink>c_number</a> is used for selecting in which
+scroll a process should be displayed. Additionally, you must set the
+camera property of the <a href=scroll title=wikilink>scroll structure</a> to the
+<a href=processID title=wikilink>processID</a> of the process you wish to be
+followed.</p><h2 id=example-scroll-drawn-on-map>Example (scroll drawn on map)</h2><p>In this example, a scroll is drawn on a map, so the advanced version
+with the parameters <em>destination fileID</em> and <em>destination graphID</em> are
+used.</p><pre><code>// import modules
+IMPORT &quot;mod_say&quot;;
+IMPORT &quot;mod_debug&quot;;
+IMPORT &quot;mod_proc&quot;;
+IMPORT &quot;mod_grproc&quot;;
+IMPORT &quot;mod_map&quot;;
+IMPORT &quot;mod_text&quot;;
+IMPORT &quot;mod_key&quot;;
+IMPORT &quot;mod_video&quot;;
+IMPORT &quot;mod_screen&quot;;
+IMPORT &quot;mod_draw&quot;;
+IMPORT &quot;mod_scroll&quot;;
+
+
+
+GLOBAL
+
+   int graphics_lib;
+
+   int object1_id;
+
+   int scroll_window;  
+   int scroll_blit_graph;
+
+
+PROCESS int main(); 
+
+PRIVATE
+
+BEGIN
+
+    set_mode(640,480,8);
+    set_fps(50,0);
+
+    // load the fpg file with the graphics
+    graphics_lib=load_fpg(&quot;graf2.fpg&quot;);
+
+
+    // create a map to blit the scroll window on
+    scroll_blit_graph=new_map(640,480,8);
+
+    // display the &quot;scroll_blit_graph&quot;.
+    blit_graph();
+
+    // (standard version)
+    // int start_scroll (int scrollnumber, 
+    //                   int file, 
+    //                   int graph, 
+    //                   int backgroundgraph, 
+    //                   int regionnumber, 
+    //                   int lockindicator); 
+
+    // (advanced, extended version)
+    // int start_scroll (int scrollnumber, 
+    //                   int file, 
+    //                   int graph, 
+    //                   int backgroundgraph, 
+    //                   int regionnumber, 
+    //                   int lockindicator, 
+    //                   int destination file, 
+    //                   int destination graph); 
+
+
+    // create an extended scroll, drawn on the &quot;scroll_blit_graph&quot;.
+    scroll_window=start_scroll(0,graphics_lib,1,0,0,3,0,scroll_blit_graph); 
+
+
+    say(&quot;scroll_window status: &quot;+scroll_window);
+
+    // create the two objct processes.
+    object1_id=object1(graphics_lib); 
+
+
+
+    // write instructions  
+    write(0 ,20,30,ALIGN_CENTER_LEFT,&quot;Scroll extended (with destination map) test demo, instructions&quot;); 
+
+    write(0 ,20,40,ALIGN_CENTER_LEFT,&quot;F3 and F4: decrease/increase size of destination map&quot;); 
+    write(0 ,20,50,ALIGN_CENTER_LEFT,&quot;F5 and F6: decrease/increase angle of destination map&quot;); 
+    write(0 ,20,60,ALIGN_CENTER_LEFT,&quot;F7 and F8: decrease/increase x of destination map&quot;); 
+    write(0 ,20,70,ALIGN_CENTER_LEFT,&quot;F9 and F10: decrease/increase y of destination map&quot;); 
+
+
+    WHILE (NOT key(_esc))
+
+        FRAME;
+    END
+
+    // stop scroll window.
+    stop_scroll(0);
+
+
+    // kill all processes, execpt the &quot;main&quot; process.
+    let_me_alone();
+END
+
+
+
+PROCESS int object1 (int file);
+
+PRIVATE
+
+BEGIN
+
+    graph=3;
+
+    ctype=c_scroll;
+    cnumber=c_0; // make this process visible in window 0
+
+    scroll[0].camera=id;
+
+    x=100;  
+    y=100;
+
+    LOOP
+
+        // move main object
+        IF (key(_up) AND y &gt;0) 
+           y-=5; 
+        END
+        IF (key(_down) AND y &lt;800) 
+           y+=5; 
+        END
+        IF (key(_left) AND x &gt;0)  
+           x-=5; 
+        END
+        IF (key(_right) AND x &lt;2000) 
+           x+=5; 
+        END
+
+        FRAME;
+    END
+END
+
+
+// Process for handling the &quot;destination graph&quot; feature, i.e. the map on wich
+// the mode7 windows are drawn.
+PROCESS int blit_graph();
+
+PRIVATE
+
+BEGIN
+
+   x=320;
+   y=240;
+
+   ctype=c_screen;
+
+   file=0;
+   graph=scroll_blit_graph; // set the graph to the map created in memory.
+
+   LOOP
+
+      // the controls for the &quot;fancy stuff&quot;.
+      IF (key(_f3) AND size &gt;20)
+         size-=10;
+      END
+
+      IF (key(_f4) AND size &lt;1000)
+         size+=10;
+      END
+
+      IF (key(_f5) AND angle &gt;0)
+         angle-=100;
+      END
+
+      IF (key(_f6) AND angle &lt;360000)
+         angle+=100;
+      END
+
+      IF (key(_f7) AND x &gt;0)
+         x-=10;
+      END
+
+      IF (key(_f8) AND x &lt;1000)
+         x+=10;
+      END
+
+      IF (key(_f9) AND y &gt;0)
+         y-=10;
+      END
+
+      IF (key(_f10) AND y &lt;1000)
+         y+=10;
+      END
+
+
+      FRAME;
+   END
+END
+</code></pre><p><a href=Category:functions>Category:functions</a> <a href=Category:scrolls>Category:scrolls</a> <a href=Category:mod_scroll>Category:mod_scroll</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#notes>Notes</a></li><li><a href=#using-scrolling>Using Scrolling</a></li><li><a href=#example-scroll-drawn-on-map>Example (scroll drawn on map)</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/start_scroll.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

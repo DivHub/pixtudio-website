@@ -1,0 +1,34 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:local_variables title=wikilink>category:local
+variables</a> <a href=category:internal>category:internal</a></p><p><a href=Local_variables title=wikilink><strong>Up to Local Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>INT</strong> father</p><p><strong>Father</strong> is a predefined <a href=local_variable title=wikilink>local variable</a>.
+<strong>Father</strong> holds the <a href=ProcessID title=wikilink>ProcessID</a> of the
+<a href=process title=wikilink>process</a>/<a href=function title=wikilink>function</a> that
+called the current
+<a href=process title=wikilink>process</a>/<a href=function title=wikilink>function</a>. There are
+several other local variables which refer to the ProcessID of a related
+process:</p><ul><li><a href=Son title=wikilink>Son</a></li><li><a href=Bigbro title=wikilink>Bigbro</a></li><li><a href=Smallbro title=wikilink>Smallbro</a></li></ul><h2 id=example>Example</h2><pre><code>Program example;
+Begin
+    first_process();
+    Loop
+        frame;
+    End
+End
+
+Process first_process()  // Declaration of the first process
+Begin
+    second_process();  // Call the second process
+    Loop
+        frame; // This loop makes &quot;first_process()&quot; a process rather than a function
+    End
+End
+
+Process second_process()  //declaration of another process
+Begin
+    x = father.x; // These two lines use the father variable to move this process
+    y = father.y; // to the position of first_process, as the father variable here
+                  // holds the ProcessID of &quot;first_process()&quot;
+    Loop
+        frame;  
+    End
+End
+</code></pre><p>Used in example: <a href=process title=wikilink>process</a>,
+<a href=function title=wikilink>function</a>, <a href=processID title=wikilink>processID</a></p>

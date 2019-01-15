@@ -1,0 +1,74 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/switch/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=syntax>Syntax</h2><p><strong>Switch</strong> <strong>(</strong> &lt;value&gt; <strong>)</strong>
+( <strong>Case</strong> &lt;value&gt; <strong>:</strong>
+[ &lt;code&gt; ]
+<strong>End</strong> )
+[ <strong>Default:</strong>
+[ &lt;code&gt; ]
+<strong>End</strong> ]
+<strong>End</strong></p><h2 id=description>Description</h2><p>A <em>switch</em> is used to control the flow of a program by means of
+comparing a value to other values and executing the code associated with
+the correct value.</p><pre><code>switch ( &lt;value&gt; )
+    case &lt;value1&gt;:
+        // code1
+    end
+    case &lt;value2&gt;:
+        // code2
+    end
+    default:
+        // code3
+    end
+end
+</code></pre><p>When the <strong>switch</strong> is reached it will compare <em>value</em> with the values
+in the <strong>case</strong>s, going from top to bottom. When a case matches, that
+code is executed and the <strong>switch</strong> is exited. This is different from
+the <strong>switch</strong> in C and probably more languages, because there the
+<strong>switch</strong> is only exited when a break is reached or
+when the <strong>switch</strong> ends. In Bennu there is no break; for the switch,
+though.</p><p>A value in a <strong>case</strong> can also be a range: <code>&lt;lowervalue&gt;..&lt;uppervalue&gt;</code>.
+Both the <em>lowervalue</em> and the <em>uppervalue</em> are part of the range.</p><p>You can also specify multiple values in a <strong>case</strong>, separated by a
+comma: <code>&lt;value1&gt;,&lt;value2&gt;,...&lt;code&gt;</code>. These values can also be
+ranges.</p><h2 id=example>Example</h2><p>A scoretext function. Notice the <strong>default</strong>: when the points can be
+0..100, that code should never be executed. However, an error can occur
+and blurting an error to the user is not that fancy, so this is a way of
+showing to the programmer there is an error, but still the user gets
+some message. In such cases, <strong>default</strong> can be handy. Of course that
+code could just as easily have been put under the <strong>switch</strong> with the
+same result, in this case, because every case does a return.</p><pre><code>Function String scoretext( int points )
+Begin
+
+    Switch( points )
+        Case 100:
+            return &quot;Perfect!&quot;;
+        End
+        Case 90..100:
+            return &quot;Awesomely cool, dude!&quot;;
+        End
+        Case 80..90:
+            return &quot;You're getting the hang of it!&quot;;
+        End
+        Case 60..80:
+            return &quot;Not too shabby, mate.&quot;;
+        End
+        Case 50..60:
+            return &quot;Practice some more.&quot;;
+        End
+        Case 30..50:
+            return &quot;Dude...weak.&quot;;
+        End
+        Case 1..30:
+            return &quot;That's just awful&quot;;
+        End
+        Case 0:
+            return &quot;No points? n00b!&quot;;
+        End
+        Default:
+            return &quot;I dunno what you did, but...&quot;;
+        End
+    End
+
+End
+</code></pre></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#syntax>Syntax</a></li><li><a href=#description>Description</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/switch.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

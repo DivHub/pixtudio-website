@@ -1,0 +1,49 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/rgb/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=syntax>Syntax</h2><p><strong>DWORD</strong> rgb ( &lt;<strong>BYTE</strong> red&gt; , &lt;<strong>BYTE</strong> green&gt; ,
+&lt;<strong>BYTE</strong> blue&gt; , [&lt;<strong>INT</strong> depth&gt;] )</p><h2 id=description>Description</h2><p>Finds the single <a href=color title=wikilink>color</a> in the current color mode
+closest to the combined red, green, and blue values specified. In 32bit
+mode, the alpha is set to 255.</p><p>Equal to <code>[[rgba]](''red'',''green'',''blue'',255)</code></p><h2 id=parameters>Parameters</h2><hr><p><strong>BYTE</strong> red - Level of red in the desired color from 0 to 255.
+<strong>BYTE</strong> green - Level of green in the desired color from 0 to 255.
+<strong>BYTE</strong> blue - Level of blue in the desired color from 0 to 255.
+<strong>INT</strong> depth - Depth (optional paramter that may be omitted, only in 16 and 32 bit mode). When this parameter is used, the function returns the correct color code for the indicated depth.</p><hr><h2 id=returns>Returns</h2><p><strong>DWORD</strong> : Returns the best matched color code.</p><h2 id=notes>Notes</h2><p>Different color depths have different color codes, this is why rgb() is
+useful: it returns the appropriate code, based on the current color
+depth. When in 8bit mode, this code is 0..255 and when in 16bit mode
+0..65535. In 32bit mode the code is 0xRRGGBBAA, two letters meaning one
+byte.</p><p>Using this function in different color depths can be tricky. This is
+because rgb() will return a different color code under different color
+depths. For example, when at 8bit, we do:</p><pre><code>my_color = rgb(100,100,100);
+</code></pre><p>my_color will most likely have the value <em>6</em> at this time. Suppose we
+change the color depth to 16bit now, using
+<a href=set_mode title=wikilink>set_mode</a>(). Now, my_color holds a totally
+different color than before, as <em>6</em> is nowhere near rgb(100,100,100) in
+16bit mode. To counter this effect, my_color needs to be reinitialized:</p><pre><code>my_color = rgb(100,100,100);
+</code></pre><p>The same code, but rgb() now returns the proper code, as it always
+returns the code belonging to the current color depth. my_color will
+now be about <em>25388</em>.</p><h2 id=example>Example</h2><pre><code>import &quot;mod_map&quot;
+import &quot;mod_text&quot;
+import &quot;mod_key&quot;
+import &quot;mod_wm&quot;
+
+Process Main()
+Private
+    byte red=0;
+    byte green=255;
+    byte blue=0;
+Begin
+
+    set_text_color(rgb(red,green,blue)); // rgb finds the color closest to pure green and
+                                         // passes it to set_text_color
+
+    write(0,1,1,0,&quot;Green text for everybody!&quot;); //this text will be green
+
+    Repeat
+        frame;
+    Until(key(_ESC)||exit_status)
+
+End
+</code></pre><p>Used in example: <a href=set_text_color title=wikilink>set_text_color</a>(),
+<a href=rgb title=wikilink>rgb</a>(), <a href=write title=wikilink>write</a>(),
+<a href=key title=wikilink>key</a>(), <a href=exit_status title=wikilink>exit_status</a></p><p><a href=Category:functions>Category:functions</a> <a href=Category:palettes>Category:palettes</a> <a href=Category:mod_map>Category:mod_map</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#syntax>Syntax</a></li><li><a href=#description>Description</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#notes>Notes</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/rgb.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

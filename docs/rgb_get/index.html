@@ -1,0 +1,92 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/rgb_get/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=syntax>Syntax</h2><p><strong>INT</strong> rgb_get ( &lt;<strong>INT</strong> pixel_color &gt; , &lt;<strong>POINTER</strong>
+red&gt; , &lt;<strong>POINTER</strong> green&gt; , &lt;<strong>POINTER</strong> blue&gt; ,
+[&lt;<strong>INT</strong> depth&gt;] )</p><h2 id=description>Description</h2><p>Get access to the memory sections of the color components, these can be
+accessed with the <a href=Offset title=wikilink>Offset</a> operator.</p><p>The previous <a href=get_rgb title=wikilink>get_rgb</a>() is deprecated.</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> pixel_color - The color value of a pixel .
+<strong>POINTER</strong> red - Pointer to the level of red in the desired color from 0 to 255.
+<strong>POINTER</strong> green - Pointer to the level of green in the desired color from 0 to 255.
+<strong>POINTER</strong> blue - Pointer to the level of blue in the desired color from 0 to 255.
+<strong>INT</strong> depth - Depth (optional paramter that may be omitted, only in 16 and 32 bit mode). When this parameter is used, the function returns the correct color code for the indicated depth.</p><hr><h2 id=returns>Returns</h2><p><strong>1</strong> : This function always returns a 1.</p><h2 id=notes>Notes</h2><p>The color value&rsquo;s have to be obtained with the
+<a href=Offset title=wikilink>Offset</a> operator, and the pixel color value can be
+obtained with <a href=Map_get_pixel title=wikilink>Map_get_pixel</a>().</p><h2 id=example>Example</h2><pre><code>IMPORT &quot;mod_say&quot;;
+IMPORT &quot;mod_debug&quot;;
+IMPORT &quot;mod_key&quot;;
+IMPORT &quot;mod_map&quot;;
+IMPORT &quot;mod_video&quot;;
+IMPORT &quot;mod_wm&quot;;
+IMPORT &quot;mod_draw&quot;;
+IMPORT &quot;mod_screen&quot;;
+IMPORT &quot;mod_mem&quot;;
+IMPORT &quot;mod_text&quot;;
+
+GLOBAL
+
+   int map_id;    // id code of the map to load
+
+   int status;    // status for debugging
+
+   // color components
+   int my_r;      
+   int my_g;
+   int my_b; 
+
+PROCESS main();
+
+BEGIN
+
+   set_mode(320,200,32);
+
+   // load the map
+   map_id=load_map(&quot;3COCHE.MAP&quot;);
+
+   // first, we're going to check the r,g,b values of 5 pixels, with the optional
+   // depth parameter.
+   status=get_rgb(map_get_pixel(0,map_id,0,0), &amp;my_r, &amp;my_g, &amp;my_b ,32);
+
+   say(&quot;my_r: &quot;+my_r+&quot; my_g: &quot;+my_g+&quot; my_b: &quot;+my_b);  
+   say(&quot;status: &quot;+status);
+
+   status=get_rgb(map_get_pixel(0,map_id,4,0), &amp;my_r, &amp;my_g, &amp;my_b ,32);
+
+   say(&quot;my_r: &quot;+my_r+&quot; my_g: &quot;+my_g+&quot; my_b: &quot;+my_b);  
+   say(&quot;status: &quot;+status);
+
+   status=get_rgb(map_get_pixel(0,map_id,50,1), &amp;my_r, &amp;my_g, &amp;my_b ,32);
+
+   say(&quot;my_r: &quot;+my_r+&quot; my_g: &quot;+my_g+&quot; my_b: &quot;+my_b);  
+   say(&quot;status: &quot;+status);
+
+   status=get_rgb(map_get_pixel(0,map_id,13,24), &amp;my_r, &amp;my_g, &amp;my_b, 32);
+
+   say(&quot;my_r: &quot;+my_r+&quot; my_g: &quot;+my_g+&quot; my_b: &quot;+my_b);  
+   say(&quot;status: &quot;+status);
+
+   status=get_rgb(map_get_pixel(0,map_id,84,40), &amp;my_r, &amp;my_g, &amp;my_b, 32);
+
+   say(&quot;my_r: &quot;+my_r+&quot; my_g: &quot;+my_g+&quot; my_b: &quot;+my_b);  
+   say(&quot;status: &quot;+status);
+
+   // second, we use the simpler way, that is valid for a bit maps
+   say(&quot;&quot;);
+   say(&quot;8 bit color codes&quot;);
+   say(map_get_pixel(0,map_id,0,0));
+   say(map_get_pixel(0,map_id,4,0));
+   say(map_get_pixel(0,map_id,50,1));
+   say(map_get_pixel(0,map_id,13,24));
+   say(map_get_pixel(0,map_id,84,40));
+
+
+   LOOP
+      IF (key(_esc))
+         BREAK;
+      END
+
+      FRAME;
+   END
+END
+</code></pre><h2 id=see-also>See also</h2><p>The articles about the functions, <a href=Rgb title=wikilink>Rgb</a>() and
+<a href=Rgba title=wikilink>Rgba</a>() for more information, since this function is
+related to some extend.</p><p><a href=Category:functions>Category:functions</a> <a href=Category:palettes>Category:palettes</a> <a href=Category:mod_map>Category:mod_map</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#syntax>Syntax</a></li><li><a href=#description>Description</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#notes>Notes</a></li><li><a href=#example>Example</a></li><li><a href=#see-also>See also</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/rgb_get.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

@@ -1,0 +1,63 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/map_xputnp/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p><strong>INT</strong> map_xputnp ( &lt;<strong>INT</strong> destinationFileID&gt; , &lt;<strong>INT</strong>
+destinationGraphID&gt; , &lt;<strong>INT</strong> originFileID&gt; , &lt;<strong>INT</strong>
+originGraphID&gt; , &lt;<strong>INT</strong> x&gt; , &lt;<strong>INT</strong> y&gt; , &lt;<strong>INT</strong>
+angle&gt; , &lt;<strong>INT</strong> scale_x&gt; , &lt;<strong>INT</strong> scale_y&gt; ,
+&lt;<strong>INT</strong> blitflags&gt; )</p><p>Draws (<a href=blit title=wikilink>blits</a>) a <a href=graphic title=wikilink>graphic</a> onto
+another graphic.</p><p>If the advanced parameters aren&rsquo;t needed,
+<a href=map_put title=wikilink>map_put</a>() or <a href=map_xput title=wikilink>map_xput</a>()
+can be used.</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> destinationFileID - The <a href=fileID title=wikilink>fileID</a> of the <a href=file title=wikilink>file</a> that holds the destination graphic.
+<strong>INT</strong> destinationGraphID - The <a href=graphID title=wikilink>graphID</a> of the <a href=graphic title=wikilink>graphic</a> to draw on.
+<strong>INT</strong> originFileID - The <a href=fileID title=wikilink>fileID</a> of the <a href=file title=wikilink>file</a> that holds the origin graphic.
+<strong>INT</strong> originGraphID - The <a href=graphID title=wikilink>graphID</a> of the <a href=graphic title=wikilink>graphic</a> to draw with.
+<strong>INT</strong> x - Where on the destination graph&rsquo;s x-axis to put the graphic.
+<strong>INT</strong> y - Where on the destination graph&rsquo;s y-axis to put the graphic.
+<strong>INT</strong> angle - What <a href=angle title=wikilink>angle</a> to draw the graphic at.
+<strong>INT</strong> scale_x - What <a href=size title=wikilink>size</a> to draw the origin graphic&rsquo;s x-axis at (also see <a href=size_x title=wikilink>size_x</a>)
+<strong>INT</strong> scale_y - What <a href=size title=wikilink>size</a> to draw the origin graphic&rsquo;s y-axis at (also see <a href=size_y title=wikilink>size_y</a>).
+<strong>INT</strong> blitflags - What <a href=blit_flags title=wikilink>blit flags</a> to draw the graphic with.</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong> : <a href=true title=wikilink>true</a></p><h2 id=notes>Notes</h2><p>The x and y parameters denote where to draw the graphic, that is, where
+the center of the to be drawn <a href=graphic title=wikilink>graphic</a> will be.
+<a href=Blit_flags title=wikilink>Blit flags</a> can be used to give the drawing
+(blitting) a special effect.</p><p>When angle is 0 and size is 100, the speed is greater, because the
+graphic doesn&rsquo;t need rotating or scaling.</p><h2 id=errors>Errors</h2><hr><p>Unsupported color depth - The origin graphic&rsquo;s color depth is greater than the destination graph&rsquo;s.</p><hr><h2 id=example>Example</h2><pre><code>import &quot;mod_video&quot;
+import &quot;mod_map&quot;
+import &quot;mod_wm&quot;
+
+Process Main()
+Global
+    int destgraph;
+    int origgraph;
+Begin
+
+    // Set the mode to 16bit and some resolution
+    set_mode(320,200,16);
+
+    // Makes the destination graphic a red square
+    destgraph=new_map(100,100,16);
+    map_clear(0,destgraph,rgb(255,0,0));
+
+    // Makes the origin graphic a blue square
+    origgraph=new_map(100,100,16);
+    map_clear(0,origgraph,rgb(0,0,255));
+
+    // Draws the blue square on the center of the red square transparently,
+    // at a random angle and a random size
+    map_xputnp(0,destgraph,0,origgraph,50,50,rand(-180000,180000),rand(50,150),rand(50,150),4);
+    map_xputnp(0,destgraph,0,origgraph,50,50,rand(-180000,180000),rand(50,150),rand(50,150),4);
+
+    // Shows the final graph
+    put(0,destgraph,160,100);
+
+    Repeat
+         frame;
+    Until(exit_status)
+
+End
+</code></pre><p>Used in example: <a href=set_mode title=wikilink>set_mode</a>(),
+<a href=new_map title=wikilink>new_map</a>(), <a href=map_clear title=wikilink>map_clear</a>(),
+<a href=map_xputnp title=wikilink>map_xputnp</a>(), <a href=put title=wikilink>put</a>(),
+<a href=exit_status title=wikilink>exit_status</a>, <a href=blit_flags title=wikilink>blit
+flags</a></p><p>This will result in something like:</p><p><a href=Category:functions>Category:functions</a> <a href=Category:maps>Category:maps</a> <a href=Category:mod_map>Category:mod_map</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#notes>Notes</a></li><li><a href=#errors>Errors</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/map_xputnp.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

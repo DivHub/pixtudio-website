@@ -1,0 +1,63 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/memcmp/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p><strong>INT</strong> memcmp ( &lt;<strong>VOID POINTER</strong> ptr1&gt; , &lt;<strong>VOID POINTER</strong>
+ptr2&gt; , &lt;<strong>INT</strong> number&gt; )</p><p>Compares the first <em>number</em> bytes of the block of memory pointed by
+<em>ptr1</em> to the first <em>number</em> bytes pointed by <em>ptr2</em>, returning zero if
+they all match or a value different from zero representing which is
+greater if they do not.</p><p>Also called <a href=mem_cmp title=wikilink>mem_cmp</a>().</p><h2 id=parameters>Parameters</h2><hr><p><strong>VOID POINTER</strong> ptr1 - Pointer to a block of memory
+<strong>VOID POINTER</strong> ptr2 - Pointer to a block of memory.
+<strong>INT</strong> number - The number of bytes to be checked.</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong> : Difference</p><hr><p>0 - The blocks of memory are identical.
+&gt;0 - The first differing byte in both memory blocks has a greater value in <em>ptr1</em>.
+&lt;0 - The first differing byte in both memory blocks has a greater value in <em>ptr2</em>.</p><hr><p>A byte ranges from 0 to 255, meaning 189 is a greater value than 105.</p><h2 id=example>Example</h2><pre><code>Program example;
+Const
+    elements = 10;
+End
+Private
+    byte pointer pbyte1;
+    byte pointer pbyte2;
+    int result;
+End
+Begin
+
+    // Allocate memory
+    pbyte1 = alloc(elements);
+    pbyte2 = alloc(elements);
+
+    // Make the blocks the same and compare
+    memset(pbyte1,3,elements);
+    memset(pbyte2,3,elements);
+    result = memcmp(pbyte1,pbyte2,elements); // You can also compare the first 5 bytes,
+                                             // or the first elements/2 bytes, it
+                                             // depends on what you want.
+    say(&quot;Memcmp 1: &quot; + result);
+
+    // Make the first block have a greater value and compare
+    pbyte1[0] = 4;
+    result = memcmp(pbyte1,pbyte2,elements);
+    say(&quot;Memcmp 2: &quot; + result);
+
+    // Make the blocks the same and compare
+    pbyte2[0] = 4;
+    result = memcmp(pbyte1,pbyte2,elements);
+    say(&quot;Memcmp 3: &quot; + result);
+
+    // Make the first block have a greater value and compare
+    pbyte2[1] = 5;
+    result = memcmp(pbyte1,pbyte2,elements);
+    say(&quot;Memcmp 4: &quot; + result);
+
+    Repeat
+        frame;
+    Until(key(_esc))
+
+    // Free the used memory
+    free(pbyte1);
+    free(pbyte2);
+
+End
+</code></pre><p>Used in example: <a href=alloc title=wikilink>alloc</a>(),
+<a href=memset title=wikilink>memset</a>(), <a href=memcmp title=wikilink>memcmp</a>(),
+<a href=say title=wikilink>say</a>(), <a href=free title=wikilink>free</a>(),
+<a href=pointer title=wikilink>pointer</a></p><p><a href=Category:functions>Category:functions</a> <a href=Category:memory>Category:memory</a> <a href=Category:mod_mem>Category:mod_mem</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/memcmp.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

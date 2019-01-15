@@ -1,0 +1,32 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:local_variables title=wikilink>category:local
+variables</a> <a href=category:librender>category:librender</a></p><p><a href=Local_variables title=wikilink><strong>Up to Local Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>INT</strong> flags = 0</p><p>Flags is a predefined <a href=local_variable title=wikilink>local variable</a> which
+is used to manipulate how the <a href=graphic title=wikilink>graphic</a> of a
+<a href=process title=wikilink>process</a>, assigned to its local variable
+<a href=graph title=wikilink>graph</a>, is displayed.</p><p>To alter the effect, change the value of this local variable by
+assigning it <a href=blit_flags title=wikilink>blit flags</a>. Like most <a href=bit_flags title=wikilink>bit
+flags</a>, constants can be added together to combine
+effects. A horizontally mirrored translucent graphic would need flags
+B_TRANSLUCENT (4) and B_HMIRROR (1), so flags =
+B_TRANSLUCENT|B_HMIRROR (5) will do the trick.</p><h2 id=example>Example</h2><p>To make the graphic of a process spin:</p><pre><code>Program mirror
+Begin
+    mirror_graphic();
+    Loop
+        frame;
+    End
+End
+Process mirror_graphic()
+Begin
+    graph = new_map(50,50,8);
+    map_clear(0,graph,rgb(0,255,255));
+    x = 100;     //Position the graphic 100 pixels
+    y = 100;     //from the top and left of the screen
+    Loop
+        if (key(_l))
+            flags = B_HMIRROR; //if you press the L key, your graphic is horizontally mirrored
+        else
+            flags = 0;
+        end       
+        frame;
+    End
+End
+</code></pre><p>The process will mirror its graphic when the key L is held down.</p>

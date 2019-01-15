@@ -1,0 +1,123 @@
+<p><a href=category:general>category:general</a></p><h2 id=loops>Loops</h2><p><strong>LOOP-END</strong>, <strong>WHILE-END</strong>, <strong>REPEAT-UNTIL</strong>, <strong>FOR-END</strong>, <strong>FROM-END</strong></p><p>Loops are used to create iterations in your code. The statements between
+these words will get repeated depending on a condition. There are
+several types of loops:</p><h3 id=loop-end>Loop &hellip; End</h3><pre><code>Loop
+    // Statements
+End
+</code></pre><ul><li>The statements will be repeated indefinitely.</li></ul><h3 id=while-end>While &hellip; End</h3><pre><code>While(&lt;condition&gt;)
+    // Statements
+End
+</code></pre><ul><li>The statements will be repeated while <em>condition</em> is fulfilled.</li></ul><h3 id=repeat-until>Repeat &hellip; Until</h3><pre><code>Repeat
+    // Statements
+Until(&lt;condition&gt;)
+</code></pre><ul><li>The statements will be repeated until <em>condition</em> is fulfilled.</li></ul><h3 id=for-end>For &hellip; End</h3><pre><code>For( [ &lt;initializer&gt; ] ; [ &lt;condition&gt; ] ; [ &lt;counting expression&gt; ] )
+    // Statements
+End
+</code></pre><ul><li>First, <em>initializer</em> will be executed. Then the statements will be
+repeated until <em>condition</em> is fulfilled. After each run of the
+statements, <em>counting expression</em> is executed.</li></ul><h3 id=from-end>From &hellip; End</h3><pre><code>From &lt;variable&gt;=&lt;startvalue&gt; To &lt;endvalue&gt; [ Step &lt;incrementvalue&gt; ] ;
+    // Statements
+End
+</code></pre><ul><li>First, <em>startvalue</em> will be assigned to the variable. Then the
+statements will be repeated and <em>incrementvalue</em> added to
+the variable. When the variable is greater than <em>endvalue</em>, the
+loop ends.</li><li>Note that <em>incrementvalue</em> must be a
+<a href=constant title=wikilink>constant</a>. The <code>Step &lt;incrementvalue&gt;</code> part
+is optional.</li></ul><h2 id=manipulating-a-loop>Manipulating a loop</h2><p>There are more ways to manipulate a loop, both internally and
+externally.</p><p>If the code inside a loop reaches a <a href=break title=wikilink>break</a>;
+statement, the loop is immediately ended. This is particularly useful in
+the Loop-End loop, because that one has no other way to end the loop and
+continue code beneath it.</p><p>If the code inside a loop reaches a <a href=continue title=wikilink>continue</a>;
+statement, it executes the possible count- or stepping statement and
+then continues to the checking of the condition. So in a Repeat-Until
+loop, it would just skip to the Until() part.</p><p>If the loop is run in a specific <a href=process title=wikilink>process</a>, one can
+influence the execution of the loop, by changing the state of that
+process, by use of <a href=signal title=wikilink>signal</a>() and
+<a href=signals title=wikilink>signals</a>.</p><h2 id=example>Example</h2><pre><code>import &quot;mod_say&quot;
+
+Const
+    startvalue     = 1;
+    endvalue       = 8;
+    incrementvalue = 2;
+End
+
+Process Main()
+Private
+    int c;
+Begin
+
+    /* Loop */
+
+    c = startvalue;
+    Loop
+        say(&quot;Loop: &quot; + c);
+        c+=incrementvalue;
+        if(c&gt;endvalue)
+            break;
+        end
+    End
+    say(&quot;End Loop: &quot; + c);
+
+    /* While */
+
+    c = startvalue;
+    While(c&lt;=endvalue)
+        say(&quot;While: &quot; + c);
+        c+=incrementvalue;
+    End
+    say(&quot;End While: &quot; + c);
+
+    /* Repeat */
+
+    c = startvalue;
+    Repeat
+        say(&quot;Repeat: &quot; + c);
+        c+=incrementvalue;
+    Until(c&gt;endvalue)
+    say(&quot;End Repeat: &quot; + c);
+
+    /* For */
+
+    For(c=startvalue;c&lt;=endvalue;c+=incrementvalue)
+        say(&quot;For: &quot; + c);
+    End
+    say(&quot;End For: &quot; + c);
+
+    /* From */
+
+    From c=startvalue To endvalue Step incrementvalue;
+        say(&quot;From: &quot; + c);
+    End
+    say(&quot;End From: &quot; + c);
+
+End
+</code></pre><p>Used in example: <a href=say title=wikilink>say</a>(),
+<a href=constants title=wikilink>constants</a>, <a href=loop title=wikilink>loop</a>,
+<a href=if title=wikilink>if</a>, <a href=break title=wikilink>break</a>,
+<a href=while title=wikilink>while</a>, <a href=repeat title=wikilink>repeat</a>,
+<a href=for title=wikilink>for</a>, <a href=from title=wikilink>from</a></p><p>In the example, all the loops do the same thing, illustrated by the use
+of the same constants. The output is:</p><pre><code>Loop: 1
+Loop: 3
+Loop: 5
+Loop: 7
+End Loop: 9
+While: 1
+While: 3
+While: 5
+While: 7
+End While: 9
+Repeat: 1
+Repeat: 3
+Repeat: 5
+Repeat: 7
+End Repeat: 9
+For: 1
+For: 3
+For: 5
+For: 7
+End For: 9
+From: 1
+From: 3
+From: 5
+From: 7
+End From: 9
+</code></pre>

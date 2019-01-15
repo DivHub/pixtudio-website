@@ -1,0 +1,27 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:global_variables title=wikilink>category:global
+variables</a> <a href=category:mod_key>category:mod_key</a></p><p><a href=Global_variables title=wikilink><strong>Up to Global Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>INT</strong> ascii</p><p>Ascii is defined in the module <a href=mod_key title=wikilink>mod_key</a> and, in
+contrast to <a href=scan_code title=wikilink>scan_code</a>, it contains the <u>last
+character</u> typed on the keyboard instead of the <u>last key</u>. That
+means “A” and “a” will have the same <a href=scan_code title=wikilink>scan_code</a>,
+but different ascii value.</p><h2 id=example>Example</h2><pre><code>import &quot;mod_text&quot;
+import &quot;mod_key&quot;
+import &quot;mod_video&quot;
+
+process main()
+begin
+    set_mode(640,320);
+
+    write( 0, 60, 10, 0, &quot;Use lower and upper case characters to see the difference&quot;);
+    write( 0, 60, 20, 0, &quot;between ascii and scan_code.    (ESC to exit)  &quot;);
+
+    write( 0, 60, 40, 0, &quot;ascii: &quot;);
+    write_var( 0, 110, 40, 0, ascii);
+
+    write( 0, 26, 50, 0, &quot;scan_code: &quot;);
+    write_var( 0, 110, 50, 0, scan_code);
+
+    while ( !key(_esc))
+        frame;
+    end
+end   
+</code></pre>

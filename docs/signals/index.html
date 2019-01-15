@@ -1,0 +1,61 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/signals/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=description>Description</h2><p>Signals are used to specify the signal to be sent to a
+<a href=process title=wikilink>process</a> or all processes of a
+<a href=processType title=wikilink>processType</a>, by passing one of them to the
+function <a href=signal title=wikilink>signal</a>() as the signal
+<a href=parameter title=wikilink>parameter</a>. The reaction a process has on an
+incoming signal can be influenced by
+<a href=signal_action title=wikilink>signal_action</a>().</p><h2 id=list>List</h2><hr><p><em>Constant</em> - <em>Value</em> - <em>Description</em>
+S_KILL - 0 - Kill the process.
+S_WAKEUP - 1 - Wakeup the process.
+S_SLEEP - 2 - Put the process to sleep.
+S_FREEZE - 3 - Freeze the process.
+S_KILL_FORCE - 50 - Kill the process forcefully.
+S_WAKEUP_FORCE - 51 - Wakeup the process forcefully.
+S_SLEEP_FORCE - 52 - Put the process to sleep forcefully.
+S_FREEZE_FORCE - 53 - Freeze the process forcefully.
+S_KILL_TREE - 100 - Kill the process and all its connected descendants.
+S_WAKEUP_TREE - 101 - Wakeup the process and all its connected descendants.
+S_SLEEP_TREE - 102 - Put the process and all its connected descendants to sleep.
+S_FREEZE_TREE - 103 - Freeze the process and all its connected descendants.
+S_KILL_TREE_FORCE - 150 - Kill the process and all its connected descendants forcefully.
+S_WAKEUP_TREE_FORCE - 151 - Wakeup the process and all its connected descendants forcefully.
+S_SLEEP_TREE_FORCE - 152 - Put the process and all its connected descendants to sleep forcefully.
+S_FREEZE_TREE_FORCE - 153 - Freeze the process and all its connected descendants forcefully.</p><hr><p>A descendant is connected when all its ascendants up until the process
+are still alive.</p><p>Note: The constants S_FORCE, S_TREE and ALL_PROCESS are for internal
+use only.</p><h2 id=more-info>More info</h2><h3 id=general>General</h3><ul><li>S_KILL - Order to kill the process. The process will not appear in
+the following <a href=frame title=wikilink>frames</a> of the game any longer. If
+the process has an <a href=onexit title=wikilink>onexit</a> part, it is executed
+in the same frame as the process was killed.</li><li>S_WAKEUP - Order to wake up the process. It returns a slept or
+frozen process to its normal state. The process will be executed and
+displayed again from the moment that it recieves theis
+signal normally. A process that has been killed cannot be returned
+to its normal state by this method (or at all).</li><li>S_SLEEP - Order to make the process dormant. The process will
+remain paralyzed, without executing its code and without being
+displayed on screen (nor being detected by other processes), as if
+it had been killed. But the process will continue to exist in the
+computer&rsquo;s memory.</li><li>S_FREEZE - Order to freeze the process. The process will remain
+motionless without running its code. But it will continue to be
+displayed on screen and it will be possible to detect it (in
+the collisions) by the rest of the processes. The process will
+continue to exist in the computers memory even if its code is
+not executed.</li></ul><h3 id=tree>Tree</h3><p>In addition to these there are the following signals that have the same
+effect, but affect a range of processes, not just a single process:</p><ul><li>S_KILL_TREE</li><li>S_WAKEUP_TREE</li><li>S_SLEEP_TREE</li><li>S_FREEZE_TREE</li></ul><p>These will have the effect of their non-tree counterparts, but will
+affect the process indicated by the
+<a href=processID title=wikilink>processID</a>|<a href=processTypeID title=wikilink>processTypeID</a>
+parameter and all of the processes created by those processes, either
+directly, or indirectly. So if an S_KILL_TREE signal is sent to a
+process, that process will die, all of the processes that it created
+will die, and all of the processes that they created will die, and so
+on. The exception to this is where there is an <a href=orphan_process title=wikilink>orphan
+process</a>, that is a process to whose
+<a href=father title=wikilink>father</a> is already dead, because the grandfather
+process of the orphaned process cannot know the orphaned process is a
+descendant of his.</p><h3 id=forcefully>Forcefully</h3><p>All normal (=non forced) signals have a forceful equivalent, meaning
+they get carried out <em>whether the target process ignores it or not</em>:</p><ul><li>S_KILL_FORCE</li><li>S_WAKEUP_FORCE</li><li>S_SLEEP_FORCE</li><li>S_FREEZE_FORCE</li><li>S_KILL_TREE_FORCE</li><li>S_WAKEUP_TREE_FORCE</li><li>S_SLEEP_TREE_FORCE</li><li>S_FREEZE_TREE_FORCE</li></ul><p>Normal incoming signals can be influenced by
+<a href=signal_action title=wikilink>signal_action</a>(), but these signals cannot
+be influenced. This means that sending a process <code>S_KILL_FORCE</code> it
+<em>will</em> be killed.</p><p><a href=Category:constantcategories>Category:constantcategories</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#description>Description</a></li><li><a href=#list>List</a></li><li><a href=#more-info>More info</a><ul><li><a href=#general>General</a></li><li><a href=#tree>Tree</a></li><li><a href=#forcefully>Forcefully</a></li></ul></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/signals.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

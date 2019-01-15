@@ -1,0 +1,17 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:global_variables title=wikilink>category:global
+variables</a> <a href=category:mod_dir>category:mod_dir</a></p><p><a href=Global_variables title=wikilink><strong>Up to Global Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>Struct</strong> Fileinfo</p><p>Fileinfo is a <a href=global title=wikilink>global variable</a>
+<a href=struct title=wikilink>struct</a>, containing information about a
+file/directory entry, lastly returned by <a href=glob title=wikilink>glob</a>().</p><h2 id=members>Members</h2><hr><p><em>Member name</em> - <em>Description</em>
+<strong>STRING</strong> path - The path to the file/directory (without the name of the file/directory).
+<strong>STRING</strong> name - The name of the file/directory.
+<strong>INT</strong> directory - <a href=true title=wikilink>true</a>/<a href=false title=wikilink>false</a>: whether the file/directory is a directory or not
+<strong>INT</strong> hidden - <a href=true title=wikilink>true</a>/<a href=false title=wikilink>false</a>: whether the file is hidden or not
+<strong>INT</strong> readonly - <a href=true title=wikilink>true</a>/<a href=false title=wikilink>false</a>: whether the file is read only or not
+<strong>INT</strong> size - The size in bytes of the file/directory.
+<strong>STRING</strong> created - The date when the file/directory was created. *. Not available in Unix/Linux**
+<strong>STRING</strong> modified - The date when the file/directory was last modified. *
+<strong>STRING</strong> accessed - The date when the file/directory was last accessed. *
+<strong>STRING</strong> statechg - The date when the file/directory&rsquo;s inode was last modified. *. Only in Unix/Linux**</p><hr><p><strong>*</strong> - The strings <em>created</em> and <em>modified</em> are in the format:
+<code>DD/MM/YYYY hh:mm</code>.</p><p><strong>**</strong> - In Unix/Linux the creation time is not stored. Instead it has
+a change time (ctime) that indicate when changes to the file or
+directory&rsquo;s inode (owner, permissions, etc.) were made.</p>

@@ -1,0 +1,20 @@
+<p><a href=category:reserved>category:reserved</a> <a href=category:language>category:language</a> <a href=category:basic_statement title=wikilink>category:basic
+statement</a></p><p><a href=Basic_statements title=wikilink><strong>Up to Basic Statements</strong></a></p><hr><h2 id=syntax>Syntax</h2><p><strong>Begin</strong><br>:[<main code>]<br>[ <strong>OnExit</strong><br>:[ <exit code>]<br>] <strong>End</strong></p><h2 id=description>Description</h2><p>Begin is a reserved word to indicate the start of the code part of a
+<a href=program title=wikilink>program</a>, <a href=process title=wikilink>process</a> or
+<a href=function title=wikilink>function</a>. The end is indicated by
+<a href=End title=wikilink>End</a>. The <a href=OnExit title=wikilink>OnExit</a> statement can be
+used in between.</p><h2 id=example>Example</h2><pre><code>Process Main
+Begin // Start the main code part of the main process
+    proc1(); // create new instance of proc1
+End
+
+Process proc1()
+Begin // Start the main code part of the process
+End
+
+Function int func1()
+Begin // Start the main code part of the function
+    return 0;
+End
+</code></pre><p>Used in example: <a href=end title=wikilink>end</a>, <a href=process title=wikilink>process</a>,
+<a href=function title=wikilink>function</a></p>

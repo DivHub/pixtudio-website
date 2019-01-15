@@ -1,0 +1,55 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:global_variables title=wikilink>category:global
+variables</a> <a href=category:libvideo>category:libvideo</a></p><p><a href=Global_variables title=wikilink><strong>Up to Global Variables</strong></a></p><hr><p><strong>INT</strong> scale_resolution = WWWWHHHH</p><p>Where WWWW is the Width and HHHH the Height.
+<a href=Resolution_modes title=wikilink>Resolution_modes</a> can be used.</p><h2 id=description>Description</h2><p><strong>Scale_resolution</strong> is a <a href=global_variable title=wikilink>global variable</a>
+used to resize the screen without changing the real resolution. That
+means the game still uses the resolution indicated by
+<a href=set_mode title=wikilink>set_mode</a>() but it&rsquo;s displayed on the screen at
+the one assigned to scale_resolution. Unlike
+<a href=scale_mode title=wikilink>scale_mode</a> can work with 32bits but doesn&rsquo;t
+use any filter.</p><p>Scale_resolution takes effect after <a href=set_mode title=wikilink>set_mode</a>()
+only and cannot be used togheter with
+<a href=scale_mode title=wikilink>scale_mode</a>. Assigning NULL will cancel the use
+of scale_resolution.</p><h2 id=example>Example</h2><pre><code>//This example is a modification of an example taken from Oscar's Manual
+Import &quot;mod_video&quot;;
+Import &quot;mod_text&quot;;
+Import &quot;mod_key&quot;;
+Import &quot;mod_map&quot;;
+Import &quot;mod_proc&quot;;
+Import &quot;mod_draw&quot;;
+
+Process Main()
+begin
+  set_mode(800,600,32);
+  write(0,100,80,0,&quot;SCALE_RESOLUTION's value:&quot;);
+  write_var(0,300,80,0,scale_resolution);
+  proceso();
+  repeat
+    if(key(_a)) scale_resolution=03200240;end
+    if(key(_s)) scale_resolution=06400480;end
+    if(key(_d)) scale_resolution=08000600;end
+    if(key(_f)) scale_resolution=10240768;end
+    if(key(_c)) scale_resolution=NULL;end
+    set_mode(800,600,32);
+    frame;
+  until(key(_esc))
+  let_me_alone();
+end
+
+Process proceso()
+begin
+  x=180;y=150;
+  graph=map_new(60,60,32);
+  drawing_map(0,graph);
+  drawing_color(rgb(255,255,0));
+  draw_fcircle(25,25,25);
+  loop
+    frame;
+  end
+end
+</code></pre><p>Used in example: <a href=set_mode title=wikilink>set_mode</a>(),
+<a href=write title=wikilink>write</a>(), <a href=write_var title=wikilink>write_var</a>(),
+<a href=map_new title=wikilink>map_new</a>(),
+<a href=drawing_map title=wikilink>drawing_map</a>(),
+<a href=drawing_color title=wikilink>drawing_color</a>(),
+<a href=draw_fcircle title=wikilink>draw_fcircle</a>().</p><h2 id=see-also>See also</h2><p><a href=scale_resolution_orientation title=wikilink>scale_resolution_orientation</a>,
+<a href=scale_resolution_aspectratio title=wikilink>scale_resolution_aspectratio</a>.</p>

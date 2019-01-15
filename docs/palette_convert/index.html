@@ -1,0 +1,80 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/palette_convert/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=syntax>Syntax</h2><p><strong>INT</strong> palette_convert ( &lt;<strong>INT</strong> fileID&gt; , &lt;<strong>INT</strong>
+graphID&gt; , &lt;<strong>POINTER</strong> palette_data&gt; )</p><h2 id=description>Description</h2><p>This function changes the colormap of an image, but does not change the
+color index values it self. That is, that the individual pixels will
+keep their color indexes, but the r,g,b values in the palette are
+modified. This function requires an <a href=Array title=wikilink>Array</a> of maximum
+255 bytes (or integers), to store the palette values. The array is
+accessed with the <a href=Offset title=wikilink>Offset</a> operator.</p><p>The previous name <a href=Convert_palette title=wikilink>Convert_palette</a>() is
+deprecated.</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> fileID - The handle of the file containing the graphics.
+<strong>INT</strong> graphID - The handle of the graphic.
+<strong>POINTER</strong> palette_data - Pointer to the <a href=Array title=wikilink>Array</a> with the new palette data, to be accessed with the <a href=Offset title=wikilink>Offset</a> operator.</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong> : Status.</p><hr><p>1 - Success.</p><hr><h2 id=example>Example</h2><pre><code>IMPORT &quot;mod_debug&quot;;
+IMPORT &quot;mod_say&quot;;
+IMPORT &quot;mod_map&quot;;
+IMPORT &quot;mod_key&quot;;
+IMPORT &quot;mod_video&quot;;
+IMPORT &quot;mod_screen&quot;;
+IMPORT &quot;mod_text&quot;;
+
+
+GLOBAL
+
+  int map_id;
+  int clonemap_id;
+
+  int palette_table[255];
+  int color;
+
+  int status;
+
+
+PROCESS main();  
+
+BEGIN
+
+
+  set_mode(320,240,16);
+
+  map_id=load_map(&quot;MAP.MAP&quot;);
+
+  clonemap_id=map_clone(0,map_id); // create a copy of the map
+
+  write(0,80,30,4,&quot;Original image:&quot;);
+  write(0,240,30,4,&quot;Converted image (clone):&quot;);
+  write(0,160,140,4,&quot;Spacebar: Change the palette of the clone...&quot;);
+  write(0,160,190,4,&quot;Press ESC to quit...&quot;);
+
+  // palette color 0 (the transparant color) will be not changed, that's why the 
+  // count starts at 1. 
+  // values that go beyond 255 will be cut off by the MOD (%). So, 256, becomes 0, 
+  // 257 becomes 2 etc. The fist 16 colors will stay untouched.
+  FROM color=1 TO 255; 
+     palette_table[color]=(color+16) MOD 255; 
+     say(&quot;palette_table[&quot;+color+&quot;]&quot;);
+  END
+
+  xput(0,map_id,80,70,0,25,0,0);
+
+  x=240; 
+  y=70; 
+  graph=clonemap_id; 
+  size=25;
+
+  REPEAT
+
+     IF (key(_space)) 
+        // let's do the conversion
+        status=palette_convert(0,clonemap_id,&amp;palette_table); 
+        say(&quot;status: &quot;+status);
+     END
+
+     FRAME;
+  UNTIL(key(_esc))
+
+END
+</code></pre><p>Used in example: <a href=Say title=wikilink>Say</a>(), <a href=Key title=wikilink>Key</a>(),
+<a href=Write title=wikilink>Write</a>(), <a href=Map_clone title=wikilink>Map_clone</a>(),
+<a href=Xput title=wikilink>Xput</a>()</p><p><a href=Category:functions>Category:functions</a> <a href=Category:palettes>Category:palettes</a> <a href=Category:mod_map>Category:mod_map</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#syntax>Syntax</a></li><li><a href=#description>Description</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/palette_convert.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

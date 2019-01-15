@@ -1,0 +1,13 @@
+<p><a href=category:General>category:General</a> <a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a>
+<a href=category:local_variables title=wikilink>category:local variables</a>
+<a href=category:librender>category:librender</a></p><p><a href=Local_variables title=wikilink><strong>Up to Local Variables</strong></a></p><hr><h2 id=definition>Definition</h2><h3 id=local-variable>Local variable</h3><p><strong>INT</strong> region = 0</p><p><strong>Region</strong> is a predefined <a href=local_variable title=wikilink>local variable</a>.
+<strong>Region</strong> holds the <a href=RegionID title=wikilink>RegionID</a> of the
+<a href=region title=wikilink>region</a> in which the <a href=process title=wikilink>process</a>&lsquo;
+<a href=graphic title=wikilink>graphic</a> should only be displayed in. By default
+this is region <em>0</em>, the whole screen.</p><p>The graphic of the process is only displayed in its region, even if the
+x and y coordinates are outside of the region, the part inside the
+region will still be displayed.</p><h3 id=concept>Concept</h3><p>A region is a rectangular field inside the screen. It can be defined
+with <a href=define_region title=wikilink>define_region</a>() and can be useful for
+displaying graphics in only certain parts of the screen and for the
+function <a href=region_out title=wikilink>region_out</a>(). There are 32 regions
+(<em>0..31</em>) and region <em>0</em> is the whole screen.</p>

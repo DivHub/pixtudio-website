@@ -1,0 +1,60 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:global_variables title=wikilink>category:global
+variables</a> <a href=category:regular_expression title=wikilink>category:regular
+expression</a> <a href=category:mod_regex>category:mod_regex</a></p><p><a href=Global_variables title=wikilink><strong>Up to Global Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>STRING[15]</strong> regex_reg</p><p><strong>Regex_reg</strong> is a <a href=global_variable title=wikilink>global variable</a>,
+holding 16 strings. It holds matches when the functions
+<a href=Regex title=wikilink>Regex</a>() and
+<a href=Regex_replace title=wikilink>Regex_replace</a>() are used.</p><h2 id=examples>Examples</h2><pre><code>// import modules
+IMPORT &quot;mod_say&quot;;
+IMPORT &quot;mod_debug&quot;;
+IMPORT &quot;mod_regex&quot;;
+
+
+GLOBAL
+
+
+   string sourcetext=&quot;It's raining cat's and dogs&quot;;
+   string searchtext=&quot;cat&quot;; // the search pattern
+
+   int status;
+
+PROCESS main();
+
+BEGIN
+
+
+   // print the joined string
+   say(&quot;&quot;);
+
+   // looking for the position of the word &quot;cat&quot;
+   status=regex(searchtext,sourcetext);
+
+   say(&quot;match found at: &quot;+status);
+   say(&quot;&quot;);
+
+   // the last character of a line. 
+   status=regex(&quot;$&quot;,&quot;99 bottles of beer on the wall.&quot;);
+
+   say(status+&quot; is the last character position in 99 bottles of beer on the wall.&quot;);
+   say(&quot;&quot;);
+
+   say(&quot;regex_reg[0]=&quot;+regex_reg[0]);
+   say(&quot;regex_reg[1]=&quot;+regex_reg[1]);
+   say(&quot;regex_reg[2]=&quot;+regex_reg[2]);
+   say(&quot;regex_reg[3]=&quot;+regex_reg[3]);
+
+   say(&quot;regex_reg[4]=&quot;+regex_reg[4]);
+   say(&quot;regex_reg[5]=&quot;+regex_reg[5]);
+   say(&quot;regex_reg[6]=&quot;+regex_reg[6]);
+   say(&quot;regex_reg[7]=&quot;+regex_reg[7]);
+
+   say(&quot;regex_reg[8]=&quot;+regex_reg[8]);
+   say(&quot;regex_reg[9]=&quot;+regex_reg[9]);
+   say(&quot;regex_reg[10]=&quot;+regex_reg[10]);
+   say(&quot;regex_reg[11]=&quot;+regex_reg[11]);
+
+   say(&quot;regex_reg[12]=&quot;+regex_reg[12]);
+   say(&quot;regex_reg[13]=&quot;+regex_reg[13]);
+   say(&quot;regex_reg[14]=&quot;+regex_reg[14]);
+   say(&quot;regex_reg[16]=&quot;+regex_reg[15]);
+END
+</code></pre>

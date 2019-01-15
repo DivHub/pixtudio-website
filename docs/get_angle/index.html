@@ -1,0 +1,102 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/get_angle/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p><strong>INT</strong> get_angle ( &lt;<strong>INT</strong> processID&gt; )</p><p>Returns the <a href=angle title=wikilink>angle</a> between the coordinates of a
+certain <a href=process title=wikilink>process</a> and the process calling
+<a href=get_angle title=wikilink>get_angle</a>().</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> processID - The other <a href=process title=wikilink>process</a>.</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong> : The wanted <a href=angle title=wikilink>angle</a>.</p><hr><p>-1 - An error <em>may</em> have occurred: invalid <a href=process title=wikilink>process</a>.
+!-1 - The wanted <a href=angle title=wikilink>angle</a>.</p><hr><h2 id=example>Example</h2><pre><code>Program angling;
+import &quot;mod_grproc&quot;//modules
+import &quot;mod_proc&quot;
+import &quot;mod_wm&quot;
+import &quot;mod_key&quot;
+import &quot;mod_video&quot;
+import &quot;mod_map&quot;
+import &quot;mod_draw&quot;
+import &quot;mod_text&quot;
+Const
+    screen_width     = 320;
+    screen_height    = 200;
+    screen_depth     = 8;
+    screen_fps       = 60;
+    screen_frameskip = 0;
+Global
+    int distance;
+    int tempID;
+Begin
+
+    // Set the screen mode
+    set_mode(screen_width,screen_height,screen_depth);
+    set_fps(screen_fps,screen_frameskip);
+
+    // Change this to see what happens
+    resolution = 100;
+
+    // Create mouse graph and start mousepointer
+    x = new_map(20,20,screen_depth);
+    map_clear(0,x,rgb(255,0,0));
+    mousepointer(0,x);
+
+    // Create arrow, assign to graph
+    graph = new_map(30,30,screen_depth);
+    drawing_map(0,graph);
+    drawing_color(rgb(0,255,0));
+    draw_line( 0,29,29,30/2);
+    draw_line( 0, 0,30,30/2);
+
+    // Set position
+    x = screen_width /2 * resolution;
+    y = screen_height/2 * resolution;
+
+    // Display distance
+    write(0,0,0,0,&quot;Distance:&quot;);
+    write_int(0,60,0,0,&amp;distance);
+
+    // Always point to the mouse
+    Repeat
+        // Get the angle and distance between this process' coordinates and those of mousegraph.
+        // We can use TYPE and get_id() here, because usually there would only be one
+        // mousepointer and one always.
+        tempID = get_id(type mousepointer);
+        angle = get_angle(tempID);
+        distance = get_dist(tempID);
+        frame;
+    Until(key(_esc))
+
+End
+
+/**
+ * Follows the mouse coordinates. x is always mouse.x and y is always mouse.y
+ * for processes with priority &lt;1. The graphic of this process will be a certain graphic.
+ * int file     - The fileID of the file where the graphic is located
+ * int graph    - The graphID of the graphic to be used for this process
+ */
+Process mousepointer(int file,int graph)
+Begin
+    // Set the priority to 1, because we first want to have the correct coordinates of
+    // the mouse set in this process. Then after that other process can use those coordinates.
+    priority = 1;
+    // Obtain father's resolution
+    resolution = father.resolution;
+    // Loop
+    Loop
+        // Obtain X and Y coordinates of the mouse and adjust for resolution
+        // (mouse.y and mouse.y have an unchangeable resolution of 1)
+        x = mouse.x * resolution;
+        y = mouse.y * resolution;
+        frame;
+    End
+End
+</code></pre><p>Used in example: <a href=set_mode title=wikilink>set_mode</a>(),
+<a href=new_map title=wikilink>new_map</a>(), <a href=map_clear title=wikilink>map_clear</a>(),
+<a href=drawing_map title=wikilink>drawing_map</a>(),
+<a href=drawing_color title=wikilink>drawing_color</a>(),
+<a href=draw_line title=wikilink>draw_line</a>(), <a href=write title=wikilink>write</a>(),
+<a href=write_int title=wikilink>write_int</a>(), <a href=get_id title=wikilink>get_id</a>(),
+<a href=get_angle title=wikilink>get_angle</a>(),
+<a href=get_dist title=wikilink>get_dist</a>(), <a href=resolution title=wikilink>resolution</a>,
+<a href=mouse title=wikilink>mouse</a>, <a href=graph title=wikilink>graph</a>, <a href=x title=wikilink>x</a>,
+<a href=y title=wikilink>y</a>, <a href=angle title=wikilink>angle</a>,
+<a href=priority title=wikilink>priority</a></p><p>This example could also be done with
+<a href=fget_angle title=wikilink>fget_angle</a>(), which is easier and doesn&rsquo;t
+require an extra <a href=process title=wikilink>process</a>.</p><p>It could look something like:<br><a href=http://wwwhome.cs.utwente.nl/~bergfi/fenix/wiki/get_angle.PNG>http://wwwhome.cs.utwente.nl/~bergfi/fenix/wiki/get_angle.PNG</a></p><p><a href=Category:functions>Category:functions</a> <a href=Category:processinteraction>Category:processinteraction</a> <a href=Category:mod_grproc>Category:mod_grproc</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/get_angle.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

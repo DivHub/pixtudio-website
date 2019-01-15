@@ -1,0 +1,62 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:global_variables title=wikilink>category:global
+variables</a> <a href=category:libvideo>category:libvideo</a></p><p><a href=Global_variables title=wikilink><strong>Up to Global Variables</strong></a></p><hr><p><strong>INT</strong> scale_resolution_orientation =
+<a href=Scale_resolution_orientation_modes title=wikilink>Scale_resolution_orientation_modes</a>.</p><h2 id=description>Description</h2><p><strong>Scale_resolution_orientation</strong> is a global variable used to rotate a
+screen resized by <a href=scale_resolution title=wikilink>scale_resolution</a>
+without changing the real orientation.</p><h2 id=example>Example</h2><pre><code>Import &quot;mod_video&quot;;
+Import &quot;mod_text&quot;;
+Import &quot;mod_key&quot;;
+Import &quot;mod_map&quot;;
+Import &quot;mod_proc&quot;;
+Import &quot;mod_screen&quot;;
+
+Process Main()
+begin
+  set_mode(800,600,32);
+  write(0,20,20,0,&quot;SCALE_RESOLUTION:&quot;);
+  write_var(0,160,20,0,scale_resolution);
+  write(0,20,30,0,&quot;( Press R) &quot;);
+  write(0,20,50,0,&quot;SCALE_RESOLUTION_ORIENTATION:&quot;);
+  write_var(0,255,50,0,scale_resolution_orientation);
+  write(0,20,60,0,&quot;( Press 0, 1, 2 or  ) &quot;);
+  write(0,20,90,0,&quot;SCALE_RESOLUTION_ASPECTRATIO:&quot;);
+  write_var(0,255,90,0,scale_resolution_aspectratio);
+  write(0,20,100,0,&quot;( Press A ) &quot;);
+  Screen_put(0,png_load(&quot;mz800x600.png&quot;));
+  repeat
+    //Activates/deactivates scale_resolution. 
+    if(key(_r))
+      while(key(_r)) frame; end   //Wait until the key is released
+      if (scale_resolution==0);    //If scale_resolution is not active...
+        scale_resolution=08000480; //...then resize the screen 
+      else                         //If scale_resolution is already working...
+        scale_resolution=NULL;     //...then stop it.
+      end
+    end 
+
+    //This rotates the screen. Only works when SCALE_RESOLUTION is being used. 
+    if(key(_0)) scale_resolution_orientation=SRO_NORMAL;end
+    if(key(_1)) scale_resolution_orientation=SRO_LEFT;end
+    if(key(_2)) scale_resolution_orientation=SRO_DOWN;end
+    if(key(_3)) scale_resolution_orientation=SRO_RIGHT;end
+
+    //This activates/deactivates the ASPECT RATIO. Only works when SCALE_RESOLUTION is being used. 
+    if(key(_a))
+      while(key(_a)) frame; end
+      if (scale_resolution_aspectratio==0);
+        scale_resolution_aspectratio=SRA_PRESERVE;
+      else
+        scale_resolution_aspectratio=SRA_STRETCH;
+      end
+    end 
+
+    set_mode(800,600,32);
+    frame;
+  until(key(_esc))
+  let_me_alone();
+end
+</code></pre><p>Used in example: <a href=write title=wikilink>write</a>(),
+<a href=write_var title=wikilink>write_var</a>(),
+<a href=Screen_put title=wikilink>Screen_put</a>()</p><p>File used in example:
+<a href=http://wiki.bennugd.org/images/a/a1/Mz800x600.png>Mz800x600.png</a> by
+MZ.</p><h2 id=see-also>See also</h2><p><a href=scale_resolution title=wikilink>scale_resolution</a>,
+<a href=scale_resolution_aspectratio title=wikilink>scale_resolution_aspectratio</a></p>

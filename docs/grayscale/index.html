@@ -1,0 +1,107 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/grayscale/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p><strong>INT</strong> grayscale ( &lt;<strong>INT</strong> fileID&gt; , &lt;<strong>INT</strong> graphID&gt; ,
+&lt;<strong>BYTE</strong> method&gt; )</p><p>This function will convert the specified <a href=graphic title=wikilink>graphic</a>
+by using the specified method; see <a href=#Notes title=wikilink>notes</a> for the
+details.</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> fileID - The <a href=fileID title=wikilink>fileID</a> of the <a href=file title=wikilink>file</a> that holds the graphics.
+<strong>INT</strong> graphID - The <a href=graphID title=wikilink>graphID</a> of the <a href=graphic title=wikilink>graphic</a> to convert.
+<strong>BYTE</strong> method - The method used (see <a href=#Notes title=wikilink>notes</a>).</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong></p><hr><p>-1 - Invalid graphic.
+1 - Success.</p><hr><h2 id=grayscale-modes-grayscale-modes-wikilink><a href=Grayscale_modes title=wikilink>Grayscale modes</a></h2><hr><p><em>Constant</em> - <em>Value</em> - <em>Description</em>
+GSCALE_RGB - 0 - changes the graphic to monochrome.
+GSCALE_R - 1 - changes the graphic to RED scale.
+GSCALE_G - 2 - changes the graphic to GREEN scale.
+GSCALE_B - 3 - changes the graphic to BLUE scale.
+GSCALE_RG - 4 - changes the graphic to YELLOW scale.
+GSCALE_RB - 5 - changes the graphic to PURPLE scale.
+GSCALE_GB - 6 - changes the graphic to CYAN scale.
+GSCALE_OFF - -1 - no change, graphic stays as it is, so filter is not applied.</p><hr><h2 id=notes>Notes</h2><p>The exact formula is:</p><pre><code>c = 0.3 * oldpixel_r + 0.59 * oldpixel_g + 0.11 * oldpixel_b
+</code></pre><p>Method <code>0</code>:</p><pre><code>for every pixel:
+    newpixel_rgb = (c,c,c)
+</code></pre><p>Method <code>1</code>:</p><pre><code>for every pixel:
+    newpixel_rgb = (c,0,0)
+</code></pre><p>Method <code>2</code>:</p><pre><code>for every pixel:
+    newpixel_rgb = (0,c,0)
+</code></pre><p>Method <code>3</code>:</p><pre><code>for every pixel:
+    newpixel_rgb = (0,0,c)
+</code></pre><p>Method <code>4</code>:</p><pre><code>for every pixel:
+    newpixel_rgb = (c,c,0)
+</code></pre><p>Method <code>5</code>:</p><pre><code>for every pixel:
+    newpixel_rgb = (c,0,c)
+</code></pre><p>Method <code>6</code>:</p><pre><code>for every pixel:
+    newpixel_rgb = (0,c,c)
+</code></pre><p>Other methodnumbers:</p><pre><code>for every pixel:
+    newpixel_rgb = oldpixel_rgb
+</code></pre><p>Note that <code>[[rgbscale]](0,map,1,1,1) = [[grayscale]](0,map,0)</code> for a
+valid graphic (0,map).</p><h2 id=example>Example</h2><pre><code>/* Example converted from bennupack, fenix test section, 2 Medium\fenix test\Fenix Test3\Test_GRAYSCALE.prg */
+
+// import modules
+IMPORT &quot;mod_say&quot;;
+IMPORT &quot;mod_debug&quot;;
+IMPORT &quot;mod_map&quot;;
+IMPORT &quot;mod_effects&quot;;
+IMPORT &quot;mod_proc&quot;;
+IMPORT &quot;mod_grproc&quot;;
+IMPORT &quot;mod_map&quot;;
+IMPORT &quot;mod_key&quot;;
+IMPORT &quot;mod_video&quot;;
+IMPORT &quot;mod_screen&quot;;
+
+
+GLOBAL
+
+int fpg;
+int png;
+
+
+
+PROCESS main();
+
+
+BEGIN
+
+  scale_mode=scale_normal2x;
+  set_mode(320,200,mode_16bits);
+
+  fpg=load_fpg(&quot;FPG2.FPG&quot;);
+  png=load_png(&quot;Triangulo_16.png&quot;);
+
+  say(&quot;Grayscale test...&quot;);
+  say(&quot;Press ESC to quit...&quot;);
+
+
+  put_screen(fpg,1);
+
+  ball(110,50,&quot;mode 0: GSCALE_RGB&quot;,GSCALE_RGB);
+  ball(160,50,&quot;mode 1: GSCALE_R&quot;,GSCALE_R);
+  ball(210,50,&quot;mode 2: GSCALE_G&quot;,GSCALE_G);
+  ball(160,100,&quot;mode 3: GSCALE_B&quot;,GSCALE_B);
+  ball(110,150,&quot;mode 4: GSCALE_RG&quot;,GSCALE_RG);
+  ball(160,150,&quot;mode 5: GSCALE_RB&quot;,GSCALE_RB);
+  ball(210,150,&quot;mode 6: GSCALE_GB&quot;,GSCALE_GB);
+  ball(260,150,&quot;mode -1: GSCALE_OFF&quot;,GSCALE_OFF);
+
+  REPEAT
+    FRAME;
+  UNTIL (key(_esc))
+
+  let_me_alone();
+
+END
+
+
+PROCESS ball(int x,int y,string txt,int blur);
+
+BEGIN
+
+  say(txt);
+  graph=map_clone(0,png);
+  grayscale(fpg,graph,blur);
+
+  LOOP
+    FRAME;
+  END
+END
+</code></pre><p><a href=Category:functions>Category:functions</a> <a href=Category:graphical_effects title=wikilink>Category:graphical
+effects</a> <a href=Category:mod_effects>Category:mod_effects</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#grayscale-modes-grayscale-modes-wikilink><a href=Grayscale_modes title=wikilink>Grayscale modes</a></a></li><li><a href=#notes>Notes</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/grayscale.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

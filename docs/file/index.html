@@ -1,0 +1,58 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/file/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><dl><dd><em>This is about the <a href=filetypes title=wikilink>filetype</a>. Did you mean
+the local variable <a href=Local:file title=wikilink>file</a> or the function
+<a href=Function:file title=wikilink>file</a>()?</em></dd></dl><hr><p><a href=Filetypes title=wikilink><strong>Up to Filetypes</strong></a></p><hr><h2 id=description>Description</h2><p>A file is a container for <a href=graphic title=wikilink>graphics</a>, identified by
+a non-negative <a href=int title=wikilink>integer</a> (0 or higher). It holds all
+information about the contained graphics (<a href=pixel title=wikilink>pixels</a>,
+<a href=width title=wikilink>width</a>, <a href=height title=wikilink>height</a>,
+<a href=depth title=wikilink>depth</a>, name, etc). Each of these graphics have a
+unique identifier inside the file (positive <a href=int title=wikilink>int</a>).</p><p>A file can be created for example by loading an <a href=FPG title=wikilink>FPG</a>
+(<em>Fichero Para Gráficos</em>, meaning &ldquo;file for graphics&rdquo;) into it, by using
+<a href=fpg_load title=wikilink>fpg_load</a>(), which creates a new file with the
+graphics from the loaded FPG and returns a unique identifier. Another
+option is to create a new, empty one by using
+<a href=fpg_new title=wikilink>fpg_new</a>(). Don&rsquo;t let the name <em>fpg</em>_new() fool
+you: fpg_new() has nothing to do with the filetype FPG. This is because
+the FPG format is only for files and not for internal use. There are
+more ways to load graphics into a file.</p><p>A file can be used by using the <a href=local_variable title=wikilink>local
+variable</a> <a href=Local:File title=wikilink>file</a> or by
+using the identifier in the various <a href=functions title=wikilink>functions</a>
+with a file parameter.</p><p>Don&rsquo;t forget to unload it with <a href=fpg_unload title=wikilink>fpg_unload</a>()
+after use.</p><h2 id=example>Example</h2><pre><code>import &quot;mod_map&quot;
+import &quot;mod_grproc&quot;
+import &quot;mod_key&quot;
+import &quot;mod_wm&quot;
+
+Global
+    int file_id;
+    int file_id2;
+End
+
+Process Main()
+Begin
+
+    // Load FPG
+    file_id = load_fpg(&quot;example.fpg&quot;);
+    file_id2 = load_fpg(&quot;example2.fpg&quot;);
+
+    // Set locals for display of graph
+    file = file_id;
+    graph = 1;
+    x = y = 50;
+
+    // assign Ship to use example2.fpg
+    Ship(300,100,5,file_id2,1); // undefined in this sample
+
+    Repeat
+        frame;
+    Until(key(_ESC)||exit_status)
+
+End
+</code></pre><p>Used in example: <a href=load_fpg title=wikilink>load_fpg</a>(),
+<a href=key title=wikilink>key</a>(), <a href=x title=wikilink>x</a>, <a href=y title=wikilink>y</a>,
+<a href=file title=wikilink>file</a>, <a href=graph title=wikilink>graph</a>.
+<a href=process title=wikilink>process</a></p><p>Media in example: <a href=Media:example.fpg title=wikilink>example.fpg</a></p><p>Note: nothing will be seen unless you have an <a href=FPG title=wikilink>FPG</a>
+&ldquo;example.fpg&rdquo; with a <a href=graphic title=wikilink>graphic</a> with ID 1.</p><p><a href=Category:general>Category:general</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#description>Description</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/file.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

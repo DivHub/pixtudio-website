@@ -1,0 +1,48 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:local_variables title=wikilink>category:local
+variables</a> <a href=category:internal>category:internal</a></p><p><a href=Local_variables title=wikilink><strong>Up to Local Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>INT</strong> priority = 0</p><p>priority is a predefined <a href=local_variable title=wikilink>local variable</a>,
+holding the priority of the <a href=process title=wikilink>process</a>; default is 0.</p><p>Using this priority, the order of process-execution can be influenced,
+because processes with a higher priority are executed before processes
+with a lower priority.</p><h2 id=example>Example</h2><pre><code>import &quot;mod_say&quot;
+import &quot;mod_proc&quot;
+import &quot;mod_timers&quot;
+
+Process A()
+Begin
+    priority = 0; // Default
+    Loop
+        say(&quot;[&quot; + timer[0] + &quot;] &quot; + &quot;A&quot;);
+        frame(100000000); // This is very high because Bennu runs without limiter here
+    End
+End
+
+Process main()
+Private
+    int f=0;
+Begin
+    priority = 1; // Set to higher priority than A
+    A();
+    Repeat
+        f++;
+        say(&quot;[&quot; + timer[0] + &quot;] &quot; + &quot;Main&quot;);
+        frame(100000000); // This is very high because Bennu runs without limiter here
+    Until(f==5)
+OnExit
+    let_me_alone();
+End
+</code></pre><p>Used in example: <a href=say title=wikilink>say</a>(),
+<a href=let_me_alone title=wikilink>let_me_alone</a>(), <a href=timer title=wikilink>timer</a>,
+<a href=priority title=wikilink>priority</a>, <a href=frame title=wikilink>frame</a></p><p>Possible output:</p><pre><code>[0] A
+[0] Main
+[26] Main
+[26] A
+[50] Main
+[50] A
+[74] Main
+[74] A
+[98] Main
+[98] A
+</code></pre><p>It can be seen here that regardless of priority, <code>A</code> is first executed,
+because <code>A</code> is called by <code>Main</code>. As soon as <code>A</code> reaches its
+<a href=frame title=wikilink>frame</a> statement, <code>Main</code> continues until its frame
+statement and this concludes the first frame. The second frame it is
+shown that the priority has effect: <code>Main</code> is executed before <code>A</code>.</p>

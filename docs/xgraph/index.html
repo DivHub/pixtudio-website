@@ -1,0 +1,26 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:local_variables title=wikilink>category:local
+variables</a> <a href=category:libscroll>category:libscroll</a>
+<a href=category:librender>category:librender</a></p><p><a href=Local_variables title=wikilink><strong>Up to Local Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p>The predefined local variable xgraph is assigned to each process. It is
+the so called &ldquo;extended&rdquo; graphic, and it allows graphics to be displayed
+that are controlled by the nearest process <a href=Angle title=wikilink>Angle</a>.
+When the xgraph is defined, the normal variable
+<a href=Graph title=wikilink>Graph</a> is ignored, and the graphic used for display
+is determined by the angle.</p><p>So when the angle changes, a different graphic is selected from a table
+(defined as an <a href=Array title=wikilink>Array</a>). The standard value of xgraph
+is 0, so normally it isn&rsquo;t used unless it is explicitly specified.
+Xgraps are usefull in combination with <a href=Mode7 title=wikilink>Mode7</a>, to
+create graphics with perspectives. This mechanism is similair to how
+<a href=http://en.wikipedia.org/wiki/Wolfenstein_3D>Wolfenstein3D</a>,
+<a href=http://en.wikipedia.org/wiki/Doom_%28video_game%29>Doom</a> and <a href=http://en.wikipedia.org/wiki/Duke_Nukem_3D>Duke
+Nukem 3D</a> render their
+sprites. So it&rsquo;s not true 3d, but just a bunch of sprites wich
+perspective depends on the viewing angle.</p><h2 id=how-to-use-it>How to use it</h2><p>First, you&rsquo;ll have to make sprites for all intended perspective&rsquo;s. To
+more angle&rsquo;s you wish, the more perspectives you&rsquo;ll need.</p><p>Second, you must place the graphics in order of their angle, in
+clockwise fashion.</p><p>Third, you&rsquo;ll have to make a table with the graphic codes.</p><pre><code>GLOBAL
+
+perspective_table[]=4,10,11,12,13; // the length doesn't matter, but the more perspectives you wish, 
+                                   // the more graphics you need to have.
+</code></pre><p>Fourth, you&rsquo;ll have to assing the table offset to the xgraph.</p><pre><code>xgraph=&amp;perspective_table; // xgraph get's the offset adress of the array.
+</code></pre><p>The <a href=Offset title=wikilink>Offset</a> operator is get&rsquo;s the adress of the
+data, this is related to pointers.</p><h2 id=remarks>Remarks</h2><p>When xgraph is defined, it has to be set to 0 in order to deactivate it.</p><p>When a graphic code in the table has a negative number, this graphic
+will be mirrored horizontally.</p>

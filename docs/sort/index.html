@@ -1,0 +1,96 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/sort/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=syntax>Syntax</h2><p><strong>INT</strong> sort ( &lt;<strong>VARSPACE</strong> array&gt; , [&lt;<strong>INT</strong>
+datacount&gt;] )</p><h2 id=description>Description</h2><p>Sorts an <a href=array title=wikilink>array</a> by sorting a certain number of
+elements, by using the first variable in each element. By default the
+whole array is sorted.</p><p>If the elements contain multiple variables, <a href=ksort title=wikilink>ksort</a>()
+can be used to select the variable to be used for sorting. For more
+advanced sorting, look at <a href=quicksort title=wikilink>quicksort</a>().</p><h2 id=parameters>Parameters</h2><hr><p><strong>VARSPACE</strong> array - The <a href=array title=wikilink>array</a> to be sorted.
+[<strong>INT</strong> datacount] - Number of elements to sort.</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong>: Successrate</p><hr><p><a href=true title=wikilink>true</a> - Sorting succeeded.
+<a href=false title=wikilink>false</a> - Sorting failed. Look in the output for the error.</p><hr><h2 id=example>Example</h2><pre><code>import &quot;mod_sort&quot;;
+import &quot;mod_key&quot;;
+import &quot;mod_say&quot;;
+
+Type _player
+    String name;
+    int score;
+End
+
+Const
+    maxplayers = 5;
+End;
+
+
+Process main()
+Private
+    _player player[maxplayers-1];
+    int i=0;
+Begin
+    // Insert some values
+    player[0].name = &quot;That one bad looking dude&quot;;
+    player[1].name = &quot;Ah pretty lame guy&quot;;
+    player[2].name = &quot;Some cool dude&quot;;
+    player[3].name = &quot;OMG ZOMG guy&quot;;
+    player[4].name = &quot;This person is ok&quot;;
+
+    player[0].score = 70;
+    player[1].score = 30;
+    player[2].score = 80;
+    player[3].score = 90;
+    player[4].score = 50;
+
+
+    // Show array
+    say(&quot;-------------------- unsorted&quot;);
+    for(i=0; i&lt;maxplayers; i++)
+        say(player[i].name + &quot; - &quot; + player[i].score);
+    end
+
+/* Sort by name ( quicksort() can't be used to sort Strings,
+   as a String in Bennu is a pointer to the actual String,
+   so it would sort the pointer addresses */
+
+    // sort()
+    sort(player); // sorts by name because name is the first variable in each element
+
+    // Show array
+    say(&quot;-------------------- name - sort()&quot;);
+    for(i=0; i&lt;maxplayers; i++)
+        say(player[i].name + &quot; - &quot; + player[i].score);
+    end
+
+    // ksort()
+    ksort(player,player[0].name,maxplayers);
+
+    // Show array
+    say(&quot;-------------------- name - ksort()&quot;);
+    for(i=0; i&lt;maxplayers; i++)
+        say(player[i].name + &quot; - &quot; + player[i].score);
+    end
+
+/* Sort by score (sort() cannot be used here, because score is not the first variable) */
+
+    // ksort()
+    ksort(player,player[0].score,maxplayers);
+
+    // Show array
+    say(&quot;-------------------- score - ksort()&quot;);
+    for(i=0; i&lt;maxplayers; i++)
+        say(player[i].name + &quot; - &quot; + player[i].score);
+    end
+
+    // quicksort()
+    quicksort(&amp;player[0],sizeof(_player),maxplayers,sizeof(String),sizeof(int),0);
+
+    // Show array
+    say(&quot;-------------------- score - quicksort()&quot;);
+    for(i=0; i&lt;maxplayers; i++)
+        say(player[i].name + &quot; - &quot; + player[i].score);
+    end
+End
+</code></pre><p>Used in example: <a href=say title=wikilink>say</a>(), <a href=sort title=wikilink>sort</a>(),
+<a href=ksort title=wikilink>ksort</a>(), <a href=quicksort title=wikilink>quicksort</a>(),
+<a href=type title=wikilink>type</a>, <a href=array title=wikilink>array</a>,
+<a href=pointer title=wikilink>pointer</a></p><p><a href=Category:functions>Category:functions</a> <a href=Category:sorting>Category:sorting</a> <a href=Category:mod_sort>Category:mod_sort</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#syntax>Syntax</a></li><li><a href=#description>Description</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/sort.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

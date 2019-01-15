@@ -1,0 +1,41 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:global_variables title=wikilink>category:global
+variables</a> <a href=category:librender>category:librender</a></p><p><a href=Global_variables title=wikilink><strong>Up to Global Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>FLOAT</strong> frame_time</p><p><strong>Frame_time</strong> is a <a href=global_variable title=wikilink>global variable</a>,
+holding the time passed the last frame. In other words: the difference
+in time between the start of the last frame and the current frame.</p><dl><dt>Doing a bit of physics, we see that:</dt><dd><p>FPS = 1 / frame_time</p></dd><dt>Be advised that frame_time is in milliseconds accurate, so it can be 0
+at times, so one might prevent such a case from happening:</dt><dd><p>FPS = 1 / ( frame_time + (frame_time==0)*0.0001 );</p></dd></dl><p>This gives a sort of FPS which is accurate every frame.</p><h2 id=example>Example</h2><p>Display how long the program has been running, by use of frame_time:</p><pre><code>Program timers;
+Private
+    int ft; // Help variable
+    int i;  // how long the program has been running in 1/100s
+    float f; // how long the program has been running in 1/100s
+Begin
+
+    set_mode(320,400,8);
+    write_int   (0,0,300,0,&amp;timer);
+    write_int   (0,0,310,0,&amp;i);
+    write_float (0,0,320,0,&amp;f);
+
+    Repeat
+
+        // Calculate how long the program has been running in 1/100s without a float
+        ft %= 10; // keep the milliseconds from last time
+        ft += frame_time*1000; // add the last passed time to it in milliseconds
+        i += ft/10; // add it to the integer without the milliseconds
+
+        // Calculate how long the program has been running in 1/100s with a float
+        f+=frame_time*100;
+
+        frame;
+    Until(key(_ESC))
+
+End
+</code></pre><p>Used in example: <a href=set_mode title=wikilink>set_mode</a>(),
+<a href=write_int title=wikilink>write_int</a>(),
+<a href=write_float title=wikilink>write_float</a>(), <a href=key title=wikilink>key</a>(),
+<a href=timer title=wikilink>timer</a></p><p>Let a <a href=process title=wikilink>process</a> wait for a certain time by calling
+this function:</p><pre><code>Function int wait(float seconds)
+Begin
+    While( (seconds-=frame_time) &gt; 0 ) frame; End
+    return -seconds;
+End
+</code></pre><p>This can be done with a timer too, as is displayed
+<a href=timer#Example title=wikilink>here</a>.</p>

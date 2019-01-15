@@ -1,0 +1,53 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/general/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=guide-porting-to-your-chosen-system>Guide: Porting to your chosen system</h2><p>This is a general guide for getting your Bennu game onto your chosen
+system.</p><p>&rdquo;&rsquo; <em>If you have missed the front page of this Wiki please see</em>
+<em><a href="http://wiki.bennugd.org/index.php?title=Bennu_Wiki">Bennu_Wiki</a> or
+click on the BennuWiki logo on the top left of this page.</em> &ldquo;&rsquo;</p><dl><dt>these OS or platforms:</dt><dd><p>Windows</p></dd><dd><p>Linux</p></dd><dd><p>Caanoo (a later GP2X type handheld)</p></dd><dd><p>GP2X Wiz</p></dd><dd><p>Dingux (Dingoo OS for handheld)</p></dd><dt>The rest are generally unsupported by BennuGD community but still quite
+possible:</dt><dd><p>Playstation 2</p></dd><dd><p>HTML5/Chrome Native Client</p></dd><dd><p>Dreamcast</p></dd><dd><p>Haiku OS</p></dd><dd><p>FreeBSD</p></dd><dd><p>MacOS X (Intel 32 bits)</p></dd><dd><p>BennuGD PPA for Ubuntu 32 bits</p></dd><dd><p>Nintendo Wii</p></dd><dd><p>PSP</p></dd><dd><p>Pandora</p></dd><dd><p>Xbox</p></dd><dd><p>Motorola linux phone (RU)</p></dd><dt>Another exciting development is - BennuGD is being ported to:</dt><dd><p>Android</p></dd></dl><dl><dt>ther exciting development is - BennuGD is being ported to:</dt><dd><p>Android</p></dd></dl><p>Expect this to be added to the &ldquo;unsupported&rdquo; section list very soon.</p><p><strong>Essential: Check out <a href=http://bennugd.org/node/2>Downloads</a> page for
+BennuGD.</strong></p><p><strong>You can read about current developments on any ports at bennugd.org
+main page in the frontpage <a href=http://bennugd.org>News</a> feed.</strong></p><h2 id=starting-out>Starting Out</h2><p>If you have some experience with BennuGD you will have used bgdc (the
+compiler) and bgdi (the interpreter).</p><p>Once you have downloaded the Bennu port for your chosen target platform
+you will find it includes bgdc.xxx and bgdi.xxx. The compiler is the
+part that talks to the the machine, making your bennu code into a .dcb
+that is usable when executed with the interpreter. Also depending on
+which port, you will also find the set of standard libraries for the
+specific machine, or not. With bennu-monolithic ports you may find the
+libraries are not present as seperate files.</p><p>&rdquo; <strong>bennugd-monolithic</strong> - Many of recent ports are part of the
+bennugd-monolithic project, which enables certain machines to run Bennu
+successfully, including <strong>Wii, PSP iOS and Android.</strong> See josebita&rsquo;s
+<a href=http://code.google.com/p/bennugd-monolithic/>bennugd-monotlithic</a>
+Google Code pages for information about this.&rdquo;</p><p>So if you haven&rsquo;t done so, see the
+<a href=http://bennugd.org/node/2>Downloads</a> page of bennugd.org and retrieve
+the relevant port for your system - (checking that you are downloading
+the latest version!)</p><h2 id=notes-on-setting-up>Notes on Setting Up</h2><p>Porting is quite a task sometimes. You may find you need to edit your
+source code, depending on requirements of the target system and the
+current state of the port you are using. This can be related to sound or
+display requirements for example. Sometimes you can find your game may
+not run fast enough and needs optimisation - the target system can be
+slower than the computer you originally wrote the game for. However this
+should be only attempted after testing your game! So read on!</p><p>Also some preparation work is desired in your game source for the
+peripherals (controls) of the console or platform, so a good idea is to
+ascertain what controls you will be using early on. There is a section
+on this next in the guide!</p><p>The other part of porting is getting <strong>the machine you want to run your
+Bennu game on to actually compile the game itself.</strong> This can be an easy
+process or rather tough. But you will find certain tools written by
+developers who have paved the way before you will make this infinitely
+easier.</p><p>Most of all DON&rsquo;T GIVE UP. You may find once your game compiles
+successfully with bgdc and you have a .dcb ready, there may be runtime
+errors when running and playing your game (with bgdi).</p><p>Once you have filesystem specifics set up for your chosen platform, the
+thing to remember is the standard commandline process which must be
+performed on the machine you intend to run your game on:</p><p><code>bgdc.xxx [params] bennugame.prg</code></p><p>Which naturaly takes your code and builds a dcb of your program.</p><p><code>bgdi.xxx bennugame.dcb</code></p><p>This will run your program.</p><p>Note: Most testing scenarios will not require you to use parameters in
+the compilation of your game/program.</p><p>However, one common parameter used is -a which automatically packages
+your commonly used resources - for example FPGs, WAVs into the dcb. This
+is optional for you of course, but can be very beneficial. When
+distributing your game or homebrew, people will not see your resource
+files and can help protect them from further use.</p><p>For further information on compile parameters you can ask bgdc itself:</p><p><code>bgdc.xxx -help</code></p><p>Which prints a list of parameters and a description of their uses.
+&ldquo;&lsquo;Disclaimer: <em>Be careful with these! They can sometimes crash your
+console or any equipment used!</em> &ldquo;&rsquo;</p><p>For any platform specific questions I will direct you to the bennugd.org
+community boards for each supported platform.
+<a href="http://forum.bennugd.org/index.php?board=80.0">Here</a> you can post
+questions or search for answers. (This is for more advanced or searching
+questions about each particular console/machine).</p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#guide-porting-to-your-chosen-system>Guide: Porting to your chosen system</a></li><li><a href=#starting-out>Starting Out</a></li><li><a href=#notes-on-setting-up>Notes on Setting Up</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/general.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

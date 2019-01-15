@@ -1,0 +1,105 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/calloc/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=syntax>Syntax</h2><p><strong>VOID POINTER</strong> calloc (&lt;<strong>INT</strong> num&gt; ,&lt;<strong>INT</strong> size&gt;)</p><h2 id=description>Description</h2><p>Allocates (creates) a <a href=memoryblock title=wikilink>block of memory</a> of a
+certain size. Calloc is slightly different from alloc, as it is more
+natively suited for creating arrays. It also automatically initialises
+the data with zeros, so that the use of <a href=memset title=wikilink>memset</a>() or
+<a href=memseti title=wikilink>memseti</a>() can be omitted. Returns a pointer to the
+newly allocating memory block, or <a href=NULL title=wikilink>NULL</a> on failure.</p><p>Also called <a href=mem_calloc title=wikilink>mem_calloc</a>().</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> num - The amount of elements to be created in <a href=int title=wikilink>ints</a>. <strong>INT</strong> size - The size of the to be allocated memory in <a href=byte title=wikilink>bytes</a>.</p><hr><h2 id=returns>Returns</h2><p><strong>VOID POINTER</strong> : Pointer to the first element of the allocated memory
+block.</p><hr><p><a href=NULL title=wikilink>NULL</a> - There was are an error allocating the memory, like insufficient memory available.
+<img src=NULL alt=NULL title=wikilink> - Pointer to the first element of the allocated memory block.</p><hr><h2 id=example>Example</h2><pre><code>// Some general remarks with manual memory managment, ALWAYS free data after use, and test if an
+// allocation was successfull with IF (p_array==NULL). When one of these memory allocation
+// functions returns a NULL, the allocation was NOT sucessfull, and any kind of unpredicatable things
+// can happen. With manual memory managment, you'll have to really know what you're doing, as the slightest
+// mistake can cause crashes and unpredicatable behaviour, wich is one of the dangers with using pointers.
+
+
+
+// import modules
+IMPORT &quot;mod_say&quot;;
+IMPORT &quot;mod_debug&quot;;
+IMPORT &quot;mod_mem&quot;;
+
+
+/*
+    calloc(int size,type);
+    returns: void pointer
+    purpose: create a block of memory, of a certain size, the returned pointer indicates the start adress of this block.
+*/
+
+
+
+GLOBAL
+
+int pointer p_array;        // 10 elments, created with calloc()
+
+int elements=10;            // initial array size
+
+
+int count;                  // general purpose loop counter
+
+
+
+PROCESS main();
+
+BEGIN
+
+    // Now let's use calloc to create an array, but calloc is a bit smarter then alloc. It's more suited to array's and
+    // it even initializes all the data to 0 for you, so that you can omit the memset() function. In this case I 
+    // kept memseti() in there, but you can omit it when using calloc(). But with alloc() you need to use it!
+
+    // Note the small difference between alloc() and calloc().
+
+    //p_array=alloc(elements*sizeof(int));
+    p_array=calloc(elements,sizeof(int));   // 10 * 4 bytes (the size of an int)
+
+
+    // check if the allocation succeeded
+    IF (p_array==NULL)
+       // allocation failed
+       say(&quot;allocation failed!! p_array=&quot;+p_array);
+
+    ELSE
+
+       // allocation succeeded
+       // set the value's to zero
+       /*
+       memseti(p_array ,0,elements); // not need for calloc();
+       */
+
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+       // print the array
+       FOR (count=0; count&lt;elements; count+=1)
+           say(&quot;p_array[&quot;+count+&quot;]=&quot;+p_array[count]);
+       END
+
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+       say(&quot;the size of the array is &quot;+(elements*sizeof(int))+&quot; bytes&quot;);
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+    END   
+
+
+
+
+
+ONEXIT
+
+   // Free the used memory
+   say(&quot;freeing old memory........&quot;);
+
+   say(&quot;p_array...&quot;);
+   free(p_array);
+   say(&quot;ok&quot;); 
+
+END
+</code></pre><p>Used in example: <a href=alloc title=wikilink>alloc</a>(),
+<a href=memset title=wikilink>memset</a>(), <a href=memsetw title=wikilink>memsetw</a>(),
+<a href=memseti title=wikilink>memseti</a>(), <a href=sizeof title=wikilink>sizeof</a>(),
+<a href=say title=wikilink>say</a>(), <a href=free title=wikilink>free</a>(),
+<a href=OnExit title=wikilink>OnExit</a>, <a href=pointer title=wikilink>pointer</a>,
+<a href=sizeof title=wikilink>sizeof</a></p><p><a href=Category:functions>Category:functions</a> <a href=Category:memory>Category:memory</a> <a href=Category:mod_mem>Category:mod_mem</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#syntax>Syntax</a></li><li><a href=#description>Description</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/calloc.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

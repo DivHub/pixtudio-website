@@ -1,0 +1,222 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/find/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p><strong>INT</strong> find ( &lt;<strong>STRING</strong> str&gt; , &lt;<strong>STRING</strong> searchstring&gt;
+, [&lt;<strong>INT</strong> startposition&gt;] )</p><p>Returns the position of the firstly found appearance of a <em>searchstring</em>
+in <em>str</em> or -1 if not found. The starting position can be specified
+optionally.</p><h2 id=parameters>Parameters</h2><hr><p><strong>STRING</strong> str - The string in which to search.
+<strong>STRING</strong> searchstring - The string to search for.
+[<strong>INT</strong> startposition] - The position at which to start searching. Default is 0.</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong> : The position of the firstly found appearance of <em>searchstring</em>
+in <em>str</em> or -1 if not found.</p><h2 id=example>Example</h2><p>In this example there&rsquo;s a very long string in wich we&rsquo;re going to look
+for 10 strings. Some of these are found (when the result is &gt; -1),
+and others are deliberately bogus to show how you can detect if a string
+is not found. What you&rsquo;ll see, is that when you specify a start position
+greater then 0, and the word exists but your start position is behind
+the actual position of the first character of the word you&rsquo;re looking
+for, the function returns -1 (no match). If you specify 0 (the start of
+the string), you&rsquo;ll be safe, because it will return the fist occurance
+of the word or character when it exists in the string.</p><p>As you can see, the working of the find function works very similarly to
+the find and search/replace function that you get in most text editors.</p><pre><code>#IFdef __VERSION__
+IMPORT &quot;mod_video&quot;;
+IMPORT &quot;mod_text&quot;;
+IMPORT &quot;mod_say&quot;;
+IMPORT &quot;mod_key&quot;;
+IMPORT &quot;mod_string&quot;;
+IMPORT &quot;mod_proc&quot;;
+IMPORT &quot;mod_map&quot;;
+IMPORT &quot;mod_draw&quot;;
+IMPORT &quot;mod_debug&quot;;
+IMPORT &quot;mod_sys&quot;;
+IMPORT &quot;mod_wm&quot;;
+#ENDIF
+
+
+GLOBAL
+
+/* this is the big string in wich we're going to try the find() function on with a couple of tests. */
+string string_to_find_in = &quot;hello, world! this is a very long string in wich the 'find' function must find another string. let's try a few things.&quot;;
+
+/* these are the strings we're going to test. */
+string search_string0 = &quot;wich&quot;;
+string search_string1 = &quot;wich&quot;;
+string search_string2 = &quot;.&quot;;
+string search_string3 = &quot;str&quot;;
+string search_string4 = &quot;hello&quot;;
+string search_string5 = &quot;find&quot;;
+string search_string6 = &quot;i don't exist in the string&quot;;
+string search_string7 = &quot;me neither&quot;;
+string search_string8 = &quot;must&quot;;
+string search_string9 = &quot;a&quot;;
+
+/* return values for the tests. a return value of &quot;-1&quot; means that the string could not be found. */
+int find_result0;
+int find_result1;
+int find_result2;
+int find_result3;
+int find_result4;
+int find_result5;
+int find_result6;
+int find_result7;
+int find_result8;
+int find_result9;
+
+/* we store the find positions here. */
+int find_pos0;
+int find_pos1;
+int find_pos2;
+int find_pos3;
+int find_pos4;
+int find_pos5;
+int find_pos6;
+int find_pos7;
+int find_pos8;
+int find_pos9;
+
+
+PRIVATE
+
+
+PROCESS main ();
+
+PRIVATE
+
+BEGIN
+
+   /* experiment with these to try different results. */
+   find_pos0 = 0;
+   find_pos1 = 45;
+   find_pos2 = 118;
+   find_pos3 = 0;
+   find_pos4 = 0;
+   find_pos5 = 70;
+   find_pos6 = 0;
+   find_pos7 = 0;
+   find_pos8 = 94;
+   find_pos9 = 94;
+
+
+   /* INT find ( &lt;STRING str&gt; , &lt;STRING searchstring&gt; , [&lt;INT startposition&gt;] ); */
+
+   find_result0 = find (string_to_find_in, search_string0, find_pos0); /* search_string0 = &quot;wich&quot;; */
+
+   find_result1 = find (string_to_find_in, search_string1, find_pos1); /* search_string1 = &quot;wich&quot;; */
+
+   find_result2 = find (string_to_find_in, search_string2, find_pos2); /* search_string2 = &quot;.&quot;; */
+
+   find_result3 = find (string_to_find_in, search_string3, find_pos3); /* search_string3 = &quot;str&quot;; */
+
+   find_result4 = find (string_to_find_in, search_string4, find_pos4); /* search_string4 = &quot;hello&quot;; */
+
+   find_result5 = find (string_to_find_in, search_string5, find_pos5); /* search_string5 = &quot;find&quot;; */
+
+   find_result6 = find (string_to_find_in, search_string6, find_pos6); /* search_string6 = &quot;i don't exist in the string&quot;; */
+
+   find_result7 = find (string_to_find_in, search_string7, find_pos7); /* search_string7 = &quot;me neither&quot;; */
+
+   find_result8 = find (string_to_find_in, search_string8, find_pos8); /* search_string8 = &quot;must&quot;; */
+
+   find_result9 = find (string_to_find_in, search_string9, find_pos9); /* search_string9 = &quot;a&quot;; */
+
+
+
+   /* 
+             &quot;hello, world! this is a very long string in wich the 'find' function must find another string. let's try a few things.&quot;;            
+              |                                                                                                                    |
+     char pos:0                                                                                                                    118
+   */
+
+
+   /* display the results in the console. */
+   say(&quot;&quot;);
+   say(&quot;looking for: '&quot;+search_string0+&quot;'&quot;);
+   say (&quot;search_string0 result: &quot;+find_result0);
+   IF (find_result0 == -1)
+      say (&quot;no match for: '&quot;+search_string0+&quot;' at the indicated position: &quot;+find_pos0);
+   ELSE
+      say (&quot;'&quot;+search_string0+&quot;'&quot;+&quot; found at position: &quot;+find_result0);
+   END
+
+   say(&quot;&quot;);
+   say(&quot;looking for: '&quot;+search_string1+&quot;'&quot;);
+   say (&quot;search_string1 result: &quot;+find_result1);
+   IF (find_result1 == -1)
+      say (&quot;no match for: '&quot;+search_string1+&quot;' at the indicated position: &quot;+find_pos1);
+   ELSE
+      say (&quot;'&quot;+search_string1+&quot;'&quot;+&quot; found at position: &quot;+find_result1);
+   END
+
+   say(&quot;&quot;);
+   say(&quot;looking for: '&quot;+search_string2+&quot;'&quot;);
+   say (&quot;search_string2 result: &quot;+find_result2);
+   IF (find_result2 == -1)
+      say (&quot;no match for: '&quot;+search_string2+&quot;' at the indicated position: &quot;+find_pos2);
+   ELSE
+      say (&quot;'&quot;+search_string2+&quot;'&quot;+&quot; found at position: &quot;+find_result2);
+   END
+
+   say(&quot;&quot;);
+   say(&quot;looking for: '&quot;+search_string3+&quot;'&quot;);
+   say (&quot;search_string3 result: &quot;+find_result3);
+   IF (find_result3 == -1)
+      say (&quot;no match for: '&quot;+search_string3+&quot;' at the indicated position: &quot;+find_pos3);
+   ELSE
+      say (&quot;'&quot;+search_string3+&quot;'&quot;+&quot; found at position: &quot;+find_result3);
+   END
+
+   say(&quot;&quot;);
+   say(&quot;looking for: '&quot;+search_string4+&quot;'&quot;);
+   say (&quot;search_string4 result: &quot;+find_result4);
+   IF (find_result4 == -1)
+      say (&quot;no match for: '&quot;+search_string4+&quot;' at the indicated position: &quot;+find_pos4);
+   ELSE
+      say (&quot;'&quot;+search_string4+&quot;'&quot;+&quot; found at position: &quot;+find_result4);
+   END
+
+   say(&quot;&quot;);
+   say(&quot;looking for: '&quot;+search_string5+&quot;'&quot;);
+   say (&quot;search_string5 result: &quot;+find_result5);
+   IF (find_result5 == -1)
+      say (&quot;no match for: '&quot;+search_string5+&quot;' at the indicated position: &quot;+find_pos5);
+   ELSE
+      say (&quot;'&quot;+search_string5+&quot;'&quot;+&quot; found at position: &quot;+find_result5);
+   END
+
+   say(&quot;&quot;);
+   say(&quot;looking for: '&quot;+search_string6+&quot;'&quot;);
+   say (&quot;search_string6 result: &quot;+find_result6);
+   IF (find_result6 == -1)
+      say (&quot;no match for: '&quot;+search_string6+&quot;' at the indicated position: &quot;+find_pos6);
+   ELSE
+      say (&quot;'&quot;+search_string6+&quot;'&quot;+&quot; found at position: &quot;+find_result6);
+   END
+
+   say(&quot;&quot;);
+   say(&quot;looking for: '&quot;+search_string7+&quot;'&quot;);
+   say (&quot;search_string7 result: &quot;+find_result7);
+   IF (find_result7 == -1)
+      say (&quot;no match for: '&quot;+search_string7+&quot;' at the indicated position: &quot;+find_pos7);
+   ELSE
+      say (&quot;'&quot;+search_string7+&quot;'&quot;+&quot; found at position: &quot;+find_result7);
+   END
+
+   say(&quot;&quot;);
+   say(&quot;looking for: '&quot;+search_string8+&quot;'&quot;);
+   say (&quot;search_string8 result: &quot;+find_result8);
+   IF (find_result8 == -1)
+      say (&quot;no match for: '&quot;+search_string8+&quot;' at the indicated position: &quot;+find_pos8);
+   ELSE
+      say (&quot;'&quot;+search_string8+&quot;'&quot;+&quot; found at position: &quot;+find_result8);
+   END
+
+   say(&quot;&quot;);
+   say(&quot;looking for: '&quot;+search_string9+&quot;'&quot;);
+   say (&quot;search_string9 result: &quot;+find_result9);
+   IF (find_result9 == -1)
+      say (&quot;no match for: '&quot;+search_string9+&quot;' at the indicated position: &quot;+find_pos9);
+   ELSE
+      say (&quot;'&quot;+search_string9+&quot;'&quot;+&quot; found at position: &quot;+find_result9);
+   END
+
+END
+</code></pre><h2 id=notes>Notes</h2><p>A first character of a string is at position 0.</p><p><a href=Category:functions>Category:functions</a> <a href=Category:strings>Category:strings</a> <a href=Category:mod_string>Category:mod_string</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li><li><a href=#notes>Notes</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/find.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

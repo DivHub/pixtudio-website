@@ -1,0 +1,98 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/map_buffer/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p><strong>POINTER</strong> map_buffer ( &lt;<strong>INT</strong> fileID&gt; , &lt;<strong>INT</strong>
+graphID&gt; )</p><p>Get access to the memory buffer of the map. This function is usefull in
+combination with <a href=Memset title=wikilink>Memset</a>(). This way you can
+manipulate the actual bytes of the map.</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> fileID - The <a href=file title=wikilink>file</a> that holds the graph.
+<strong>INT</strong> graphID - The <a href=graph title=wikilink>graph</a> to get information from.</p><hr><h2 id=returns>Returns</h2><p><strong>POINTER</strong> : Pointer to the memory contents of the map.</p><h2 id=example>Example</h2><p>In this example I&rsquo;m going to demonstrate how you can manipulate the
+pixel buffer of the map. I load the same map twice (each with their own
+ID), and one of them is butchered by messing with it&rsquo;s pixel buffer. By
+assiging that map to a <a href=Pointer title=wikilink>Pointer</a> with map_buffer(),
+we can use <a href=Memset title=wikilink>Memset</a>() to change the bytes in the
+memory area that the map occupies.</p><pre><code>IMPORT &quot;mod_say&quot;;
+IMPORT &quot;mod_debug&quot;;
+IMPORT &quot;mod_key&quot;;
+IMPORT &quot;mod_map&quot;;
+IMPORT &quot;mod_video&quot;;
+IMPORT &quot;mod_wm&quot;;
+IMPORT &quot;mod_draw&quot;;
+IMPORT &quot;mod_screen&quot;;
+IMPORT &quot;mod_mem&quot;;
+IMPORT &quot;mod_text&quot;;
+
+GLOBAL
+
+   int map_id;    // id code of the map to load
+   int map_id2;
+
+   pointer p_map; // pointer to the map_buffer
+
+PROCESS main();
+
+BEGIN
+
+   set_mode(320,200,32);
+
+
+   write(0,10,10,3,&quot;map_buffer example, press 'ESC' to quit.&quot;);
+
+   write(0,10,30,3,&quot;press '1' to show the modified map.&quot;);
+   write(0,10,40,3,&quot;press '2' to show the orginial map.&quot;);
+
+   // load two maps, this map can be found in bennupack: 2 Medium\IA\PATH.FIND\3COCHE.MAP
+   // it is a the &quot;car&quot; graphic of the pathfind tutorial for TYCO. Both maps are the same,
+   // but one of them we're going to modify with map_buffer().
+   map_id=load_map(&quot;3COCHE.MAP&quot;);
+   map_id2=load_map(&quot;3COCHE.MAP&quot;); // same map, but this one is left intact
+
+
+   graph=map_id2; // original map
+   x=100; 
+   y=100;
+
+
+   // get the memory adress of the &quot;raw&quot; pixel buffer of the map.
+   p_map=map_buffer(0,map_id);
+
+
+   // now that we've got acccess to the pixel buffer, we can change individual bytes.
+   // with memset we can modify memory contents of individual bytes. 
+   // in this case, we change the first 1000 bytes into the color #100.
+   memset(p_map,100,1000); 
+
+   // no, we're offsetting 200 adresses from the start of the memory block, and change another
+   // 1000 bytes into a different color.
+   memset(p_map+200,150,1000); 
+
+
+   LOOP
+      IF (key(_esc))
+         BREAK;
+      END
+
+      IF (key(_1))     // show the &quot;butchered&quot; map
+         FRAME(100);
+         graph=map_id;
+         say(&quot;showing map modified with map_buffer()&quot;);
+      END
+
+      IF (key(_2))    // show the original map
+         FRAME(100);
+         graph=map_id2;
+         say(&quot;showing original map&quot;);
+      END
+
+      FRAME;
+   END
+END
+</code></pre><p>Used in example: <a href=Load_map title=wikilink>Load_map</a>(),
+<a href=Memset title=wikilink>Memset</a>(), <a href=Write title=wikilink>Write</a>(),
+<a href=Say title=wikilink>Say</a>(), <a href=Pointer title=wikilink>Pointer</a>()</p><h2 id=notes>Notes</h2><p>In the <a href=Memset title=wikilink>Memset</a>() function, indiviual bytes are used.
+The amount of bytes to store the color of one pixel depends on it&rsquo;s
+colordepth. In 8 bit mode, you need only one byte per pixel, in rgb mode
+3 bytes and in rgba mode 4 bytes per pixel. So that is something you
+should be aware of. This is a similair caveat as with the
+<a href=Alloc title=wikilink>Alloc</a>() function, because you&rsquo;re dealing with raw
+memory contents here.</p><p><a href=Category:functions>Category:functions</a> <a href=Category:maps>Category:maps</a> <a href=Category:mod_map>Category:mod_map</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li><li><a href=#notes>Notes</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/map_buffer.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

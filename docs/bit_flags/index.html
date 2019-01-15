@@ -1,0 +1,99 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/bit_flags/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p>Bit flags are constants which each denotes a single unique case in one
+situation and can be combined to form different, unique cases. They are
+called <em>bit</em> flags, because when <a href=bit title=wikilink>bits</a> are used to
+denote a cases, we observe they are indeed single and unique and can be
+combined to form different unique combinations.</p><p>Bit flags are often used as integers:</p><hr><p><em>Bit pattern</em> - <em>Integer value</em>
+0001 - 1
+0010 - 2
+0100 - 4
+1000 - 8</p><hr><p>These can be combined to form, for example:</p><hr><p><em>Bit pattern</em> - <em>Integer value</em>
+1001 - 9
+0110 - 6
+1110 - 14
+0101 - 5</p><hr><h2 id=example>Example</h2><p>When we look at <a href=blit_flags title=wikilink>blit flags</a> for example, we see
+the values:</p><hr><p><em>Constant</em> - <em>Value</em> - <em>Description</em>
+B_HMIRROR - 1 - Blit the graph horizontally mirrored.
+B_VMIRROR - 2 - Blit the graph vertically mirrored.
+B_TRANSLUCENT - 4 - Blit the graph with half transparency.
+B_ALPHA - 8 - Blit the graph in some way. (<em>What does this do exactly?</em>)
+B_ABLEND - 16 - Blit the graph using additive blending (nice effect for fire).
+B_SBLEND - 32 - Blit the graph using subtractive blending (nice effect for ghosting).
+B_NOCOLORKEY - 128 - Blit the transparent parts of the graph as black.</p><hr><p>These are all single unique cases and can be combined to form different
+unique cases. For example, when we want a translucent, horizontally
+mirrored blit operation with use of additive blending, we would do:</p><pre><code>B_HMIRROR | B_TRANSLUCENT | B_ABLEND
+1         | 4             | 16       = 21
+</code></pre><p>Because the bits are unique, the <a href=addition title=wikilink>addition</a>
+<a href=operator title=wikilink>operator</a> can also be used. But when we consider
+there would be a constant called B_HVMIRROR, which has the value
+B_HMIRROR|B_VMIRROR (3), the addition operator can&rsquo;t be used all the
+time:</p><pre><code>B_HMIRROR | B_HVMIRROR == 1 | 3 == 3
+B_HMIRROR + B_HVMIRROR == 1 + 3 == 4
+</code></pre><p>In conclusion, use the <a href=bor title=wikilink>bor</a> operator when dealing with
+bit flags to be on the safe side.</p><h3 id=usage-example>Usage Example</h3><pre><code>Process main()
+Private
+    unsigned byte options;
+Begin
+
+    /* Manipulate bit flags */
+
+    // To set options, use = (the bits with 1's will be targeted)
+    options = 01000001b;
+
+    // To add options, use | (the bits with 1's will be targeted)
+    options |= 00000001b;
+
+    // To remove options, use &amp; and ~ (the bits with 1's will be targeted)
+    options &amp;= ~00010000b;
+    // same: options &amp;= 11101111h (the bits with 0's will be targeted)
+
+    // To switch options, use ^ (the bits with 1's will be targeted)
+    options ^= 10000000b;
+
+    /* Manipulate bit flags using the &lt;&lt; operator (these are equivalent to the last three) */
+
+    options|= 1&lt;&lt;0; // position 0 is now ON
+    options&amp;= ~(1&lt;&lt;4); // position 4 is now OFF
+    options^= (1&lt;&lt;7); // position 7 is now SWITCHED
+
+    /* Checking of bit flags */
+
+    // Check if a certain option is set (the bits with 1's will be checked)
+    if((options&amp;10000000b)==10000000b)
+    end
+
+    // Check if a certain option is not set (the bits with 1's will be checked)
+    if((options&amp;10000000b)==0)
+    end
+
+    // Check if multiple options are set (the bits with 1's will be checked)
+    if((options&amp;10000001b)==10000001b)
+    end
+
+    // Check if multiple options are not set (the bits with 1's will be checked)
+    if((options&amp;00000110b)==0)
+    end
+
+    // Check if at least one of multiple options is set (the bits with 1's will be checked)
+    if((options&amp;00000110b)!=0)
+    end
+
+    // Check if at least one of multiple options is not set (the bits with 1's will be checked)
+    if((options&amp;00000110b)!=00000110b)
+    end
+
+    /* Checking of bit flags using the &lt;&lt; operator */
+
+    // Check if a certain option is set
+    if((options&amp;(1&lt;&lt;7))==(1&lt;&lt;7)) // position 7 is ON
+    end
+
+    // Check if a certain option is not set
+    if((options&amp;(1&lt;&lt;7))==0) // position 7 is OFF
+    end
+
+End
+</code></pre><p>Used in example: <a href=Operators#Bitwise title=wikilink>Bitwise Operators</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#example>Example</a><ul><li><a href=#usage-example>Usage Example</a></li></ul></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/bit_flags.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

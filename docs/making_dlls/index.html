@@ -1,0 +1,134 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/making_dlls/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=setting-up>Setting up</h2><h3 id=source>Source</h3><p>Before we start coding, download the latest Fenix Source
+<a href=Latest_Fenix_version title=wikilink>here</a> and the file
+<a href=Media:Fenixdll.def title=wikilink>fenixdll.def</a>. Put the source somewhere
+appropriate, like *<em>Fenix\Fenix 0.92a Source\*</em>. Search for all *.c
+and *.h in that folder and put it into a new folder like *<em>Fenix\Fenix
+0.92a Includes\*</em>, together with fenixdll.def.</p><h3 id=mvc>MVC++</h3><p>So we got MVC++ eh, let&rsquo;s do this then.</p><ul><li><strong>Tools -&gt; Options -&gt; TAB: Directories</strong>. Show directories
+for: Include files. Add the directory you created earlier,
+<strong>Fenix\Fenix 0.92a Includes</strong>, to the list. Yes the
+<strong>includes</strong> folder.</li></ul><ul><li><strong>File -&gt; New</strong> will bring up the <strong>New</strong> dialog box. Select
+<strong>Win32 Dynamic-Link Library</strong> and name your project. Click OK. A
+new dialog box pops up! Select <strong>An empty DLL project.</strong> and
+click Finish. Click OK. I myself like to have the list on the left
+to display the files; to do this select FileView under it.</li></ul><ul><li><strong>File -&gt; New</strong> again, select <strong>C++ Source File</strong> and name
+your file. Click OK.</li></ul><ul><li><strong>Project -&gt; Add To Project -&gt; Files&hellip;</strong> and add fenixdll.def
+to your project.</li></ul><h3 id=code-blocks>Code::Blocks</h3><p>Ah, so you&rsquo;re a cool kid on the block. Let&rsquo;s get cracking.</p><ul><li><strong>File -&gt; New -&gt; Project</strong>. Select Empty project. Specify a
+name and project folder. Keep GNU GCC Compiler and just hit Finish.</li></ul><ul><li><strong>File -&gt; New -&gt; Empty file</strong>. Select yes. Name the file
+anything you want, but for the sake of this tutorial, have it the
+extension <strong>.c</strong>; you can go rogue later.</li></ul><ul><li><strong>Project -&gt; Properties&hellip;</strong>. Select TAB <strong>Build targets</strong>. For
+each target you want to use (on the left), select <strong>Dynamic
+library</strong> at the Type (on the right). You don&rsquo;t need to create an
+import library.</li></ul><ul><li><strong>Project -&gt; Build options&hellip;</strong>. Select the top item in the list
+on the left. Go to TAB <strong>Linker settings</strong> and add the following
+line to the right textfield: <code>-def fenixdll.def</code>. Now go to TAB
+<strong>Search directories</strong> -&gt; TAB <strong>Compiler</strong> and add the directory
+you created earlier, the <strong>Fenix\Fenix 0.92a Includes</strong>.</li></ul><ul><li>Copy <strong>fenixdll.def</strong> to your project folder.</li></ul><h2 id=coding-a-dll>Coding a DLL</h2><p>Now you have a setup for making a DLL for Fenix, but if you use
+libraries, you&rsquo;ll have to set them up yourself. Fenix uses SDL by
+default, so you will need to <a href=http://lazyfoo.net/SDL_tutorials/lesson01/index.php>set this
+up</a> too. If the
+compiler complains it cannot find <code>SDL*.h</code>, go to where the file is
+included and change the inclusion of <code>SDL*.h</code> to <code>SDL/SDL*.h</code>. It also
+uses <a href=http://www.zlib.net/>zlib</a>.</p><p>The most basic code will be something like this:</p><pre><code>#include &lt;fxdll.h&gt;
+
+static int DLL_MYFUNC(INSTANCE * my, int * params)
+{
+    return 0;
+}
+
+FENIX_MainDLL RegisterFunctions (COMMON_PARAMS)
+{
+    FENIX_DLLImport
+
+    FENIX_export ( &quot;DLL_MYFUNC&quot; , &quot;&quot; , TYPE_DWORD , DLL_MYFUNC ) ;
+
+}
+</code></pre><p>If this doesn&rsquo;t compile then something went wrong during setup. Let&rsquo;s
+assume it compiles, so I can explain the code.</p><h3 id=registerfunctions>RegisterFunctions</h3><p>This is where you tell Fenix which functions to make available for use
+in Fenix. To do this, add a line like this:</p><p>FENIX_export ( &lt;<strong>CHAR *</strong> functionname&gt; , &lt;<strong>CHAR *</strong>
+parameters&gt; , &lt;<strong>BASETYPE</strong> returntype&gt; , &lt;<strong>VOID *</strong>
+function&gt; ) ;</p><ul><li><strong>CHAR *</strong> functionname: This is how the function will be called
+in Fenix.</li></ul><ul><li><strong>CHAR *</strong> parameters: The list of parameters, possible characters
+are:</li></ul><hr><p>I - TYPE_DWORD
+B - TYPE_BYTE
+W - TYPE_WORD
+S - TYPE_STRING
+P - TYPE_POINTER
+F - TYPE_FLOAT</p><hr><ul><li><strong>BASETYPE</strong> returntype: The datatype of the returnvalue. Possible
+are:</li></ul><hr><p>TYPE_UNDEFINED - 0
+TYPE_INT - 1
+TYPE_DWORD - 2
+TYPE_SHORT - 3
+TYPE_WORD - 4
+TYPE_SBYTE - 5
+TYPE_BYTE - 6
+TYPE_CHAR - 8
+TYPE_FLOAT - 9
+TYPE_STRING - 16
+TYPE_ARRAY - 17
+TYPE_STRUCT - 18
+TYPE_POINTER - 19</p><hr><ul><li><strong>VOID *</strong> function: This is the function you wish Fenix to call
+when the function is called. This is the name of the function,
+without &ldquo;&rdquo; and can differ from the functionname used in Fenix.</li></ul><h3 id=functions>Functions</h3><p>Like stated, the most basic function is of the form:</p><pre><code>static int DLL_MYFUNC(INSTANCE * my, int * params)
+{
+    return 0;
+}
+</code></pre><p>The first parameter is like a <a href=processID title=wikilink>processID</a>: it is
+the <a href=process title=wikilink>process</a> calling this function. The second
+parameter is a list of parameters. For some parameters you may wish to
+typecast them via a &lsquo;pointer tyoecast&rsquo; and put them into a proper
+variable before using them, for example:</p><pre><code>float my_float = *(float*)&amp;params[0];
+</code></pre><p>The return type of this function is always <strong>static int</strong> and you should
+always return an int. Of course you can return other datatypes, but it
+needs to be &lsquo;pointer typecasted&rsquo; to an int, like:</p><pre><code>return *(int*)&amp;my_float;
+</code></pre><h3 id=example>Example</h3><pre><code>#include &lt;fxdll.h&gt;
+#include &lt;math.h&gt;
+
+static int dll_log(INSTANCE * my, int * params)
+{
+    // Store the result in a variable first, for the pointer typecasting
+    float f = logf(*(float*)&amp;params[0]);
+    return *(int*)&amp;f;
+}
+
+FENIX_MainDLL RegisterFunctions (COMMON_PARAMS)
+{
+    FENIX_DLLImport
+
+    // float log( float f)
+    FENIX_export ( &quot;log&quot; , &quot;F&quot; , TYPE_FLOAT , dll_log) ;
+
+}
+</code></pre><h2 id=tips-tricks>Tips &amp; Tricks</h2><p>There are a few tips and tricks, but most of them come from experience.
+Some from a lot of experience.</p><ul><li>It is possible to use the same functionname multiple times, even
+with different properties. The only condition is that the number of
+parameters needs to be different:</li></ul><pre><code>FENIX_export ( &quot;DLL_MYFUNC&quot; , &quot;I&quot;  , TYPE_DWORD , DLL_MYFUNC ) ;
+FENIX_export ( &quot;DLL_MYFUNC&quot; , &quot;II&quot; , TYPE_DWORD , DLL_MYFUNC2 ) ;
+</code></pre><ul><li>Some functions are handy to use, for example gr_con_printf(). Look
+in the sourcecode of for example
+<a href=Network.dll title=wikilink>Network.dll</a> to see how it works. Keep in
+mind that flooding the console isn&rsquo;t very nice, so leave the option
+open for the user of the DLL to turn it off.</li></ul><ul><li>Calling a <a href=Fenix title=wikilink>Fenix</a>
+<a href=function title=wikilink>function</a>/<a href=process title=wikilink>process</a> from a
+DLL can be handy sometimes, especially when used as a
+callback function. Initiating a process of a variable processtype in
+Fenix is also possible:</li></ul><pre><code>static int CALL(INSTANCE * my, int * params)
+{
+    INSTANCE * proc = instance_new (procdef_get(params[0]), first_instance);
+    return instance_go (proc);
+}
+</code></pre><p>With this method the parameters of the called process won&rsquo;t be
+initialized. Definition: <code>ProcessID call( &lt;ProcessTypeID&gt; )</code><br>Example: <code>proc_id = call(type MyProcName);</code></p><h2 id=some-handy-functions>Some handy functions</h2><dl><dt><big><strong>void</strong> gr_con_printf (<strong>const char*</strong> fmt, &hellip;)</big></dt><dd><p>Outputs the message pointed to by <em>fmt</em> in the Fenix console.</p></dd><dt><big><strong>int</strong> string_new (<strong>const char*</strong> ptr)</big></dt><dd><p>Creates a new string for Fenix, a copy of the string pointed to by
+<em>ptr</em> (so you can free the passed string). Returns the stringID of
+the created string.</p></dd><dt><big><strong>void</strong> string_use (<strong>int</strong> stringID)</big></dt><dd><p>Increase the usage counter of a string. Use this when you store the
+identifier of the string somewhere. So in practice this should
+always be called after string_new().</p></dd><dt><big><strong>const char*</strong> string_get (<strong>int</strong> stringID)</big></dt><dd><p>Returns the contents of a string. This pointer is only valid as long
+as no other string function is called (so duplicate the string
+if needed).</p></dd></dl><p>Be sure to discard the string once you don&rsquo;t need it anymore with
+string_discard () or that memory won&rsquo;t be freed until bennugd exits.</p><dl><dt><big><strong>void</strong> string_discard (<strong>int</strong> stringID)</big></dt><dd><p>Decrease the usage counter of a string. Use this when you retrieve
+the identifier of the string and discard it.</p></dd></dl><p>For the rest, see <a href=Media:Fxdll.h title=wikilink>fxdll.h</a> in the Fenix
+source. If you&rsquo;d like more documentation about a function or something
+else, let <a href=User:Sandman title=wikilink>me</a> know (IRC/discussion page).</p><hr><p>&ndash;<a href=User:Sandman title=wikilink>Sandman</a> 19:10, 28 July 2008 (CEST)</p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#setting-up>Setting up</a><ul><li><a href=#source>Source</a></li><li><a href=#mvc>MVC++</a></li><li><a href=#code-blocks>Code::Blocks</a></li></ul></li><li><a href=#coding-a-dll>Coding a DLL</a><ul><li><a href=#registerfunctions>RegisterFunctions</a></li><li><a href=#functions>Functions</a></li><li><a href=#example>Example</a></li></ul></li><li><a href=#tips-tricks>Tips &amp; Tricks</a></li><li><a href=#some-handy-functions>Some handy functions</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/making_dlls.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

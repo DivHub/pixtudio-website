@@ -1,0 +1,78 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/drawing_stipple/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p><strong>INT</strong> drawing_stipple ( &lt;<strong>INT</strong> stipples&gt; )</p><p>Tells <a href=Bennu title=wikilink>Bennu</a> which pixels to draw of the coming
+<a href=drawing title=wikilink>drawings</a>.</p><p>This is done by passing a 32bit value, each bit representing a pixel.
+Bit 0 represents the first pixels drawn, bit 1 represents the second,
+etc. When a 33rd pixel is to be drawn or not, bit 0 is checked and the
+cycle starts over. This means a value of <code>0xFFFFFFFF</code> (=<code>2^32-1</code>) means
+normal operation, meaning all the pixels will be drawn.</p><p>Note that this works only for non-filled drawings. For
+<a href=draw_curve title=wikilink>draw_curve</a>(), the pattern is not always
+visible for the higher smoothness levels.</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> stipples - Which pixels to draw, repetitive 32bits.</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong> : <a href=true title=wikilink>true</a></p><h2 id=example>Example</h2><pre><code>Program example;         
+Private
+//    int draw_id;
+Begin
+
+    // Draw in background
+    drawing_map(0,background);
+
+    // Set stipplemode to display every other pixel.
+    // binary code 0101 0101 0101 0101 0101 0101 0101 0101
+    // hex code 55555555h
+    drawing_stipple(55555555h);
+
+    // Draw two lines
+    draw_line(10,10,190,10);
+    draw_line(11,12,190,12);
+
+    // Draw this funky pattern
+    // binary code 0011 1100 0111 1100 1010 0001 1101 0011
+    // hex code 3C7CA1D3h
+    drawing_stipple(3C7CA1D3h);
+
+    // Draw two lines
+    draw_line(10,20,190,20);
+    draw_line(11,22,190,22);
+
+    // Draw a circle
+    draw_circle(100,100,50);
+
+    // Draw a rectangle
+    draw_rect(50,50,150,150);
+
+    // Draw some lines
+    draw_line( 50, 50,100,150);
+    draw_line(100,150,150, 50);
+    draw_line( 50,150,100, 50);
+    draw_line(100, 50,150,150);
+
+    // Draw two curves: one with high smoothness (bit pattern not visible) and one with low smoothness
+    draw_curve( 200,200,
+                100,200,
+                100,150,
+                300,100,15);
+    draw_curve( 200,200,
+                100,200,
+                100,150,
+                300,100,1);
+
+    // Draw a filled circle
+    draw_fcircle(20,180,15);
+
+    // Draw a filled rectangle
+    draw_box(50,180,80,195);
+
+    // Wait for key ESC
+    Repeat
+        frame;
+    Until(key(_ESC))
+
+End
+</code></pre><p>Used in example: <a href=drawing_map title=wikilink>drawing_map</a>(),
+<a href=draw_line title=wikilink>draw_line</a>(),
+<a href=draw_circle title=wikilink>draw_circle</a>(),
+<a href=draw_rect title=wikilink>draw_rect</a>(),
+<a href=draw_curve title=wikilink>draw_curve</a>(),
+<a href=draw_fcircle title=wikilink>draw_fcircle</a>(),
+<a href=draw_box title=wikilink>draw_box</a>(), <a href=key title=wikilink>key</a>()</p><p>This will result in something like:</p><p><a href=Category:functions>Category:functions</a> <a href=Category:drawing>Category:drawing</a> <a href=Category:mod_draw>Category:mod_draw</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/drawing_stipple.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

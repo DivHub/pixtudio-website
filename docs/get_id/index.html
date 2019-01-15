@@ -1,0 +1,53 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/get_id/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p><strong>INT</strong> get_id ( &lt;<strong>INT</strong> processTypeID&gt; )</p><p>Returns a <a href=ProcessID title=wikilink>ProcessID</a> of a
+<a href=process title=wikilink>process</a> of the specified
+<a href=ProcessType title=wikilink>ProcessType</a>. On the next call of get_id() in
+the same process and in the same frame, the next process will be
+returned of the given type. After a <a href=frame title=wikilink>frame</a> statement,
+get_id() is reset and will return the first process of the given
+processType. When there are no more processes of a given type, which
+have not been returned, it will return 0.</p><p>get_id(0) returns processes of any type.</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> processTypeID - The <a href=processTypeID title=wikilink>processTypeID</a> of the <a href=processType title=wikilink>processType</a> to get the processes&rsquo; processIDs of.</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong> : The <a href=processID title=wikilink>processID</a> of a process of the
+given processType.</p><hr><p>0 - There are no more processes of the given processType, which have not been returned.
+&gt;0 - The <a href=processID title=wikilink>processID</a> of a process of the given processType.</p><hr><h2 id=example>Example</h2><pre><code>Program example;
+Begin
+    signaltype(type Monkey,s_kill);
+End
+
+/**
+ * Empty process
+ */
+Process Monkey()
+Begin
+End
+
+/**
+ * Signals every process of type 't' the signal 'signal'.
+ */
+Function int signaltype(int t, int signal)
+Begin
+    while( (x=get_id(t)) ) // while there is an unprocessed process left and store that in 'x'
+        signal(x,signal); // signal the process with processID 'x'.
+    end
+End
+
+// Of course, the very observant of you already noticed that signaltype(my_type,my_signal)
+// does the same thing as the function signal(my_type,my_signal), but this is just to
+// illustrate the workings.
+
+/**
+ * Signals every process the signal 'signal'.
+ */
+Function int signalall(int signal)
+Begin
+    while( (x=get_id(0)) ) // while there is an unprocessed process left and store that in 'x'
+        signal(x,signal); // signal the process with processID 'x'.
+    end
+End
+
+// get_id(0) returns a process of any type. This is a possible implementation of a
+// function which signals all existing processes. Note that this can be dangerous to use,
+// as in some cases you might want one or two processes to stay alive.
+</code></pre><p>Used in example: <a href=signal title=wikilink>signal</a>()</p><p><a href=Category:functions>Category:functions</a> <a href=Category:processinteraction>Category:processinteraction</a> <a href=Category:mod_proc>Category:mod_proc</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/get_id.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

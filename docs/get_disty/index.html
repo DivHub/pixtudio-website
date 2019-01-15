@@ -1,0 +1,103 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/get_disty/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p><strong>INT</strong> get_disty ( &lt;<strong>INT</strong> angle&gt; , &lt;<strong>INT</strong> distance&gt; )</p><p>Returns the vertical distance in pixels of a specified displacement.</p><p>This is the same as <code>-[[sin]](''angle'')*''distance''</code>.</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> angle - <a href=Angle title=wikilink>Angle</a>, in thousandths of degrees (90° = 90000).
+<strong>INT</strong> distance - Length (in pixels) to measure.</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong> : The vertical distance, in pixels, of a specified displacement.</p><h2 id=notes>Notes</h2><p>This function returns the height of an imaginary rectangle who&rsquo;s
+opposite corners are the specified distance apart, at the specified
+<a href=angle title=wikilink>angle</a> from each other.</p><h2 id=example>Example</h2><pre><code>Global
+    xdist;
+    ydist;
+    dist;
+    ang;
+    mydraw;
+End
+
+Process Main()
+Begin
+
+    set_mode(640,480,16);
+    set_fps (50,0);
+    graph = new_map(3,3,16);
+    map_clear(0,graph,rgb(0,255,0));
+    x = 320;
+    y = 240;
+
+    set_text_color(rgb(0,0,0));
+    write    (0,60, 0,2,&quot;X Diff: &quot;);
+    write_int(0,60, 0,0,&amp;xdist);
+    write    (0,60,10,2,&quot;Y Diff: &quot;);
+    write_int(0,60,10,0,&amp;ydist);
+    write    (0,60,20,2,&quot;Angle: &quot;);
+    write_int(0,60,20,0,&amp;ang);
+    write    (0,60,30,2,&quot;Distance: &quot;);
+    write_int(0,60,30,0,&amp;dist);
+
+    write    (0,10,40,0,&quot;Left/right rotates your angle, up/down changes your distance&quot;);
+
+    put(0,graph,x,y);
+    drawing_background();
+
+    repeat
+        if(key(_up))
+            dist++;
+        end
+
+        if(key(_down))
+            dist--;
+        end
+
+        if(key(_left))
+            ang-=1000;
+        end
+
+        if(key(_right))
+            ang+=1000;
+        end
+
+        xdist = get_distx(ang,dist);
+        ydist = get_disty(ang,dist);
+
+        x = 320 + xdist;
+        y = 240 + ydist;
+
+        frame;
+
+    until(key(_esc))
+
+    let_me_alone();
+    exit();
+
+End
+
+Process drawing_background()
+Begin
+    graph = new_map(640,480,16);
+    set_ceter   (0,graph,0,0);
+    map_clear    (0,graph,rgb(64,0,0));
+    drawing_map  (0,graph);
+    drawing_color(rgb(0,0,0));
+    loop
+        map_clear(0,graph,rgb(255,255,255));
+        mydraw = draw_line(320,240,father.x,father.y);
+        frame;
+        delete_draw(mydraw);
+    end
+OnExit
+    unload_map(0,graph);
+End
+</code></pre><p>Used in example: <a href=set_mode title=wikilink>set_mode</a>(),
+<a href=set_fps title=wikilink>set_fps</a>(), <a href=new_map title=wikilink>new_map</a>(),
+<a href=set_text_color title=wikilink>set_text_color</a>(),
+<a href=write title=wikilink>write</a>(), <a href=write_int title=wikilink>write_int</a>(),
+<a href=put title=wikilink>put</a>(), <a href=key title=wikilink>key</a>(),
+<a href=get_distx title=wikilink>get_distx</a>(),
+<a href=get_disty title=wikilink>get_disty</a>(),
+<a href=let_me_alone title=wikilink>let_me_alone</a>(), <a href=exit title=wikilink>exit</a>(),
+<a href=set_center title=wikilink>set_center</a>(),
+<a href=map_clear title=wikilink>map_clear</a>(), <a href=rgb title=wikilink>rgb</a>(),
+<a href=drawing_map title=wikilink>drawing_map</a>(),
+<a href=drawing_color title=wikilink>drawing_color</a>(),
+<a href=draw_line title=wikilink>draw_line</a>(),
+<a href=delete_draw title=wikilink>delete_draw</a>(),
+<a href=unload_map title=wikilink>unload_map</a>()</p><p><a href=Category:functions>Category:functions</a> <a href=Category:math>Category:math</a> <a href=Category:mod_math>Category:mod_math</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#notes>Notes</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/get_disty.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

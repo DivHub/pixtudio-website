@@ -1,0 +1,30 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:local_variables title=wikilink>category:local
+variables</a> <a href=category:librender>category:librender</a></p><p><a href=Local_variables title=wikilink><strong>Up to Local Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>INT</strong> angle = 0</p><p><strong>Angle</strong> is a predefined <a href=local_variable title=wikilink>local variable</a>
+which holds the angle (measured in <sup>1</sup>&frasl;<sub>1000</sub> of a degree) at which the
+<a href=graphic title=wikilink>graphic</a> of that <a href=process title=wikilink>process</a>
+(assigned by the local variable <a href=graph title=wikilink>graph</a>) will be
+drawn. It also influences the result of the
+<a href=function title=wikilink>function</a> <a href=advance title=wikilink>advance</a>().</p><p>An angle of 0 means to the right, 90000 means up, 180000 means left and
+270000 and -90000 mean down.</p><h2 id=example>Example</h2><p>To make the graphic of a process spin:</p><pre><code>import &quot;mod_grproc&quot;
+import &quot;mod_map&quot;
+import &quot;mod_wm&quot; // for exit_status
+import &quot;mod_key&quot; // for key()
+
+Process Main()
+Begin
+    graph = map_new(100,100,8);  //Create a cyan square and assign it to 'graph'
+    map_clear(0,graph,rgb(0,255,255));
+    x = 160;     //Position the graphic's center
+    y = 100;     //in the center of the screen
+    Repeat
+        angle += 1000;    //increase the angle of graphic by 1000 each frame. 1000 = 1 degree.
+        frame;
+    Until(key(_ESC) || exit_status)
+OnExit
+    map_unload(0,graph);
+End
+</code></pre><p>Used in example: <a href=map_new title=wikilink>map_new</a>(),
+<a href=map_clear title=wikilink>map_clear</a>(), <a href=rgb title=wikilink>rgb</a>(),
+<a href=map_unload title=wikilink>map_unload</a>(), <a href=key title=wikilink>key</a>(),
+<a href=exit_status title=wikilink>exit_status</a>, <a href=graph title=wikilink>graph</a>,
+<a href=x title=wikilink>x</a>, <a href=y title=wikilink>y</a>, <a href=angle title=wikilink>angle</a></p><p>This process will spin the cyan square by 1 degree each frame.</p>

@@ -1,0 +1,22 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:local_variables title=wikilink>category:local
+variables</a> <a href=category:librender>category:librender</a></p><p><a href=Local_variables title=wikilink><strong>Up to Local Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>INT</strong> size_y = 100</p><p>Size_y is a predefined <a href=local_variable title=wikilink>local variable</a> that
+can be used to stretch or compress a graphic along its vertical axis. It
+is defined as a percentage of the original graphic size. The graphics&rsquo;s
+center will remain at the drawing coordinates when the graphic is drawn.</p><p>When either <a href=size_x title=wikilink>size_x</a> or <a href=size_y title=wikilink>size_y</a>
+of a <a href=process title=wikilink>process</a> are unequal to [code]100[/code],
+that process&rsquo; <a href=size title=wikilink>size</a> has no effect.</p><h2 id=example>Example</h2><p>To make the <a href=graphic title=wikilink>graphic</a> of a
+<a href=process title=wikilink>process</a> continually stretch vertically:</p><pre><code>Process Main()
+Begin
+    graph = new_map(50,50,8); // Create a new graphic
+    x = 100;                  // Position the graphic 100 pixels
+    y = 100;                  // from the top and left of the screen
+    Loop
+        size_y += 1;          // Increase the height of the graphic by 1 pixel each frame.
+        frame;
+    End
+OnExit
+    unload_map(0,graph);
+End
+</code></pre><p>Used in example: <a href=new_map title=wikilink>new_map</a>(), [[x],
+<a href=y title=wikilink>y</a>, <a href=size_y title=wikilink>size_y</a>,
+<a href=unload_map title=wikilink>unload_map</a>()</p><h2 id=see-also>See also</h2><ul><li><a href=size title=wikilink>size</a></li><li><a href=size_x title=wikilink>size_x</a></li></ul>

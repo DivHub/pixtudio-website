@@ -1,0 +1,59 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/color/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=description>Description</h2><p>Colors are widely used in Fenix/Bennu. They are used for example in
+<a href=Functioncategory:texts title=wikilink>text functions</a>.</p><p>In 8 bit color mode, the color corresponds with the palette index
+(0..255); in 16 bit color mode the color corresponds with an RGB value
+(0..65535): 5 bits for red, 6 bits for green and 5 bits for blue. In
+32bit mode the code is 0xRRGGBBAA, two letters meaning one byte: 8 bits
+for each component.</p><p>The RGB(A) values of a color can be obtained with
+<a href=get_rgb title=wikilink>get_rgb</a>() and <a href=get_rgba title=wikilink>get_rgba</a>().</p><h2 id=transparency>Transparency</h2><p>Note that in many cases the color 0 means <strong>transparent</strong>! Consider the
+difference between:</p><ul><li><a href=map_clear title=wikilink>map_clear</a>(file,graph,0); and</li><li><a href=map_clear title=wikilink>map_clear</a>(file,graph,rgb(0,0,0)).</li></ul><p>In the first case, the graphic (file,graph) will be made fully
+transparent. In the second case, the graphic will be made the blackest
+black Bennu can muster, given the current color depth. In 8bit mode,
+<strong>both</strong> will be made transparent.</p><h2 id=example>Example</h2><p>This is a test program to show when a color is black or transparent:</p><pre><code>import &quot;mod_video&quot;
+import &quot;mod_map&quot;
+import &quot;mod_key&quot;
+import &quot;mod_proc&quot;
+
+Const
+    DEPTH = 32;
+End
+
+Process Main()
+Private
+    int map_trans;
+    int map_black;
+Begin
+    set_mode(320,200,DEPTH);
+
+    map_trans = new_map(100,100,DEPTH);
+    map_clear(0,map_trans,0);
+
+    map_black = new_map(100,100,DEPTH);
+    map_clear(0,map_black,rgb(0,0,0));
+
+    map_clear(0,BACKGROUND,rgb(50,50,50));
+
+    g(120,100,0,map_trans);
+    g(200,100,0,map_black);
+
+    Repeat
+        frame;
+    Until(key(_ESC))
+
+    let_me_alone();
+
+End
+
+Process g(int x, int y, int file, int graph)
+Begin
+    Loop
+        frame;
+    End
+End
+</code></pre><p>Used in example: <a href=set_mode title=wikilink>set_mode</a>(),
+<a href=map_clear title=wikilink>map_clear</a>(), <a href=rgb title=wikilink>rgb</a>(),
+<a href=new_map title=wikilink>new_map</a>(),
+<a href=let_me_alone title=wikilink>let_me_alone</a>()</p><h2 id=see-also>See also</h2><ul><li><a href=rgb title=wikilink>rgb</a>()</li><li><a href=rgba title=wikilink>rgba</a>()</li></ul></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#description>Description</a></li><li><a href=#transparency>Transparency</a></li><li><a href=#example>Example</a></li><li><a href=#see-also>See also</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/color.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

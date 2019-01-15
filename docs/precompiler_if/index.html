@@ -1,0 +1,20 @@
+<p><a href=category:precompiler>category:precompiler</a></p><h2 id=definition>Definition</h2><dl><dt><strong>#if</strong> <what to check></dt><dd><p><if block></p></dd><dt>[&rdquo;&rsquo;#else</dt><dd><p><else block>]</p></dd></dl><p><strong>#endif</strong></p><p>Checks if <em>what to check</em> is true. If it is, the code in <em>if block</em> will
+be compiled. If it isn&rsquo;t, the code in <em>else block</em> will be compiled or
+when there is no <em>else block</em>, the compiler will continue after
+<a href=precompiler_endif title=wikilink>#endif</a>.</p><h2 id=example>Example</h2><p>Consider a define to set the framepercentage in a certain process. Now
+for some reason you might want to just have a frame; compiled when that
+define is set to <em>100</em>.</p><pre><code>Loop
+    #ifdef FRAMEPERC
+        #if FRAMEPERC == 100
+            frame;
+        #else
+            frame(FRAMEPERC);
+        #endif
+    #else
+        frame;
+    #endif
+End
+</code></pre><p>Used in example: <a href=Loop title=wikilink>Loop</a>, <a href=End title=wikilink>End</a>,
+<a href=frame title=wikilink>frame</a>, <a href=precompiler_if title=wikilink>#if</a>,
+<a href=precompiler_else title=wikilink>#else</a>,
+<a href=precompiler_endif title=wikilink>#endif</a></p>

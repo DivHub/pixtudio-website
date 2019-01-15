@@ -1,0 +1,54 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/regex/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=syntax>Syntax</h2><p><strong>INT</strong> regex ( &lt;<strong>STRING</strong> pattern&gt; , &lt;<strong>STRING</strong> string&gt; )</p><h2 id=description>Description</h2><p>Match a regular expresion to the given string. Regular expressions are
+very powerfull, and allow to do complex pattern searches in texts. You
+can read about the wealth of posibilities
+<a href=http://en.wikipedia.org/wiki/Regular_expression>here</a>. Please note
+that regular expresion synthax is quite cryptic and difficult in
+general. Some things can be achieved in easier way with string functions
+like <a href=Find title=wikilink>Find</a>(), <a href=Len title=wikilink>Len</a>(),
+<a href=Substr title=wikilink>Substr</a>() and <a href=glob title=wikilink>glob</a>(). It is
+unknown to wich extend bennu supports certain expressions.</p><p>Matches are stored into the predefined global array
+<a href=Regex_reg title=wikilink>Regex_reg</a>.</p><h2 id=parameters>Parameters</h2><hr><p><strong>STRING</strong> pattern - The desired search pattern.
+<strong>STRING</strong> string - The string to search in.</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong> : status/match position</p><hr><p>&gt;0 - The character position where the match has been found.
+-1 - There is no match found.</p><hr><h2 id=example>Example</h2><pre><code>// import modules
+IMPORT &quot;mod_say&quot;;
+IMPORT &quot;mod_debug&quot;;
+IMPORT &quot;mod_regex&quot;;
+
+
+GLOBAL
+
+
+   string sourcetext=&quot;It's raining cat's and dogs&quot;;
+   string searchtext=&quot;cat&quot;; // the search pattern
+
+   int status;
+
+PROCESS main();
+
+BEGIN
+
+
+   // print the joined string
+   say(&quot;&quot;);
+
+   // looking for the position of the word &quot;cat&quot;
+   status=regex(searchtext,sourcetext);
+
+   say(&quot;match found at: &quot;+status);
+   say(&quot;&quot;);
+
+   // the last character of a line. 
+   status=regex(&quot;$&quot;,&quot;99 bottles of beer on the wall.&quot;);
+
+   say(status+&quot; is the last character position in 99 bottles of beer on the wall.&quot;);
+   say(&quot;&quot;);
+END
+</code></pre><p>This program will print as result:</p><pre><code>match found at: 13
+
+31 is the last character position in 99 bottles of beer on the wall.
+</code></pre><p>Used in example: <a href=say title=wikilink>say</a>() See also: <a href=http://en.wikipedia.org/wiki/Regular_expression#Examples>regular expresion
+examples</a></p><p><a href=Category:functions>Category:functions</a> <a href=Category:mod_regex>Category:mod_regex</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#syntax>Syntax</a></li><li><a href=#description>Description</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/regex.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

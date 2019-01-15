@@ -1,0 +1,40 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:global_variables title=wikilink>category:global
+variables</a> <a href=category:librender>category:librender</a></p><p><a href=Global_variables title=wikilink><strong>Up to Global Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>INT</strong> fading = false</p><p><strong>Fading</strong> is a <a href=global_variable title=wikilink>global variable</a>, holding
+whether the screen is currently fading. This can be caused by the
+functions <a href=fade title=wikilink>fade</a>(), <a href=fade_on title=wikilink>fade_on</a>() or
+<a href=fade_off title=wikilink>fade_off</a>(). Its value will be
+<a href=true title=wikilink>true</a> if there is fading going on and
+<a href=false title=wikilink>false</a> if not.</p><h2 id=example>Example</h2><pre><code>Program faders;
+Private
+    int text_id;
+Begin
+
+    // Write something
+    text_id = write(0,160,100,4,&quot;Look at this fading text!&quot;);
+
+    // Fade screen on and off
+    fade_off_and_on();
+
+    // Wait for ESC key
+    Repeat
+        frame;
+    Until(key(_ESC))
+
+    // Kill all other processes and clear up text
+    let_me_alone();
+    delete_text(text_id);
+
+End
+
+Process fade_off_and_on()
+Begin
+    Loop
+        fade(0,0,0,4); // Fade to black
+        while(fading) frame; end // Wait for the fading to finish
+        fade(100,100,100,4); // Fade to normal
+        while(fading) frame; end // Wait for the fading to finish
+    End
+End
+</code></pre><p>Used in example: <a href=write title=wikilink>write</a>(), <a href=key title=wikilink>key</a>(),
+<a href=let_me_alone title=wikilink>let_me_alone</a>(),
+<a href=delete_text title=wikilink>delete_text</a>(), <a href=fade title=wikilink>fade</a>()</p>

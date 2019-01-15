@@ -1,0 +1,36 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/struct/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><pre><code>Struct {struct name}
+    {Members}
+End
+</code></pre><p><strong>Struct</strong>s are <a href=#datatypes>datatypes</a> able to contain
+variables of all datatypes.</p><p>To address a member of a struct, use the <code>.</code> operator:
+<code>{structname}.{membername}</code>. Like all datatypes, one can have a whole
+range of them, as displayed in the example (also see
+<a href=#array>Array</a>).</p><p>There are two ways to fill a struct on declaration:</p><ul><li>Per member</li><li>Afterwards, like <a href=#array>Arrays</a>.</li></ul><p>See the examples on how to do it.</p><h2 id=example>Example</h2><p>Structs can be handy for many aspects of programming.</p><h3 id=grouping-of-variables>Grouping of variables</h3><p>This is for clarity and to avoid colliding variable names.</p><pre><code>    Struct Fileinfo
+        String name;
+        String path;
+    End
+</code></pre><p>Note that the struct <a href=#fileinfo>fileinfo</a> is a predefined
+global variable.</p><p>Maybe you want to group some other data, like settings of the screen:</p><pre><code>    Struct Window
+        int width = 320;
+        int height = 200;
+        int depth = 8;
+    End
+</code></pre><p>or (using other initializing syntax):</p><pre><code>    Struct Window
+        int width;
+        int height;
+        int depth;
+    End = 320,200,8;
+</code></pre><p>This example can also be done by <a href=#type>defining your own
+type</a>.</p><h3 id=multiple-identical-data-groups>Multiple identical data groups</h3><pre><code>    Struct Ship[9]
+        int x;
+        int y;
+        int speed;
+        int angle;
+    End
+</code></pre><p>There are 10 <code>Ship</code>s now. The data can be accessed like:</p><pre><code>    Ship[0].speed++;
+    Ship[8].angle = 0;
+</code></pre></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#example>Example</a><ul><li><a href=#grouping-of-variables>Grouping of variables</a></li><li><a href=#multiple-identical-data-groups>Multiple identical data groups</a></li></ul></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/struct.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

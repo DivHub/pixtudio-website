@@ -1,0 +1,30 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:global_variables title=wikilink>category:global
+variables</a> <a href=category:time>category:time</a>
+<a href=category:mod_timers>category:mod_timers</a></p><p><a href=Global_variables title=wikilink><strong>Up to Global Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>INT[9]</strong> timer</p><p><strong>Timer</strong> is a <a href=global_variable title=wikilink>global variable</a>, holding
+ten integers. Each <a href=frame title=wikilink>frame</a> a certain value is added to
+all of them. This value is the difference in time between the start of
+the last frame and the current frame, in <sup>1</sup>&frasl;<sub>100</sub> seconds.</p><p>So when all the timers are never altered, their values will be 1234 when
+the program has been running for about 12.34 seconds.</p><h2 id=examples>Examples</h2><h3 id=display-how-long-the-program-has-been-running>Display how long the program has been running</h3><pre><code>import &quot;mod_timers&quot;
+import &quot;mod_key&quot;
+import &quot;mod_text&quot;
+
+Process Main()
+Begin
+
+    write_int(0,0,100,0,&amp;timer[0]);
+
+    Repeat
+        frame;
+    Until(key(_ESC))
+
+End
+</code></pre><p>Used in example: <a href=write_int title=wikilink>write_int</a>(),
+<a href=key title=wikilink>key</a>(), <a href=timer title=wikilink>timer</a></p><p>This can be done more accurately with the use of
+<a href=frame_time title=wikilink>frame_time</a>, which is in milliseconds.</p><h3 id=let-a-process-process-wikilink-wait-for-a-certain-time-by-calling-this-function>Let a <a href=process title=wikilink>process</a> wait for a certain time by calling this function</h3><pre><code>Function int wait(int t)
+Begin
+    t += timer[0];
+    While(timer[0]&lt;t) frame; End
+    return t-timer[0];
+End
+</code></pre><p>This can be done without a timer too, as is displayed
+<a href=frame_time#Example title=wikilink>here</a>.</p>

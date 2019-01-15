@@ -1,0 +1,56 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/stop_scroll/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p><strong>INT</strong> Stop_scroll ( &lt;<strong>INT</strong> scrollnumber&gt;)</p><p>This functions stops an active <a href=scroll_window title=wikilink>scroll
+window</a>. There can be up to 10 (0-9) <a href=scroll_window title=wikilink>scroll
+windows</a> active. When the scroll is stopped,
+all the processes in it will no longer be displayed. This function is
+usefull for switching the game&rsquo;s state from active gameplay to a loading
+screen state or similair situations. Another use is, when there are
+multiple scroll <a href=region title=wikilink>regions</a> active, and the game
+changes from split screen to single screen. This way you can have
+individual control over the display of the scroll.</p><p>Also called <a href=scroll_stop title=wikilink>scroll_stop</a>().</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> scrollnumber - The ID for the scroll window to be stopped</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong> : <a href=true title=wikilink>true</a></p><h2 id=example>Example</h2><pre><code>IMPORT &quot;mod_video&quot;;
+IMPORT &quot;mod_map&quot;;
+IMPORT &quot;mod_scroll&quot;;
+IMPORT &quot;mod_screen&quot;;
+IMPORT &quot;mod_key&quot;;
+IMPORT &quot;mod_proc&quot;;
+
+GLOBAL
+
+int graphics;
+
+PROCESS main();
+
+
+BEGIN
+
+    graphics=load_fpg(&quot;help.fpg&quot;);
+
+    say(&quot;Press [ENTER] to activate the scroll window.&quot;);
+    say(&quot;Press [SPACE] to stop the scroll.&quot;);
+
+
+    LOOP
+        IF (scan_code==_space)
+
+            stop_scroll(0); // The scroll is stopped.
+
+        END
+        IF (scan_code==_enter)
+            start_scroll(0, 0, 103, 102, 0, 15);
+        END
+
+        FRAME;
+    END
+END
+</code></pre><h2 id=using-scrolling>Using Scrolling</h2><p>For each <a href=process title=wikilink>process</a> that you want to be part of a
+<a href=scroll_window title=wikilink>scroll window</a>, you must set the <a href=local_variable title=wikilink>local
+variable</a> <a href=ctype title=wikilink>ctype</a> to value
+<a href=C_SCROLL title=wikilink>C_SCROLL</a>. It should also be noted that the local
+variable <a href=c_number title=wikilink>c_number</a> is used for selecting in which
+scroll a process should be displayed. Additionally, you must set the
+camera property of the <a href=scroll title=wikilink>scroll structure</a> to the
+<a href=processID title=wikilink>processID</a> of the process you wish to be
+followed.</p><p><a href=Category:functions>Category:functions</a> <a href=Category:scrolls>Category:scrolls</a> <a href=Category:mod_scroll>Category:mod_scroll</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li><li><a href=#using-scrolling>Using Scrolling</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/stop_scroll.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

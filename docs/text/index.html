@@ -1,0 +1,68 @@
+<p><a href=category:general>category:general</a> <a href=category:texts>category:texts</a></p><h2 id=definition>Definition</h2><p>A text is a text written on screen with <a href=Functioncategory:texts title=wikilink>texts
+functions</a>, like
+<a href=write title=wikilink>write</a>() or <a href=write_int title=wikilink>write_int</a>(). A
+text is addressed using the associated <a href=TextID title=wikilink>TextID</a>.</p><p>There are two kinds of texts:</p><ul><li>Static text is any text written with <a href=write title=wikilink>write</a>(); it
+is static, because the content of the text cannot be changed after
+writing, but the text can be moved and deleted.</li><li>Dynamic text is any text written with write_xxx() functions; it is
+dynamic because the content of the text always reflects the current
+value of the variable specified. Of course moving and deleting is
+also possible.</li></ul><h2 id=writing-texts>Writing texts</h2><p>There are multiple ways to write texts: the write() function,
+write_xxx() functions and the write_in_map() function. With the first
+two, some the <a href=global_variable title=wikilink>global variable</a>
+<a href=text_z title=wikilink>text_z</a> is important and with all three of them,
+the following are important:</p><ul><li>The functions <a href=set_text_color title=wikilink>set_text_color</a>() and
+<a href=get_text_color title=wikilink>get_text_color</a>()</li><li>The <a href=font title=wikilink>font</a></li><li>The <a href=alignment title=wikilink>alignment</a></li><li>The global variable <a href=text_flags title=wikilink>text_flags</a></li></ul><p>Also the function <a href=move_text title=wikilink>move_text</a>() can be handy, as
+it moves a previously written text to a different location.</p><h2 id=example>Example</h2><pre><code>Program texts;
+Const
+    maxtexts = 10;
+Private
+    int textid[maxtexts-1];
+    string str;
+    float flt;
+Begin
+
+    // Set FPS
+    set_fps(60,0);
+
+    // Init text settings:
+    text_z = 0;
+    text_flags = 0;
+    set_text_color(rgb(255,255,255));
+
+    // Write some texts
+    textid[0] = write(0,0,0,0,&quot;FPS:&quot;);
+    textid[1] = write_int(0,30,0,0,&amp;fps);
+    textid[2] = write_string(0,160,95,1,&amp;str);
+    textid[3] = write_float(0,160,105,0,&amp;flt);
+
+    // Show z workings
+    set_text_color(rgb(50,150,150));
+    textid[4] = write(0,20,20,0,&quot;Underlying text&quot;);
+    text_z = -1;
+    set_text_color(rgb(255,255,255));
+    textid[5] = write(0,22,22,0,&quot;On top text&quot;);
+
+    // Update the texts until ESC is pressed
+    Repeat
+        // Notice the texts get updated as the values of str and flt changes.
+        // The same goes for the value of fps.
+        str = &quot;This program is running for &quot; + time()/100 + &quot; seconds.&quot;;
+        flt = (float)time()/100;
+        frame;
+    Until(key(_esc));
+
+    // Delete the texts (this section would be good for OnExit)
+    for(x=0; x&lt;maxtexts; x++)
+        if(textid[x]!=0)
+            delete_text(textid[x]);
+        end
+    end
+
+End
+</code></pre><p>Used in example: <a href=set_fps title=wikilink>set_fps</a>(),
+<a href=set_text_color title=wikilink>set_text_color</a>(),
+<a href=write title=wikilink>write</a>(), <a href=write_int title=wikilink>write_int</a>(),
+<a href=write_string title=wikilink>write_string</a>(),
+<a href=write_float title=wikilink>write_float</a>(), <a href=key title=wikilink>key</a>(),
+<a href=delete_text title=wikilink>delete_text</a>(), <a href=text_z title=wikilink>text_z</a>,
+<a href=text_flags title=wikilink>text_flags</a>, <a href=fps title=wikilink>fps</a></p>

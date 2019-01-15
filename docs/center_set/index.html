@@ -1,0 +1,49 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/center_set/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=definition>Definition</h2><p><strong>INT</strong> center_set ( &lt;<strong>INT</strong> FileID&gt; , &lt;<strong>INT</strong> GraphID&gt; ,
+&lt;<strong>INT</strong> x&gt; , &lt;<strong>INT</strong> y&gt;)</p><p>Allows you to change the center of a <a href=graphic title=wikilink>graphic</a>.</p><p>This function changes a graphic&rsquo;s center pixel, which is the pixel that
+is located on screen at the <a href=graph title=wikilink>graph</a>&rsquo;s x and y
+coordinates. So changing this will influence the position on the screen.</p><p>The previous name <a href=set_center title=wikilink>set_center</a>() is deprecated.</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> FileID - The <a href=FileID title=wikilink>FileID</a> of the <a href=file title=wikilink>file</a> containing the graphic
+<strong>INT</strong> GraphID - The <a href=GraphID title=wikilink>GraphID</a> of the <a href=graphic title=wikilink>graphic</a> to change the center of.
+<strong>INT</strong> x - The new horizontal center <a href=coordinate title=wikilink>coordinate</a> of the graphic.
+<strong>INT</strong> y - The new vertical center <a href=coordinate title=wikilink>coordinate</a> of the graphic.</p><hr><h2 id=returns>Returns</h2><p><strong>INT</strong> : Successrate</p><hr><p>-1 - Specified graphic is invalid.
+1 - The center was set successfully.</p><hr><h2 id=notes>Notes</h2><p>You set the position of <a href=control_point title=wikilink>control point</a> 0 in
+the graphic. This control point acts as the graphic&rsquo;s
+<a href=coordinate title=wikilink>coordinate</a> on screen. For example, if a
+graphic&rsquo;s center is set to 0,0 , then the upper left pixel of the
+graphic will be placed on screen at the graphic&rsquo;s coordinates. If no
+center is set, by default control point 0 is set to the graphics true
+geometric center.</p><p>Another key feature is that the graphic will rotate around its center,
+as set by this function, and any horizontal or vertical mirrors (set
+with <a href=flags title=wikilink>flags</a>) will flip at this point.</p><p>When a graphic is used as a <a href=mouse title=wikilink>mouse</a> pointer, its
+center point is used for the mouse tip. Most mouse cursors in <a href=Operating_System title=wikilink>Operating
+Systems</a> have a mouse with the tip in the
+upper left of the image. Therefore, for a standard mouse pointer in
+Bennu, you will have to set the center at 0,0 to enable mouse accuracy.</p><h2 id=example>Example</h2><pre><code>import &quot;mod_map&quot;
+import &quot;mod_text&quot;
+import &quot;mod_key&quot;
+
+Process Main()
+Begin
+    graph=png_load(&quot;set_center.png&quot;);    //Loads a 128x128 image as the graphic
+    x=160;
+    y=100;                               //Places the graphic in the centre of the screen
+    write(0,0,0,0,&quot;Press [1] to set center to 0,0&quot;);
+    write(0,0,0,10,&quot;Press [2] to set center to 64,64&quot;);
+    Loop
+        if(key(_1))   
+            center_set(0,graph,0,0);
+        end
+        if(key(_2))
+            center_set(0,graph,64,64);
+        end
+        angle+=100;                      //Rotates the graphic constantly
+        frame;
+    End
+End
+</code></pre><p>Used in example: <a href=graph title=wikilink>graph</a>,
+<a href=png_load title=wikilink>png_load</a>(), <a href=key title=wikilink>key</a>(),
+<a href=write title=wikilink>write</a>(), <a href=center_set title=wikilink>center_set</a>()</p><p>File(s) used in example:
+<a href=Media:set_center.png title=wikilink>set_center.png</a></p><p><a href=Category:functions>Category:functions</a> <a href=Category:mod_map>Category:mod_map</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#definition>Definition</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#notes>Notes</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/center_set.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

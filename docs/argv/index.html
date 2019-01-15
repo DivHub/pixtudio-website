@@ -1,0 +1,53 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:global_variables title=wikilink>category:global
+variables</a> <a href=category:internal>category:internal</a></p><p><a href=Global_variables title=wikilink><strong>Up to Global Variables</strong></a> <a href=internal title=wikilink><strong>Up to
+Internal</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>STRING[32]</strong> argv</p><p><strong>Argv</strong> is a <a href=global_variable title=wikilink>global variable</a>, holding the
+arguments with which <a href=BGDI title=wikilink>BGDI</a> was called, including the
+bytecode file.</p><hr><p>argv[0] - The bytecode file (possibly without extension).
+argv[1] - First argument.
+argv[2] - Second argument.
+argv[<em>n</em>] - *n*th argument.</p><hr><p>If an argument was not given, the corresponding string will be <code>&quot;&quot;</code>
+(empty string). The number of arguments passed can be found with
+<a href=argc title=wikilink>argc</a>. This means that <code>argv[argc-1]</code> is the last
+argument.</p><h2 id=example>Example</h2><pre><code>import &quot;mod_say&quot;
+
+Process Main()
+Private
+    int i;
+Begin
+
+    say(&quot;Bytecode file: &quot; + argv[0]);
+
+    i = 1;
+    while(i&lt;argc)
+        say(&quot;Argument &quot; + i + &quot;: &quot; + argv[i]);
+        i++;
+    end
+
+End
+</code></pre><p>Running this on Windows XP:</p><pre><code>&gt; bgdi argv mies noot &quot;mies noot&quot; &quot;'mies noot'&quot; &quot;\&quot;mies noot\&quot;&quot; 'mies noot'
+Bytecode file: argv
+Number of arguments: 8
+Argument 1: mies
+Argument 2: noot
+Argument 3: mies noot
+Argument 4: 'mies noot'
+Argument 5: &quot;mies noot&quot;
+Argument 6: 'mies
+Argument 7: noot'
+</code></pre><p>Running this on Linux:</p><pre><code>$ bgdi argv mies noot &quot;mies noot&quot; &quot;'mies noot'&quot; &quot;\&quot;mies noot\&quot;&quot; 'mies noot'
+Bytecode file: argv
+Number of arguments: 7
+Argument 1: mies
+Argument 2: noot
+Argument 3: mies noot
+Argument 4: 'mies noot'
+Argument 5: &quot;mies noot&quot;
+Argument 6: mies noot
+</code></pre><p>Here you can see some interesting things:</p><hr><p><em>text</em> produces an argument <em>word</em> for each word (words are separated by spaces)
+&ldquo;<em>text</em>&rdquo; produces the argument <em>text</em>
+&ldquo;&rsquo;<em>text</em>&rsquo;&rdquo; produces the argument <em>&lsquo;text&rsquo;</em>.
+&ldquo;\&ldquo;<em>text</em>\&rdquo;&rdquo; produces the argument <em>&ldquo;text&rdquo;</em>
+<em>&lsquo;text&rsquo;</em> doesn&rsquo;t combine multiple words into one argument on Windows, but it does on Linux.</p><hr><p>The passing of arguments is totally unrelated to
+<a href=Bennu title=wikilink>Bennu</a> and is OS dependent. Usually the doubleqoutes
+(&rdquo; &ldquo;) work, but as you can see, the single quotes (&rsquo; &lsquo;) don&rsquo;t always
+work to combine multiple words into one argument.</p>

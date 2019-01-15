@@ -1,0 +1,86 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/sizeof/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=syntax>Syntax</h2><pre><code>INT sizeof ( {datatype} )
+</code></pre><h2 id=description>Description</h2><p>Calculates the size of a <a href=#memoryblock>block of memory</a>.
+Returns the size in <a href=#byte>bytes</a>.</p><h2 id=parameters>Parameters</h2><ul><li>{datatype} - The type, i.e. any valid bennu <a href=#datatypes>datatypes</a>. Can also be a user defined <a href=#type>types</a> or <a href=#struct>structs</a>.</li></ul><h2 id=returns>Returns</h2><p><strong>INT</strong> : The size of the data type, in bytes.</p><h2 id=definition>Definition</h2><p>The <code>sizeof()</code> operator is used to calculate the size of datatypes. This
+is important for creating dynamic data structures wich are created with
+the functions <a href=#alloc>alloc</a>(), <a href=#calloc>calloc</a>()
+and <a href=#realloc>realloc</a>(). These three functions allocate
+space in <a href=#byte>bytes</a>. For instance, an
+<a href=#int>int</a> in bennu is 4 bytes long. When dealing with data
+structures of self-defined <a href=#type>types</a>, it can be tedious
+to calculate the exact size manually. But this is not the only reason,
+for instance, when a linked list is created, the
+<a href=#struct>struct</a> may be changed by the programmer, and in
+that case the size changes. By using <code>sizeof()</code>, you can avoid the
+problems of allocating too few or too much space.</p><h2 id=further-reading>Further reading</h2><p><a href=http://en.wikipedia.org/wiki/Sizeof>General article about the use of
+sizeof</a></p><h2 id=example>Example</h2><pre><code>    // import modules
+    IMPORT &quot;mod_say&quot;;
+    IMPORT &quot;mod_debug&quot;;
+    IMPORT &quot;mod_mem&quot;;
+
+    // user defined data type, should be 29 bytes in size.
+    TYPE custom_datatype;
+       int cat;
+       int dog;
+       
+       byte kind;
+       
+       char name[19];
+    END
+
+
+    GLOBAL
+      STRUCT custom_datatype2;
+         char name[19];
+         STRUCT animal[9];
+            char remarks[255];
+
+            int age;
+            int speed;
+
+            byte kind;
+            byte fur_color;
+            byte sound;    
+            byte num_legs;
+            bool can_fly;
+            bool has_horns;
+         END
+            
+      END
+
+      int var1;             // 4 bytes
+      byte var2;            // 1 byte
+      float var3;           // 4 bytes
+
+      char text1[4]=&quot;hello&quot;;     // 5 bytes
+      string text2=&quot;world&quot;;       // 4 bytes, is sort of pointer thingy 
+
+      int integer_array[255];      // (0-255), 256 x 4 bytes = 1024 bytes
+
+
+    PROCESS main();
+
+    BEGIN
+
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+       say(&quot;sizeof() demonstration&quot;);
+       say(&quot;&quot;);
+       say(&quot;&quot;);
+       say (&quot;the size of custom_datatype: &quot;+sizeof(custom_datatype)+&quot; is bytes&quot;);
+       say (&quot;the size of custom_datatype2: &quot;+sizeof(custom_datatype2)+&quot; is bytes&quot;);
+       say (&quot;the size of var1: &quot;+sizeof(var1)+&quot; is bytes&quot;);
+       say (&quot;the size of var2: &quot;+sizeof(var2)+&quot; is bytes&quot;);
+       say (&quot;the size of var3: &quot;+sizeof(var3)+&quot; is bytes&quot;);
+       say (&quot;the size of text1: &quot;+sizeof(text1)+&quot; is bytes&quot;);
+       say (&quot;the size of text2: &quot;+sizeof(text2)+&quot; is bytes&quot;);
+       say (&quot;the size of int_array: &quot;+sizeof(integer_array)+&quot; is bytes&quot;);
+       
+    END
+</code></pre><p>Used in example: <a href=#alloc>alloc</a>(),
+<a href=#calloc>calloc</a>(), <a href=#realloc>realloc</a>(),
+<a href=#struct>struct</a>, <a href=#type>type</a>,
+<a href=#say>say</a>(), <a href=#global>Global</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#syntax>Syntax</a></li><li><a href=#description>Description</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#returns>Returns</a></li><li><a href=#definition>Definition</a></li><li><a href=#further-reading>Further reading</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/sizeof.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

@@ -1,0 +1,27 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:local_variables title=wikilink>category:local
+variables</a> <a href=category:internal>category:internal</a></p><p><a href=Local_variables title=wikilink><strong>Up to Local Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>Struct</strong> Reserved</p><p>Reserved is a <a href=local title=wikilink>local variable</a>
+<a href=struct title=wikilink>struct</a>, containing information that is reserved for
+<a href=Bennu title=wikilink>Bennu</a>&rsquo;s internals. However, sometimes you may wish
+to use certain members of it. Using in the sense of reading only, <strong>do
+not under any circumstances alter their values, unless you know what you
+are doing</strong>.</p><p>If it&rsquo;s not documented what these members do, their use is reasonably
+limited. If you want to know what these members do, your programming
+goals are of a level, where you can also look in the
+<a href=Latest_Bennu_version title=wikilink>sourcecode</a>. This is because most of
+these members would require a lengthy explanation about what they do and
+why.</p><h2 id=members>Members</h2><hr><p><em>Member name</em> - <em>Description</em>
+<strong>INT</strong> ID_scan - Internal use only (formerly <a href=get_id title=wikilink>got</a> <a href=processID title=wikilink>processID</a> from within the <a href=process title=wikilink>process</a>).
+<strong>INT</strong> process_type - The <a href=ProcessTypeID title=wikilink>ProcessTypeID</a> of the process.
+<strong>INT</strong> type_scan - Internal use only (formerly <a href=get_id title=wikilink>got</a> <a href=processTypeID title=wikilink>processTypeID</a> from within the process).
+<strong>INT</strong> status - The status of the process, containing a <a href=Process_statuscodes title=wikilink>status code</a>.
+<strong>INT</strong> changed - Internal use only.
+<strong>INT</strong> xgraph_flags - Internal use only (<a href=blit_flags title=wikilink>blit flags</a> for <a href=xgraph title=wikilink>xgraph</a>).
+<strong>INT</strong> saved_status - Internal use only (for <a href=signals title=wikilink>signals</a>).
+<strong>INT</strong> prev_z - Previous <a href=z title=wikilink>z</a> value.
+<strong>INT</strong> distance1 - Not used.
+<strong>INT</strong> distance2 - Not used.
+<strong>INT</strong> frame_percent - Internal use only.
+<strong>INT</strong> box_x0 - The x-coordinate of the topleft corner of the process&rsquo; <a href=graphic title=wikilink>graphic</a> (process.x-graphic.width/2).
+<strong>INT</strong> box_y0 - The y-coordinate of the topleft corner of the process&rsquo; graphic (process.y-graphic.height/2).
+<strong>INT</strong> box_x1 - The x-coordinate of the bottomright corner of the process&rsquo; graphic (process.x+graphic.width/2).
+<strong>INT</strong> box_y1 - The y-coordinate of the bottomright corner of the process&rsquo; graphic (process.y+graphic.height/2).</p><hr>

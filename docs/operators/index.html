@@ -1,0 +1,118 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/operators/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=list-of-operators>List of Operators</h2><h3 id=general>General</h3><hr><p><em>Operator</em> - <em>Description</em>
+Type - Get the <a href=ProcessTypeID title=wikilink>ProcessTypeID</a> of a <a href=ProcessType title=wikilink>ProcessType</a> or define a new <a href=datatype title=wikilink>datatype</a>. See <a href=Type title=wikilink>Type</a>.
+. <small>(period)</small> - Element access. <code>&lt;struct&gt;.&lt;element&gt;</code>. In case of a struct array, if no arrayelement is specified, it points to [0] (see <a href=#Example title=wikilink>example</a>).</p><hr><h3 id=maths>Maths</h3><hr><p><em>Operator</em> - <em>Description</em>
++ - Addition.
+- - Deduction
+* - Multiplication.
+/ - Division.
+% - Modulus (remainder).</p><hr><h3 id=logic>Logic</h3><hr><p><em>Operator</em> - <em>Description</em>
+<nowiki></nowiki>&amp;&amp; - AND. Both.
+\^\^ - XOR. One or the other, but not both.
+! - NOT.</p><hr><h3 id=bitwise>Bitwise</h3><p>(Logical operation per bit.)</p><hr><p><em>Operator</em> - <em>Description</em>
+| - BOR. One or the other or both.
+&amp; - BAND. Both.
+\^ - BXOR. One or the other, but not both.
+~ - BNOT.
+&lt;&lt; - Bitshift left, causes bits to move left a certain number of positions.
+&gt;&gt; - Bitshift left, causes bits to move right a certain number of positions.</p><hr><h3 id=memory>Memory</h3><hr><p><em>Operator</em> - <em>Description</em>
+&amp; - OFFSET. Get the memory address of a variable. See <a href=pointer title=wikilink>pointer</a>.
+* - POINTER. Get access to the variable a pointer is pointing to. See <a href=pointer title=wikilink>pointer</a>.</p><hr><h2 id=example>Example</h2><pre><code>Type _point
+    int x;
+    int y;
+End
+
+Global
+    int int_1 = 1;
+    int int_3 = 3;
+    int int_4 = 4;
+    int someint = -5;
+    String somestring = &quot;AAP&quot;;
+    String anotherstring = &quot;BEER&quot;;
+    byte somebyte = 6;
+    signed byte sbyte = -2;
+    byte b_5 = 5;
+    byte b_12 = 12;
+    Struct Person[9]
+        string name;
+        int age;
+    End
+    _point myPoint;
+End
+
+Process Main()
+Begin
+
+    say(&quot;---------- maths&quot;);
+
+    say(int_3 + int_4);
+    say(int_3 * int_4 + 1);
+
+    say(&quot;---------- strings with numerical datatypes&quot;);
+
+    say(somestring + anotherstring);
+    say(somestring + &quot;: &quot; + int_3);
+    say(anotherstring + &quot;: &quot; + int_3*sbyte);
+
+    say(&quot;---------- mixed numberical types and typecasting&quot;);
+
+    say(somebyte+someint);
+    say((signed byte)someint);
+    say((unsigned byte)someint);
+
+    say(&quot;---------- logic&quot;);
+
+    say(int_1&amp;&amp;int_4);
+    say(int_4==int_3+int_1);
+    say(!(somestring==anotherstring));
+
+    say(&quot;---------- bitwise&quot;);
+
+    say(b_5|b_12);  // 00000101
+                    // 00001100
+                    // -------- |
+                    // 00001101 = 13
+
+    say(b_5&amp;b_12);  // 00000101
+                    // 00001100
+                    // -------- &amp;
+                    // 00000100 = 4
+
+    say(b_5^b_12);  // 00000101
+                    // 00001100
+                    // -------- ^
+                    // 00001001 = 9
+
+    say(~b_12);     // 00001100
+                    // -------- ~
+                    // 11110011 = 243
+
+    person.name    = &quot;Mies&quot;; // these are the same
+    person[0].name = &quot;Mies&quot;; //
+
+    person[1].name = &quot;Aap&quot;;
+    person[2].name = &quot;Noot&quot;;
+    // ...etc...
+    person[9].name = &quot;Last person&quot;; // last array element
+
+    setXY(&amp;myPoint);
+
+    Repeat
+        frame;
+    Until(key(_ESC))
+
+End
+
+Function int setXY(_point* p)
+Begin
+    p.x = 3; // this is actually (*p).x = 3, but . can be used like this
+    p.y = 5; // this is actually (*p).y = 5, but . can be used like this
+    return 0;
+End
+</code></pre><p>Used in example: <a href=say title=wikilink>say</a>(), <a href=key title=wikilink>key</a>(),
+<a href=Global title=wikilink>Global</a>, <a href=Type title=wikilink>Type</a>,
+<a href=Struct title=wikilink>Struct</a>, <a href=Array title=wikilink>Array</a>,
+<a href=Pointer title=wikilink>Pointer</a>, <a href=period title=wikilink>period</a></p><p>This will result in something like:</p><p><a href=Category:General>Category:General</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#list-of-operators>List of Operators</a><ul><li><a href=#general>General</a></li><li><a href=#maths>Maths</a></li><li><a href=#logic>Logic</a></li><li><a href=#bitwise>Bitwise</a></li><li><a href=#memory>Memory</a></li></ul></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/operators.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>

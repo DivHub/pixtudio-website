@@ -1,0 +1,49 @@
+<p><a href=category:precompiler>category:precompiler</a></p><h2 id=definition>Definition</h2><p><strong>#define</strong> <what to define>[<what it will be>]</p><p>Defines <em>what to define</em> as <em>what it will be</em>. This means that after
+this line, all *what to define*s will be &ldquo;replaced&rdquo; by <em>what it will
+be</em>.</p><p>You can also create &ldquo;functions&rdquo; with this, even with parameters. The
+call to this &ldquo;function&rdquo;, including parameters, will be replaced by the
+<em>what it will be</em> section, with the parameters replaced by the
+arguments.</p><h2 id=example>Example</h2><h3 id=basic-statements>Basic statements</h3><p>In the following example, we&rsquo;ll show it is possible to define words as
+&ldquo;being&rdquo; <a href=basic_statements title=wikilink>basic statements</a>.</p><pre><code>#define StartThisShow Program
+#define GimmeSomeShit Process
+
+StartThisShow example;
+Begin
+    proc();
+End
+
+GimmeSomeShit proc()
+Begin
+End
+</code></pre><p>Used in example: <a href=Program title=wikilink>Program</a>,
+<a href=Process title=wikilink>Process</a>, <a href=Begin title=wikilink>Begin</a>,
+<a href=End title=wikilink>End</a></p><h3 id=error-codes>Error codes</h3><p>Error codes are handy as well, like used in
+<a href=Network.DLL title=wikilink>Network.DLL</a> and <a href=LCD.DLL title=wikilink>LCD.DLL</a>:</p><pre><code>#define NET_ERROR_INVALIDADDRESS -12
+</code></pre><p>This will enable the use of <em>NET_ERROR_INVALIDADDRESS</em> as it it were
+the value <em>-12</em>. This makes it much more clear for the programmer what
+the errors are. Consider this:</p><pre><code>#define NET_STATUS_ESTABLISHED 2
+</code></pre><p>The value <em>2</em> on itself means very little, but
+<em>NET_STATUS_ESTABLISHED</em> immediately makes it clear what it means.</p><h3 id=function>Function</h3><p>In the following we define a function
+<em>kill(<int processid|processtypeid>,<string reason>)</em>.</p><pre><code>#define kill(a,b) if(exists(a)) signal(a,s_kill); say(&quot;Killed '&quot; + a + &quot;' for reason: &quot; + b); end
+Program example;
+Private
+    int i;
+Begin
+    i = proc();
+    kill(i,&quot;It had to be killed!&quot;); // The ';' is not needed per se, but is allowed.
+    Repeat
+        frame;
+    Until(key(_ESC))
+End
+Process proc()
+Begin
+    Loop
+        frame;
+    End
+End
+</code></pre><p>Used in example: <a href=Program title=wikilink>Program</a>,
+<a href=Process title=wikilink>Process</a>, <a href=Begin title=wikilink>Begin</a>,
+<a href=End title=wikilink>End</a>, <a href=If title=wikilink>If</a>, <a href=Repeat title=wikilink>Repeat</a>,
+<a href=Until title=wikilink>Until</a>, <a href=frame title=wikilink>frame</a>,
+<a href=signal title=wikilink>signal</a>(), <a href=say title=wikilink>say</a>(),
+<a href=key title=wikilink>key</a>()</p>

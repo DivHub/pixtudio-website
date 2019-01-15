@@ -1,0 +1,99 @@
+<p><a href=category:variables>category:variables</a> <a href=category:predefined>category:predefined</a> <a href=category:global_variables title=wikilink>category:global
+variables</a> <a href=category:libmouse>category:libmouse</a></p><p><a href=Global_variables title=wikilink><strong>Up to Global Variables</strong></a></p><hr><h2 id=definition>Definition</h2><p><strong>Struct</strong> Mouse</p><p>Mouse is a <a href=global_variable title=wikilink>global variable</a>
+<a href=struct title=wikilink>struct</a>, containing information about the current
+state of the mouse. Also graphical settings can be configured to display
+a <a href=graphic title=wikilink>graphic</a> following the mouse in a certain way.</p><h2 id=members>Members</h2><hr><p><em>Member name</em> - <em>Description</em>
+<strong>INT</strong> x - The <a href=X title=wikilink>X</a>-coordinate of the mouse.
+<strong>INT</strong> y - The <a href=Y title=wikilink>Y</a>-coordinate of the mouse.
+<strong>INT</strong> graph - The <a href=graphID title=wikilink>graphID</a> of the <a href=graphic title=wikilink>graphic</a> of the mouse.
+<strong>INT</strong> file - The <a href=fileID title=wikilink>fileID</a> of the <a href=file title=wikilink>file</a> in which the <a href=graphic title=wikilink>graphic</a> of the mouse is located.
+<strong>INT</strong> z - The <a href=Z title=wikilink>Z</a>-coordinate of the mouse.
+<strong>INT</strong> angle - The <a href=angle title=wikilink>angle</a> of the mouse process.
+<strong>INT</strong> size - The <a href=size title=wikilink>size</a> of the mouse process.
+<strong>INT</strong> flags - The <a href=render_flags title=wikilink>render flags</a> of the mouse process.
+<strong>INT</strong> region - The <a href=region title=wikilink>region</a> of the mouse process.
+<strong>INT</strong> left - <a href=true title=wikilink>true</a>/<a href=false title=wikilink>false</a>: whether the left mouse button is pressed.
+<strong>INT</strong> middle - <a href=true title=wikilink>true</a>/<a href=false title=wikilink>false</a>: whether the middle mouse button is pressed.
+<strong>INT</strong> right - <a href=true title=wikilink>true</a>/<a href=false title=wikilink>false</a>: whether the right mouse button is pressed.
+<strong>INT</strong> wheelup - <a href=true title=wikilink>true</a>/<a href=false title=wikilink>false</a>: whether the mouse wheel is scrolled upwards.
+<strong>INT</strong> wheeldown - <a href=true title=wikilink>true</a>/<a href=false title=wikilink>false</a>: whether the mouse wheel is scrolled downwards.</p><hr><h2 id=example>Example</h2><pre><code>import &quot;mod_map&quot;
+import &quot;mod_mouse&quot;
+import &quot;mod_wm&quot;
+
+Process Main()
+Private
+    int dmap;
+    int rmap;
+    int gmap;
+    int bmap;
+    int ymap;
+    int cmap;
+    int mmap;
+    int wmap;
+Begin
+
+    // Create a dark graph
+    dmap = new_map(100,100,8);
+    map_clear(0,dmap,rgb(50,50,50));
+
+    // Create a red graph
+    rmap = new_map(100,100,8);
+    map_clear(0,rmap,rgb(255,0,0));
+
+    // Create a green graph
+    gmap = new_map(100,100,8);
+    map_clear(0,gmap,rgb(0,255,0));
+
+    // Create a blue graph
+    bmap = new_map(100,100,8);
+    map_clear(0,bmap,rgb(0,0,255));
+
+    // Create a yellow graph
+    ymap = new_map(100,100,8);
+    map_clear(0,ymap,rgb(255,255,0));
+
+    // Create a cyan graph
+    cmap = new_map(100,100,8);
+    map_clear(0,cmap,rgb(0,255,255));
+
+    // Create a magenta graph
+    mmap = new_map(100,100,8);
+    map_clear(0,mmap,rgb(255,0,255));
+
+    // Create a white graph
+    wmap = new_map(100,100,8);
+    map_clear(0,wmap,rgb(255,255,255));
+
+    Repeat
+        if(mouse.left) // +Red
+            if(mouse.right) // +Green
+                if(mouse.middle) // +Blue
+                    mouse.graph = wmap;
+                else
+                    mouse.graph = ymap;
+                end
+            else
+                if(mouse.middle) // +Blue
+                    mouse.graph = mmap;
+                else
+                    mouse.graph = rmap;
+                end
+            end
+        elseif(mouse.right) // +Green
+            if(mouse.middle) // +Blue
+                mouse.graph = cmap;
+            else
+                mouse.graph = gmap;
+            end
+        elseif(mouse.middle) // +Blue
+            mouse.graph = bmap;
+        else // Dark
+            mouse.graph = dmap;
+        end
+        frame;
+    Until(exit_status)
+
+End
+</code></pre><p>Used in example: <a href=Mouse title=wikilink>Mouse</a>,
+<a href=new_map title=wikilink>new_map</a>(), <a href=map_clear title=wikilink>map_clear</a>(),
+<a href=graph title=wikilink>graph</a>, <a href=exit_status title=wikilink>exit_status</a></p><p>Shows some use of maps and the mouse.</p>

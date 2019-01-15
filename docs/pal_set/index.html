@@ -1,0 +1,140 @@
+<!doctype html><html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title></title><link rel=stylesheet href=/pixtudio-website/main.css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=apple-touch-icon sizes=180x180 href=https://divhub.github.io/pixtudio-website/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://divhub.github.io/pixtudio-website/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://divhub.github.io/pixtudio-website/favicon-16x16.png><link rel=manifest href=https://divhub.github.io/pixtudio-website/site.webmanifest><link rel=mask-icon href=https://divhub.github.io/pixtudio-website/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><body><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a href=https://divhub.github.io/pixtudio-website/ class=navbar-item>PixTudio</a>
+<span class="navbar-burger burger" data-target=main-navbar><span></span><span></span><span></span></span></div><div class=navbar-menu id=main-navbar><div class="navbar-end has-text-centered-mobile"><a class=navbar-item title=Docs href=/pixtudio-website/docs/>Docs
+</a><a class=navbar-item title=Compile href=/pixtudio-website/compile/>Compile</a></div></div></div></nav><script>document.addEventListener('DOMContentLoaded',()=>{const $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);if($navbarBurgers.length>0){$navbarBurgers.forEach(el=>{el.addEventListener('click',()=>{const target=el.dataset.target;const $target=document.getElementById(target);el.classList.toggle('is-active');$target.classList.toggle('is-active');});});}});</script><div class=section><div class=container><div class=columns><div class="column is-3"><div id=search-section><div id=search-form class=field><div class=control><input id=search-input class=input type=text placeholder="Search Docs"></div></div><div id=search-results-box class=box style=max-height:40%;overflow:hidden;overflow-y:auto;position:absolute;display:none><ul id=search-results-list></ul><div id=search-results-noresults class="notification is-info">No results found.</div></div></div><aside class=menu><ul class=menu-list><li><a href=https://divhub.github.io/pixtudio-website/docs/>Docs</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/general/>General</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/language/>Language</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/modules/>Modules</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/functions/>Functions</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/variables/>Variables</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/constants/>Constants</a></li><li><a href=https://divhub.github.io/pixtudio-website/docs/guides/>Guides and Tutorials</a></li></ul></aside></div><div class="column is-6"><nav class=breadcrumb aria-label=breadcrumbs><ul><li><a href=https://divhub.github.io/pixtudio-website/docs/>PixTudio Documentation</a></li><li class=is-active><a href=https://divhub.github.io/pixtudio-website/docs/pal_set/ aria-current=page></a></li></ul></nav><h1 class="title is-2"></h1><div class=content><h2 id=syntax>Syntax</h2><p><strong>INT</strong> pal_set ( [&lt;<strong>INT</strong> paletteID&gt;] , &lt;<strong>INT</strong>
+first_color&gt; , &lt;<strong>INT</strong> num_colors&gt; , &lt;<strong>POINTER</strong>
+palette_data&gt;)</p><h2 id=description>Description</h2><p>Changes the color palette of an 8 bit (256 color) graphic, with the
+palette that is loaded with <a href=Pal_load title=wikilink>Pal_load</a>(). This
+<a href=palette title=wikilink>palette</a> can also be loaded from
+<a href=MAP title=wikilink>MAP</a>&rsquo;s, <a href=FPG title=wikilink>FPG</a>&rsquo;s,
+<a href=FNT title=wikilink>FNT</a>&rsquo;s and other image formats, provided that they are
+8 bit images. Unlike <a href=Pal_map_assign title=wikilink>Pal_map_assign</a>(),
+the change is not immediately visible, and the function
+<a href=Pal_refresh title=wikilink>Pal_refresh</a>() has to be called afterwards to
+make the change visible. The difference however, is that it not replaces
+the whole palette, but allows a specified number of colors to be
+changed, so it&rsquo;s a bit more flexible.</p><p>Also called <a href=colors_set title=wikilink>colors_set</a>(). The previous name
+<a href=set_colors title=wikilink>set_colors</a>() is deprecated.</p><h2 id=parameters>Parameters</h2><hr><p><strong>INT</strong> paletteID - The handle of the color palette loaded with <a href=Pal_load title=wikilink>Pal_load</a>(). This paramter is optional.
+<strong>INT</strong> first_color - The first color number of the palette. This doesn&rsquo;t necessarily have be the first color.
+<strong>INT</strong> num_colors - The number of colors you want to replace, wich counts from the first_color to the num_colors. See notes.
+<strong>POINTER</strong> palette_data - Pointer (<a href=Offset title=wikilink>Offset</a>) to an array with the color values, that where obtained with <a href=Pal_get title=wikilink>Pal_get</a>().</p><hr><h2 id=note>Note</h2><p>The maximum number of colors cannot be bigger the 255. The num_colors
+starts counting from first_color, so if the first_color is 7, and
+num_colors is 7, the color value&rsquo;s 7-13 are changed. So logically, the
+value num_colors can only be 255 when first_color is 0. This range
+gives you all the colors. To be safe, the formula for the number of
+colors to modified is: num_colors-first_color.</p><p>I.e. num_colors: 55 - first_color: 4 = 51 colors are changed, the
+range from color index 4 up to color index 55.</p><h2 id=returns>Returns</h2><p><strong>INT</strong> : Error.</p><hr><p>0 - Error: could not open file; corrupt or truncated file; file doesn&rsquo;t contain palette information.
+1 - No error: <a href=palette title=wikilink>palette</a> was set with success.</p><hr><h2 id=example>Example</h2><pre><code>/* original bennupack example FROM: \2 Medium\fenix test\palettes\rbear8-2.prg (from bomberlink) */
+
+/* this program demonstrates the use of the functions: pal_load(), pal_clone(), pal_get(),       */
+/* pal_map_assign(), pal_set() and pal_refresh().                                                */
+
+
+IMPORT &quot;mod_debug&quot;;
+IMPORT &quot;mod_say&quot;;
+IMPORT &quot;mod_map&quot;;
+IMPORT &quot;mod_key&quot;;
+IMPORT &quot;mod_video&quot;;
+IMPORT &quot;mod_text&quot;;
+
+
+GLOBAL
+
+   // palette identifiers
+   int pal_orange;
+   int pal_green;
+   int pal_normal;
+
+   int status1;
+   int status2;
+
+   // identifier of the fpg archive
+   int fpg_id;
+
+   // arrays for the data of the two color palettes.
+   byte pal_orange_data[255]; 
+   byte pal_green_data[255];  
+
+   int map_count;
+
+PROCESS main();
+
+BEGIN
+
+    set_fps(10,0);
+    set_mode(320,200,16);  // we use a 16 bit color mode
+
+    // load two color palettes and duplicate one
+    pal_green=pal_load(&quot;rbear8-green.pal&quot;);
+    pal_orange=pal_load(&quot;rbear8-orange.pal&quot;);
+
+    // pal_clone (int pal_id);
+    pal_normal=pal_clone(pal_orange); // duplicate palette, i.e. make a copy of it.
+
+    // load the fpg file
+    fpg_id=fpg_load(&quot;rbear8.fpg&quot;);
+
+    write_int(0,10,10,0,&amp;fps);
+    write(0,10,20,0,&quot;F1/F2 - change palette&quot;);
+
+    x = 160;
+    y = 120;
+
+    // pal_get (int pal_id, int start_color, int num_colors, pointer pal_data);
+    pal_get(pal_green,7,7,&amp;pal_green_data);    // get colors 7 - 13 and store them in the array
+    pal_get(pal_orange,7,7,&amp;pal_orange_data);        
+
+    FROM map_count=1 TO 102; // there are 102 frames in the animation
+
+        // pal_map_assign (int fileid, int graph, int pal_id);
+        pal_map_assign(fpg_id,map_count,pal_normal); // assign the &quot;normal (original source)&quot; color 
+                                                     // palette that we duplicated earlier.
+    END
+
+    WHILE (NOT key(_ESC))
+
+        FROM graph=1 TO 13;
+
+            FRAME;
+
+            IF (key(_F1))
+                say(&quot;switched to green palette&quot;);
+
+                // pal_set (int pal_id, int start_color, int num_colors, pointer pal_data);
+                status1=pal_set(pal_normal,7,7,&amp;pal_green_data); // change colors 7 - 13 in the &quot;normal&quot; 
+                                                                 // palette, by using the values from the
+                                                                 // &quot;green&quot; color palette.
+
+                say(&quot;pal_set_status: &quot;+status1);                                                                 
+
+                // pal_refresh (int pal_id);
+                status2=pal_refresh(pal_normal); // apply the modified color palette to the graphics.
+                                                 // this function is required to make the change visible.  
+
+                say(&quot;pal_refresh_status: &quot;+status2);                                                   
+
+                // conclusion: the difference between pal_map_assign() and pal_set() is that pal_map_assign()
+                // works immediately, and that pal_set() requires the palette to be refreshed to make the 
+                // change visible.                
+            END
+
+            IF (key(_F2))
+                say(&quot;switched to orange palette&quot;);
+                pal_set(pal_normal,7,7,&amp;pal_orange_data);  // colors 7 - 13
+                pal_refresh(pal_normal);
+            END
+
+            IF (key(_ESC)) 
+                BREAK; 
+            END
+        END
+    END
+
+END
+</code></pre><p>Used in example: <a href=Pal_load title=wikilink>Pal_load</a>(),
+<a href=pal_clone title=wikilink>pal_clone</a>(), <a href=Pal_get title=wikilink>Pal_get</a>(),
+<a href=Pal_map_assign title=wikilink>Pal_map_assign</a>(),
+<a href=Pal_refresh title=wikilink>Pal_refresh</a>(), <a href=Say title=wikilink>Say</a>(),
+<a href=Set_fps title=wikilink>Set_fps</a>(), <a href=Set_mode title=wikilink>Set_mode</a>(),
+<a href=Write title=wikilink>Write</a>(), <a href=Write_int title=wikilink>Write_int</a>()</p><p><a href=Category:functions>Category:functions</a> <a href=Category:palettes>Category:palettes</a> <a href=Category:mod_map>Category:mod_map</a></p></div></div><div class="column is-3"><nav id=TableOfContents><ul><li><ul><li><a href=#syntax>Syntax</a></li><li><a href=#description>Description</a></li><li><a href=#parameters>Parameters</a></li><li><a href=#note>Note</a></li><li><a href=#returns>Returns</a></li><li><a href=#example>Example</a></li></ul></li></ul></nav></div></div></div></div><footer class=footer><div class="container has-text-centered"><div class="footer-section footer-logo-section margin-2"><p>PixTudio | A 2D game engine for Windows, Linux, OS X, Android &amp; iOS.</p></div><div class="footer-section footer-copyright-section"><p>Made with ❤️ |
+Design by <a href=https://tehuel.blog>Tehuel</a>
+| <a href=https://github.com/DivHub/pixtudio-website/edit/master/content/docs/pal_set.md>Edit this page on Github</a></p></div></div></footer><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js></script><script src=/pixtudio-website/js/search.min.80a2eb909ba11ec0900ab4ae5fbfcf2d.js></script></body></html>
