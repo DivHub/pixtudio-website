@@ -9,7 +9,7 @@ theme = "divhub-hugo-theme"
 
 [params]
   mainSections = ["blog"]
-  # repository = "https://github.com/DivHub/pixtudio-website/"
+  repository = "https://github.com/DivHub/pixtudio-website/"
   tagline = "A 2D game engine for Windows, Linux, OS X, Android & iOS."
   [params.colors]
     dark_mode = true
