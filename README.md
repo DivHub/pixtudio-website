@@ -1,5 +1,7 @@
 # PixTudio Website Redesign
 
+A new website for the PixTudio project, including language documentation.
+
 ## Authors
 
 * **Tehuel Torres Baldi** - *Initial work* - [https://tehuel.blog](https://tehuel.blog)
