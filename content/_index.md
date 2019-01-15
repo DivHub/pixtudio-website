@@ -5,7 +5,7 @@ title = "PixTudio"
   show = true
   images = ["img/placeholder.jpg", "img/explosive-dinosaurs-giveaway.jpg", "img/jarl.png"]
 [blog]
-  show = true
+  show = false
 [projects]
   show = false
 
